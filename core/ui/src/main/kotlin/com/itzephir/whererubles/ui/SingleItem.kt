@@ -1,6 +1,5 @@
 package com.itzephir.whererubles.ui
 
-import android.R.attr.maxLines
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
