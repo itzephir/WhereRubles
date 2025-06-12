@@ -2,14 +2,10 @@ package com.itzephir.whererubles.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Green = Color(0xFF2AE881)
-val GreenTransparent = Color(0xFFC4D0C6)
-
-
 val primaryLight = Color(0xFF006D38)
 val onPrimaryLight = Color(0xFFFFFFFF)
-val primaryContainerLight = Color(0xFF2AE881)
-val onPrimaryContainerLight = Color(0xFF006332)
+val primaryContainerLight = Color(0xFFD4FAE6)
+val onPrimaryContainerLight = Color(0xFFFFFFFF)
 val secondaryLight = Color(0xFF236B3E)
 val onSecondaryLight = Color(0xFFFFFFFF)
 val secondaryContainerLight = Color(0xFFA6F1B7)
@@ -22,9 +18,9 @@ val errorLight = Color(0xFFBA1A1A)
 val onErrorLight = Color(0xFFFFFFFF)
 val errorContainerLight = Color(0xFFFFDAD6)
 val onErrorContainerLight = Color(0xFF93000A)
-val backgroundLight = Color(0xFFF2FCF0)
+val backgroundLight = Color(0xFFFFFFFF)
 val onBackgroundLight = Color(0xFF151E16)
-val surfaceLight = Color(0xFFF2FCF0)
+val surfaceLight = Color(0xFFFFFFFF)
 val onSurfaceLight = Color(0xFF151E16)
 val surfaceVariantLight = Color(0xFFD6E7D6)
 val onSurfaceVariantLight = Color(0xFF3C4A3E)

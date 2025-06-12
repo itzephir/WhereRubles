@@ -1,3 +1,5 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         google {
@@ -24,4 +26,5 @@ dependencyResolutionManagement {
 rootProject.name = "WhereRubles"
 include(":app")
 include(":core:ui")
+include(":core:ui:theme")
 include(":feature:expenses")

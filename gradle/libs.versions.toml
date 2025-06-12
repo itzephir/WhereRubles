@@ -12,6 +12,10 @@ androidx-compose = "2025.06.00"
 androidx-adaptive = "1.1.0"
 androidx-navigation-compose = "2.9.0"
 
+respawn-flowmvi = "3.1.0"
+
+koin = "4.1.0"
+
 [libraries]
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
@@ -34,10 +38,22 @@ androidx-material3-adaptive = { group = "androidx.compose.material3.adaptive", n
 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation-compose" }
 
+respawn-flowmvi-core = { group = "pro.respawn.flowmvi", name = "core", version.ref = "respawn-flowmvi" }
+respawn-flowmvi-compose = { group = "pro.respawn.flowmvi", name = "compose", version.ref = "respawn-flowmvi" }
+respawn-flowmvi-android = { group = "pro.respawn.flowmvi", name = "android", version.ref = "respawn-flowmvi" }
+respawn-flowmvi-savedstate = { group = "pro.respawn.flowmvi", name = "savedstate", version.ref = "respawn-flowmvi" }
+respawn-flowmvi-test = { group = "pro.respawn.flowmvi", name = "test", version.ref = "respawn-flowmvi" }
+
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-android-library = {id = "com.android.library", version.ref = "agp"}
+android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 
