@@ -104,7 +104,7 @@ class CategoriesStateParameterProvider : PreviewParameterProvider<CategoriesStat
 
 @Preview(showBackground = true)
 @Composable
-private fun ExpensesScreenLayoutPreview(
+private fun CategoriesScreenLayoutPreview(
     @PreviewParameter(CategoriesStateParameterProvider::class) state: CategoriesState,
 ) {
     WhereRublesTheme {

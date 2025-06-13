@@ -16,7 +16,9 @@
         <activity
                 android:name="com.itzephir.whererubles.ui.activity.MainActivity"
                 android:exported="true"
-                android:theme="@style/Theme.WhereRubles">
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.WhereRubles"
+                tools:ignore="DiscouragedApi,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

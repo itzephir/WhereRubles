@@ -48,7 +48,7 @@ class AccountStateParameterProvider : PreviewParameterProvider<AccountState> {
 
 @Preview(showBackground = true)
 @Composable
-private fun ExpensesScreenLayoutPreview(
+private fun AccountScreenLayoutPreview(
     @PreviewParameter(AccountStateParameterProvider::class) state: AccountState,
 ) {
     WhereRublesTheme {

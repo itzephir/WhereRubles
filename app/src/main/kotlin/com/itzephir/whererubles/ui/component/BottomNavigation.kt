@@ -19,7 +19,7 @@ internal fun BottomNavigation(
 ) {
     NavigationBar(
         modifier = Modifier.Companion.fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
     ) {
         routes.forEach { item ->
             NavigationBarItem(

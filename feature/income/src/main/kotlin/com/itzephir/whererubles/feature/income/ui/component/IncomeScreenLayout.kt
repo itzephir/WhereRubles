@@ -63,7 +63,7 @@ class IncomeStateParameterProvider : PreviewParameterProvider<IncomeState> {
 
 @Preview(showBackground = true)
 @Composable
-private fun ExpensesScreenLayoutPreview(
+private fun IncomeScreenLayoutPreview(
     @PreviewParameter(IncomeStateParameterProvider::class) state: IncomeState,
 ) {
     WhereRublesTheme {

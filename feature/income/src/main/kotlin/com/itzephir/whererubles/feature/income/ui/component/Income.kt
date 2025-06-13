@@ -51,7 +51,7 @@ fun Income(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun ExpensesPreview() {
+private fun IncomePreview() {
     WhereRublesTheme {
         Income(
             IncomeState.Income(

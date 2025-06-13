@@ -26,7 +26,7 @@ fun CategoryItem(
 
 @Preview
 @Composable
-private fun ExpenseItemPreview() {
+private fun CategoryItemPreview() {
     WhereRublesTheme {
         CategoryItem(
             Category(

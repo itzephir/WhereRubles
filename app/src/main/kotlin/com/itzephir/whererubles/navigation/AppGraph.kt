@@ -13,7 +13,6 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
@@ -28,6 +27,7 @@ import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
 import com.itzephir.whererubles.feature.account.ui.screen.AccountScreen
 import com.itzephir.whererubles.feature.categories.ui.screen.CategoriesScreen
 import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
+import com.itzephir.whererubles.feature.settings.ui.screen.SettingsScreen
 import kotlinx.serialization.Serializable
 
 sealed interface AppGraph {
@@ -248,7 +248,7 @@ sealed interface AppGraph {
 
         fun NavGraphBuilder.settings() {
             composable<Settings> {
-                Text("Settings")
+                SettingsScreen()
             }
         }
     }

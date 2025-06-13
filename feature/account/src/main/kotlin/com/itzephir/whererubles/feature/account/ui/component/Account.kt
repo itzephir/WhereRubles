@@ -59,7 +59,7 @@ fun Account(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun ExpensesPreview() {
+private fun AccountPreview() {
     WhereRublesTheme {
         Account(
             AccountState.Account(
