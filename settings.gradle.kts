@@ -27,4 +27,6 @@ rootProject.name = "WhereRubles"
 include(":app")
 include(":core:ui")
 include(":core:ui:theme")
+include(":domain")
+include(":data:transactions")
 include(":feature:expenses")

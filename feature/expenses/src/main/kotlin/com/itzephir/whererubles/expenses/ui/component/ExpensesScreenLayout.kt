@@ -96,8 +96,8 @@ val expenses = listOf(
 class ExpensesStateParameterProvider : PreviewParameterProvider<ExpensesState> {
     override val values: Sequence<ExpensesState> = sequenceOf(
         ExpensesState.Loading,
-        ExpensesState.Expenses(emptyList()),
-        ExpensesState.Expenses(expenses),
+        ExpensesState.Expenses(total = "0₽", expenses = emptyList()),
+        ExpensesState.Expenses(total = "500 000₽", expenses = expenses),
     )
 }
 

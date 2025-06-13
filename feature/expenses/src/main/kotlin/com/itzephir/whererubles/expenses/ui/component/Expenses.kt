@@ -27,7 +27,7 @@ fun Expenses(
 
         SingleItem(
             title = "Всего",
-            info = "100 000₽",
+            info = expenses.total,
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 48.dp),
@@ -56,7 +56,8 @@ private fun ExpensesPreview() {
     WhereRublesTheme {
         Expenses(
             ExpensesState.Expenses(
-                listOf(
+                total = "500 000",
+                expenses = listOf(
                     Expense(
                         id = ExpenseId(0),
                         icon = "\uD83D\uDE08",

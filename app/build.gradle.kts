@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.itzephir.whererubles"
+    namespace = "com.itzephir.whererubles.app"
     compileSdk = libs.versions.android.compile.sdk.get().toInt()
 
     defaultConfig {
@@ -40,8 +40,9 @@ android {
 }
 
 dependencies {
-
     implementation(projects.core.ui.theme)
+
+    implementation(projects.feature.expenses)
 
     implementation(libs.androidx.core.ktx)
 
@@ -61,4 +62,9 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
 }

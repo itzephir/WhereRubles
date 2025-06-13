@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.itzephir.whererubles"
+    namespace = "com.itzephir.whererubles.core.ui"
     compileSdk = libs.versions.android.compile.sdk.get().toInt()
 
     defaultConfig {

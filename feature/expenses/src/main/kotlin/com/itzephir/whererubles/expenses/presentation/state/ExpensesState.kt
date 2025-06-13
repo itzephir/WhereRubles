@@ -9,6 +9,7 @@ import pro.respawn.flowmvi.api.MVIState
 sealed interface ExpensesState : Parcelable, MVIState {
     @Parcelize
     data class Expenses(
+        val total: String,
         val expenses: List<Expense>,
     ) : ExpensesState
 
