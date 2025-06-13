@@ -1,5 +1,10 @@
 package com.itzephir.whererubles.navigation
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -20,6 +25,14 @@ sealed interface AppGraph {
     @Stable
     fun title(): String
 
+    @Composable
+    @Stable
+    fun shortTitle(): String
+
+    @Composable
+    @Stable
+    fun Action(onClick: () -> Unit)
+
     @Serializable
     data object Expenses : AppGraph {
         @Composable
@@ -28,9 +41,22 @@ sealed interface AppGraph {
 
         @Composable
         @Stable
-        override fun title() = "Expenses"
+        override fun title() = "Расходы за сегодня"
 
+        @Composable
+        @Stable
+        override fun shortTitle() = "Расходы"
 
+        @Composable
+        @Stable
+        override fun Action(onClick: () -> Unit) {
+            IconButton(onClick = onClick) {
+                Icon(
+                    imageVector = Icons.Default.History,
+                    contentDescription = null,
+                )
+            }
+        }
 
         fun NavGraphBuilder.expenses() {
             composable<Expenses> {
@@ -47,7 +73,22 @@ sealed interface AppGraph {
 
         @Composable
         @Stable
-        override fun title() = "Income"
+        override fun title() = "Доходы сегодня"
+
+        @Composable
+        @Stable
+        override fun shortTitle(): String = "Доходы"
+
+        @Composable
+        @Stable
+        override fun Action(onClick: () -> Unit) {
+            IconButton(onClick = onClick) {
+                Icon(
+                    imageVector = Icons.Default.History,
+                    contentDescription = null,
+                )
+            }
+        }
 
         fun NavGraphBuilder.income() {
             composable<Income> {
@@ -64,7 +105,21 @@ sealed interface AppGraph {
 
         @Composable
         @Stable
-        override fun title() = "Account"
+        override fun title() = "Мой счет"
+
+        @Composable
+        @Stable
+        override fun shortTitle(): String = "Счет"
+
+        @Composable
+        override fun Action(onClick: () -> Unit) {
+            IconButton(onClick = onClick) {
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = null,
+                )
+            }
+        }
 
         fun NavGraphBuilder.account() {
             composable<Account> {
@@ -81,7 +136,15 @@ sealed interface AppGraph {
 
         @Composable
         @Stable
-        override fun title() = "Categories"
+        override fun title() = "Мои статьи"
+
+        @Composable
+        @Stable
+        override fun shortTitle(): String = "Статьи"
+
+        @Composable
+        @Stable
+        override fun Action(onClick: () -> Unit) = Unit
 
         fun NavGraphBuilder.categories() {
             composable<Categories> {
@@ -98,12 +161,28 @@ sealed interface AppGraph {
 
         @Composable
         @Stable
-        override fun title() = "Settings"
+        override fun title() = "Настройки"
+
+        @Composable
+        override fun shortTitle(): String = "Настройки"
+
+        @Composable
+        override fun Action(onClick: () -> Unit) = Unit
 
         fun NavGraphBuilder.settings() {
             composable<Settings> {
                 Text("Settings")
             }
         }
+    }
+
+    companion object {
+        val routes = listOf(
+            Expenses,
+            Income,
+            Account,
+            Categories,
+            Settings,
+        )
     }
 }
