@@ -14,6 +14,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.itzephir.whererubles.app.R
 import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
+import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
 import kotlinx.serialization.Serializable
 
 sealed interface AppGraph {
@@ -60,7 +61,7 @@ sealed interface AppGraph {
 
         fun NavGraphBuilder.expenses() {
             composable<Expenses> {
-                ExpensesScreen(onAction = {})
+                ExpensesScreen()
             }
         }
     }
@@ -92,7 +93,7 @@ sealed interface AppGraph {
 
         fun NavGraphBuilder.income() {
             composable<Income> {
-                Text("Income")
+                IncomeScreen()
             }
         }
     }

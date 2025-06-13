@@ -10,6 +10,6 @@ data class Expense(
     val id: ExpenseId,
     val icon: String,
     val title: String,
-    val price: String,
+    val amount: String,
     val comment: String? = null,
 ) : Parcelable

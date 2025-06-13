@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.format)
     implementation(projects.core.ui)
     debugImplementation(projects.core.ui.theme)
 

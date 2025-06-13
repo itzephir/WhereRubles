@@ -14,14 +14,14 @@ import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 
 @Composable
-fun Expense(
+fun ExpenseItem(
     expense: Expense,
     modifier: Modifier = Modifier,
 ) {
     SingleItem(
         leadingEmoji = expense.icon,
         title = expense.title,
-        info = expense.price,
+        info = expense.amount,
         trailingIcon = Icons.AutoMirrored.Default.KeyboardArrowRight,
         description = expense.comment,
         modifier = modifier,
@@ -31,14 +31,14 @@ fun Expense(
 
 @Preview
 @Composable
-private fun ExpensePreview() {
+private fun ExpenseItemPreview() {
     WhereRublesTheme {
-        Expense(
+        ExpenseItem(
             Expense(
                 id = ExpenseId(0),
                 icon = "\uD83D\uDE08",
                 title = "Расхоооод",
-                price = "100 000",
+                amount = "100 000",
                 comment = "расхооооооооооооооод",
             )
         )

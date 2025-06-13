@@ -40,56 +40,56 @@ internal fun ExpensesScreenLayout(
     }
 }
 
-val expenses = listOf(
+private val expenses = listOf(
     Expense(
         id = ExpenseId(0),
         icon = "\uD83C\uDFE0",
         title = "Аренда квартиры",
-        price = "100 000₽",
+        amount = "100 000₽",
     ),
     Expense(
         id = ExpenseId(1),
         icon = "\uD83D\uDC57",
         title = "Одежда",
-        price = "100 000₽",
+        amount = "100 000₽",
     ),
     Expense(
         id = ExpenseId(2),
         icon = "\uD83D\uDC36",
         title = "На собачку",
-        price = "100 000₽",
+        amount = "100 000₽",
         comment = "Джек",
     ),
     Expense(
         id = ExpenseId(3),
         icon = "\uD83D\uDC36",
         title = "На собачку",
-        price = "100 000₽",
+        amount = "100 000₽",
         comment = "Энна",
     ),
     Expense(
         id = ExpenseId(4),
         icon = "РК",
         title = "Ремонт квартиры",
-        price = "100 000₽",
+        amount = "100 000₽",
     ),
     Expense(
         id = ExpenseId(5),
         icon = "\uD83C\uDF6D",
         title = "Продукты",
-        price = "100 000₽",
+        amount = "100 000₽",
     ),
     Expense(
         id = ExpenseId(6),
         icon = "\uD83C\uDFCB\uFE0F",
         title = "Спортзал",
-        price = "100 000₽",
+        amount = "100 000₽",
     ),
     Expense(
         id = ExpenseId(7),
         icon = "\uD83D\uDC8A",
         title = "Медицина",
-        price = "100 000₽",
+        amount = "100 000₽",
     ),
 )
 
