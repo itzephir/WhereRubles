@@ -1,3 +1,5 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         google {
@@ -23,5 +25,15 @@ dependencyResolutionManagement {
 
 rootProject.name = "WhereRubles"
 include(":app")
+include(":core:format")
 include(":core:ui")
+include(":core:ui:theme")
+include(":domain")
+include(":data:transaction")
+include(":data:account")
+include(":data:category")
 include(":feature:expenses")
+include(":feature:income")
+include(":feature:account")
+include(":feature:categories")
+include(":feature:settings")

@@ -2,4 +2,8 @@
 <resources>
 
     <style name="Theme.WhereRubles" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/accent</item>
+        <item name="postSplashScreenTheme">@style/Theme.WhereRubles</item>
+    </style>
 </resources>
