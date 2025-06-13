@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.expenses.di
 
-import com.itzephir.whererubles.data.transactions.FakeTransactionRepository
+import com.itzephir.whererubles.data.transaction.FakeTransactionRepository
 import com.itzephir.whererubles.domain.repository.TransactionRepository
 import com.itzephir.whererubles.domain.usecase.GetExpensesUseCase
 import com.itzephir.whererubles.expenses.presentation.viewmodel.ExpensesViewModel

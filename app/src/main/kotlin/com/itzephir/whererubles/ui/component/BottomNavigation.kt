@@ -13,7 +13,7 @@ import com.itzephir.whererubles.navigation.AppGraph
 
 @Composable
 internal fun BottomNavigation(
-    items: List<AppGraph>,
+    routes: List<AppGraph>,
     selected: AppGraph?,
     navController: NavHostController,
 ) {
@@ -21,7 +21,7 @@ internal fun BottomNavigation(
         modifier = Modifier.Companion.fillMaxWidth(),
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
     ) {
-        items.forEach { item ->
+        routes.forEach { item ->
             NavigationBarItem(
                 selected = selected == item,
                 onClick = {

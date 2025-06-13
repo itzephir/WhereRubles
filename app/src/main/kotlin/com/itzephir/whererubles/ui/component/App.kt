@@ -35,8 +35,24 @@ fun App() {
 
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
-                topBar = { TopBar(selected) },
-                bottomBar = { BottomNavigation(AppGraph.routes, selected, navController) },
+                topBar = {
+                    TopBar(
+                        selected = selected,
+                        onActionClick = {},
+                    )
+                },
+                bottomBar = {
+                    BottomNavigation(
+                        routes = AppGraph.routes,
+                        selected = selected,
+                        navController = navController,
+                    )
+                },
+                floatingActionButton = {
+                    selected?.FloatingButton(onClick = {
+
+                    })
+                },
                 contentWindowInsets = WindowInsets.ime,
             ) { innerPadding ->
                 Navigation(

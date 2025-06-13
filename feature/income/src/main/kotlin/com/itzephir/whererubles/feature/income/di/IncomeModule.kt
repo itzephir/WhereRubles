@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.income.di
 
-import com.itzephir.whererubles.data.transactions.FakeTransactionRepository
+import com.itzephir.whererubles.data.transaction.FakeTransactionRepository
 import com.itzephir.whererubles.domain.repository.TransactionRepository
 import com.itzephir.whererubles.domain.usecase.GetIncomeUseCase
 import com.itzephir.whererubles.feature.income.presentation.viewmodel.IncomeViewModel

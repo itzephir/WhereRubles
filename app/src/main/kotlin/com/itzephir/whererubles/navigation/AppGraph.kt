@@ -1,19 +1,31 @@
 package com.itzephir.whererubles.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.itzephir.whererubles.app.R
 import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
+import com.itzephir.whererubles.feature.account.ui.screen.AccountScreen
 import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
 import kotlinx.serialization.Serializable
 
@@ -33,6 +45,10 @@ sealed interface AppGraph {
     @Composable
     @Stable
     fun Action(onClick: () -> Unit)
+
+    @Composable
+    @Stable
+    fun FloatingButton(onClick: () -> Unit)
 
     @Serializable
     data object Expenses : AppGraph {
@@ -55,6 +71,31 @@ sealed interface AppGraph {
                 Icon(
                     imageVector = Icons.Default.History,
                     contentDescription = null,
+                )
+            }
+        }
+
+        @Composable
+        override fun FloatingButton(onClick: () -> Unit) {
+            FloatingActionButton(
+                onClick = onClick,
+                modifier = Modifier.size(56.dp),
+                shape = CircleShape,
+                elevation = FloatingActionButtonDefaults.elevation(
+                    defaultElevation = 0.dp,
+                    pressedElevation = 2.dp,
+                    focusedElevation = 1.dp,
+                    hoveredElevation = 1.dp,
+                ),
+                containerColor = MaterialTheme.colorScheme.primary,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(12.dp),
+                    tint = Color.White,
                 )
             }
         }
@@ -91,6 +132,19 @@ sealed interface AppGraph {
             }
         }
 
+        @Composable
+        @Stable
+        override fun FloatingButton(onClick: () -> Unit) {
+            FloatingActionButton(
+                onClick = onClick,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add"
+                )
+            }
+        }
+
         fun NavGraphBuilder.income() {
             composable<Income> {
                 IncomeScreen()
@@ -122,9 +176,22 @@ sealed interface AppGraph {
             }
         }
 
+        @Composable
+        @Stable
+        override fun FloatingButton(onClick: () -> Unit) {
+            FloatingActionButton(
+                onClick = onClick,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add"
+                )
+            }
+        }
+
         fun NavGraphBuilder.account() {
             composable<Account> {
-                Text("Account")
+                AccountScreen()
             }
         }
     }
@@ -146,6 +213,10 @@ sealed interface AppGraph {
         @Composable
         @Stable
         override fun Action(onClick: () -> Unit) = Unit
+
+        @Composable
+        @Stable
+        override fun FloatingButton(onClick: () -> Unit) = Unit
 
         fun NavGraphBuilder.categories() {
             composable<Categories> {
@@ -169,6 +240,10 @@ sealed interface AppGraph {
 
         @Composable
         override fun Action(onClick: () -> Unit) = Unit
+
+        @Composable
+        @Stable
+        override fun FloatingButton(onClick: () -> Unit) = Unit
 
         fun NavGraphBuilder.settings() {
             composable<Settings> {

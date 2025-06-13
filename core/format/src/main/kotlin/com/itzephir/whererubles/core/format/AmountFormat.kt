@@ -2,14 +2,16 @@ package com.itzephir.whererubles.core.format
 
 import java.util.Locale
 
-fun String.mapAmount(currency: String = "RUB"): String {
-    val currencySign = when (currency) {
-        "RUB" -> "₽"
-        "USD" -> "$"
-        else  -> currency
-    }
+fun String.formatAmount(currency: String = "RUB"): String {
+    val currencySign = currency.formatCurrency()
     val amount = toDouble()
     val formatted = String.format(Locale.US, "%,.2f", amount).replace(",", " ")
 
-    return "$formatted $currencySign"
+    val (whole, fractional) = formatted.split(".")
+
+    val exceptedFormatted = if (fractional == "00") {
+        whole
+    } else formatted
+
+    return "$exceptedFormatted $currencySign"
 }

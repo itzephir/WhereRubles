@@ -2,7 +2,7 @@ package com.itzephir.whererubles.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val primaryLight = Color(0xFF006D38)
+val primaryLight = Color(0xFF2AE881)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFD4FAE6)
 val onPrimaryContainerLight = Color(0xFFFFFFFF)

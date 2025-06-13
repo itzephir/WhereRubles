@@ -53,7 +53,7 @@ private val income = listOf(
     ),
 )
 
-class ExpensesStateParameterProvider : PreviewParameterProvider<IncomeState> {
+class IncomeStateParameterProvider : PreviewParameterProvider<IncomeState> {
     override val values: Sequence<IncomeState> = sequenceOf(
         IncomeState.Loading,
         IncomeState.Income(total = "0₽", income = emptyList()),
@@ -64,7 +64,7 @@ class ExpensesStateParameterProvider : PreviewParameterProvider<IncomeState> {
 @Preview(showBackground = true)
 @Composable
 private fun ExpensesScreenLayoutPreview(
-    @PreviewParameter(ExpensesStateParameterProvider::class) state: IncomeState,
+    @PreviewParameter(IncomeStateParameterProvider::class) state: IncomeState,
 ) {
     WhereRublesTheme {
         IncomeScreenLayout(state)

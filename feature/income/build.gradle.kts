@@ -44,7 +44,7 @@ dependencies {
     debugImplementation(projects.core.ui.theme)
 
     implementation(projects.domain)
-    implementation(projects.data.transactions)
+    implementation(projects.data.transaction)
 
     implementation(libs.kotlinx.datetime)
 

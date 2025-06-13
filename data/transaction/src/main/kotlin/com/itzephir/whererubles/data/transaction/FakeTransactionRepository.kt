@@ -1,4 +1,4 @@
-package com.itzephir.whererubles.data.transactions
+package com.itzephir.whererubles.data.transaction
 
 import com.itzephir.whererubles.domain.model.AccountBrief
 import com.itzephir.whererubles.domain.model.AccountId

@@ -11,7 +11,7 @@ import com.itzephir.whererubles.navigation.AppGraph
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-internal fun TopBar(selected: AppGraph?) {
+internal fun TopBar(selected: AppGraph?, onActionClick: () -> Unit) {
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -20,15 +20,7 @@ internal fun TopBar(selected: AppGraph?) {
             )
         },
         actions = {
-            selected?.Action(onClick = {
-                when (selected) {
-                    AppGraph.Account    -> Unit
-                    AppGraph.Categories -> Unit
-                    AppGraph.Expenses   -> Unit
-                    AppGraph.Income     -> Unit
-                    AppGraph.Settings   -> Unit
-                }
-            })
+            selected?.Action(onClick = onActionClick)
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.inversePrimary,
