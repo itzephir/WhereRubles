@@ -9,6 +9,7 @@ kotlin = "2.1.20"
 kotlinx-datetime = "0.6.2"
 
 androidx-core-ktx = "1.16.0"
+androidx-core-splashscreen = "1.0.1"
 androidx-lifecycle = "2.9.1"
 androidx-activity-compose = "1.10.1"
 androidx-compose = "2025.06.00"
@@ -22,9 +23,10 @@ koin = "4.1.0"
 [libraries]
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
-kotlinx-datetime = {group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime"}
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-core-splashscreen" }
 
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose" }

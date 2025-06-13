@@ -138,10 +138,23 @@ sealed interface AppGraph {
         override fun FloatingButton(onClick: () -> Unit) {
             FloatingActionButton(
                 onClick = onClick,
+                modifier = Modifier.size(56.dp),
+                shape = CircleShape,
+                elevation = FloatingActionButtonDefaults.elevation(
+                    defaultElevation = 0.dp,
+                    pressedElevation = 2.dp,
+                    focusedElevation = 1.dp,
+                    hoveredElevation = 1.dp,
+                ),
+                containerColor = MaterialTheme.colorScheme.primary,
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add"
+                    contentDescription = "Add",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(12.dp),
+                    tint = Color.White,
                 )
             }
         }
@@ -182,10 +195,23 @@ sealed interface AppGraph {
         override fun FloatingButton(onClick: () -> Unit) {
             FloatingActionButton(
                 onClick = onClick,
+                modifier = Modifier.size(56.dp),
+                shape = CircleShape,
+                elevation = FloatingActionButtonDefaults.elevation(
+                    defaultElevation = 0.dp,
+                    pressedElevation = 2.dp,
+                    focusedElevation = 1.dp,
+                    hoveredElevation = 1.dp,
+                ),
+                containerColor = MaterialTheme.colorScheme.primary,
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add"
+                    contentDescription = "Add",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(12.dp),
+                    tint = Color.White,
                 )
             }
         }

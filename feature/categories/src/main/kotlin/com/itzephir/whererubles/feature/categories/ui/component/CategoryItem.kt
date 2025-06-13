@@ -20,6 +20,7 @@ fun CategoryItem(
         leadingEmoji = category.icon,
         title = category.title,
         modifier = modifier,
+        onClick = {},
         border = BorderStroke(width = 0.25.dp, color = Color.Gray),
     )
 }

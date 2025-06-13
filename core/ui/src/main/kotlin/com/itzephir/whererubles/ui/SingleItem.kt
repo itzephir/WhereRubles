@@ -2,6 +2,7 @@ package com.itzephir.whererubles.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,10 +49,12 @@ fun SingleItem(
     leadingEmoji: String? = null,
     description: String? = null,
     colors: SingleItemColors = singleItemColors(),
+    onClick: (() -> Unit)? = null,
     border: BorderStroke = BorderStroke(0.dp, Color.Unspecified),
 ) {
     OutlinedCard(
-        modifier = modifier,
+        modifier = modifier
+            .clickable(enabled = onClick != null) { onClick?.invoke() },
         shape = RoundedCornerShape(4.dp),
         border = border,
         colors = cardColors(containerColor = colors.background),

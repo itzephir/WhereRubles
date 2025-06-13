@@ -14,6 +14,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.itzephir.whererubles.feature.settings.presentation.state.SettingsState
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsScreenLayout(
@@ -32,19 +34,30 @@ fun SettingsScreenLayout(
         modifier = Modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets.ime,
     ) { innerPadding ->
+
+        val coroutineScope = rememberCoroutineScope()
+
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .border(0.5.dp, Color.Gray),
         ) {
             SettingItem(
-                title = "Тёмная тема", modifier = Modifier.fillMaxWidth(),
+                title = "Тёмная тема",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    coroutineScope.launch {
+                        onDarkThemeChanged(!state.darkTheme)
+                    }
+                }
             ) {
                 Switch(checked = state.darkTheme, onCheckedChange = onDarkThemeChanged)
             }
 
             SettingItem(
-                title = "Основной цвет", modifier = Modifier.fillMaxWidth(),
+                title = "Основной цвет",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {},
             ) {
                 IconButton(onClick = {}) {
                     Icon(
@@ -55,7 +68,9 @@ fun SettingsScreenLayout(
             }
 
             SettingItem(
-                title = "Звуки", modifier = Modifier.fillMaxWidth(),
+                title = "Звуки",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {},
             ) {
                 IconButton(onClick = {}) {
                     Icon(
@@ -66,7 +81,9 @@ fun SettingsScreenLayout(
             }
 
             SettingItem(
-                title = "Хаптики", modifier = Modifier.fillMaxWidth(),
+                title = "Хаптики",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {},
             ) {
                 IconButton(onClick = {}) {
                     Icon(
@@ -77,7 +94,9 @@ fun SettingsScreenLayout(
             }
 
             SettingItem(
-                title = "Код пароль", modifier = Modifier.fillMaxWidth(),
+                title = "Код пароль",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {},
             ) {
                 IconButton(onClick = {}) {
                     Icon(
@@ -88,7 +107,9 @@ fun SettingsScreenLayout(
             }
 
             SettingItem(
-                title = "Синхронизация", modifier = Modifier.fillMaxWidth(),
+                title = "Синхронизация",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {},
             ) {
                 IconButton(onClick = {}) {
                     Icon(
@@ -99,7 +120,9 @@ fun SettingsScreenLayout(
             }
 
             SettingItem(
-                title = "Язык", modifier = Modifier.fillMaxWidth(),
+                title = "Язык",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {},
             ) {
                 IconButton(onClick = {}) {
                     Icon(
@@ -110,7 +133,9 @@ fun SettingsScreenLayout(
             }
 
             SettingItem(
-                title = "О программе", modifier = Modifier.fillMaxWidth(),
+                title = "О программе",
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {},
             ) {
                 IconButton(onClick = {}) {
                     Icon(

@@ -33,7 +33,8 @@ fun Expenses(
             colors = singleItemColors(
                 background = MaterialTheme.colorScheme.primaryContainer,
                 textColor = MaterialTheme.colorScheme.onSurface,
-            )
+            ),
+            onClick = {},
         )
 
         LazyColumn(modifier = Modifier.weight(1f)) {

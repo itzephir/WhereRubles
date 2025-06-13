@@ -1,6 +1,7 @@
 package com.itzephir.whererubles.feature.settings.ui.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,10 +24,12 @@ import androidx.compose.ui.unit.dp
 fun SettingItem(
     title: String,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit = {},
 ) {
     OutlinedCard(
-        modifier = modifier,
+        modifier = modifier
+            .clickable(enabled = onClick != null) { onClick?.invoke() },
         shape = RoundedCornerShape(4.dp),
         border = BorderStroke(0.25.dp, Color.Gray)
     ) {

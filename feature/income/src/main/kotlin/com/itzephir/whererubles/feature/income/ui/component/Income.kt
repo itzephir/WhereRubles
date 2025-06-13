@@ -30,6 +30,7 @@ fun Income(
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 48.dp),
+            onClick = {},
             colors = singleItemColors(
                 background = MaterialTheme.colorScheme.primaryContainer,
                 textColor = MaterialTheme.colorScheme.onSurface,

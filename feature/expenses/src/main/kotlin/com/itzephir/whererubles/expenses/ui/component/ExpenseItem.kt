@@ -25,6 +25,7 @@ fun ExpenseItem(
         trailingIcon = Icons.AutoMirrored.Default.KeyboardArrowRight,
         description = expense.comment,
         modifier = modifier,
+        onClick = {},
         border = BorderStroke(width = 0.25.dp, color = Color.Gray),
     )
 }

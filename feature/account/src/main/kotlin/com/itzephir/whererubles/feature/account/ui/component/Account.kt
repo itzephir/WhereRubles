@@ -38,6 +38,7 @@ fun Account(
                 textColor = MaterialTheme.colorScheme.onSurface,
                 emojiBackground = Color.White,
             ),
+            onClick = {},
             border = BorderStroke(width = 0.25.dp, color = Color.Gray),
         )
 
@@ -52,6 +53,7 @@ fun Account(
                 background = MaterialTheme.colorScheme.primaryContainer,
                 textColor = MaterialTheme.colorScheme.onSurface,
             ),
+            onClick = {},
             border = BorderStroke(width = 0.25.dp, color = Color.Gray),
         )
     }

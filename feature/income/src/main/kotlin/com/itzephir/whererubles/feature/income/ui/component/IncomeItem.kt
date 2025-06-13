@@ -22,6 +22,7 @@ fun IncomeItem(income: Income, modifier: Modifier = Modifier) {
        trailingIcon = Icons.AutoMirrored.Default.KeyboardArrowRight,
        leadingEmoji = null,
        description = null,
+       onClick = {},
        border = BorderStroke(width = 0.25.dp, Color.Gray),
    )
 }
