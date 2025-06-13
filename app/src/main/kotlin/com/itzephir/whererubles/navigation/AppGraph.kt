@@ -26,6 +26,7 @@ import androidx.navigation.compose.composable
 import com.itzephir.whererubles.app.R
 import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
 import com.itzephir.whererubles.feature.account.ui.screen.AccountScreen
+import com.itzephir.whererubles.feature.categories.ui.screen.CategoriesScreen
 import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
 import kotlinx.serialization.Serializable
 
@@ -220,7 +221,7 @@ sealed interface AppGraph {
 
         fun NavGraphBuilder.categories() {
             composable<Categories> {
-                Text("Categories")
+                CategoriesScreen()
             }
         }
     }

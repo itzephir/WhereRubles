@@ -42,8 +42,8 @@ import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 @Composable
 fun SingleItem(
     title: String,
-    info: String,
     modifier: Modifier = Modifier,
+    info: String? = null,
     trailingIcon: ImageVector? = null,
     leadingEmoji: String? = null,
     description: String? = null,
@@ -105,12 +105,14 @@ fun SingleItem(
                     )
                 }
             }
-            Text(
-                info,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-                color = colors.textColor,
-            )
+            info?.let {
+                Text(
+                    info,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    color = colors.textColor,
+                )
+            }
             trailingIcon?.let {
                 Icon(
                     trailingIcon,

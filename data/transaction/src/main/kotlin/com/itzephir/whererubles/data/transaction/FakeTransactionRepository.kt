@@ -186,7 +186,7 @@ class FakeTransactionRepository : TransactionRepository {
             category = Category(
                 id = CategoryId(7),
                 name = "Зарплата",
-                emoji = "",
+                emoji = "\uD83D\uDCB0",
                 isIncome = true,
             ),
             amount = "500000.00",
@@ -206,7 +206,7 @@ class FakeTransactionRepository : TransactionRepository {
             category = Category(
                 id = CategoryId(8),
                 name = "Подработка",
-                emoji = "",
+                emoji = "\uD83D\uDCBB",
                 isIncome = true,
             ),
             amount = "100000.00",
