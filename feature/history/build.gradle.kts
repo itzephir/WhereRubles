@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.itzephir.whererubles.feature.settings"
+    namespace = "com.itzephir.whererubles.feature.history"
     compileSdk = libs.versions.android.compile.sdk.get().toInt()
 
     defaultConfig {
@@ -39,10 +39,14 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.format)
     implementation(projects.core.ui)
     debugImplementation(projects.core.ui.theme)
 
     implementation(projects.domain)
+    implementation(projects.data.transaction)
+
+    implementation(libs.kotlinx.datetime)
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
