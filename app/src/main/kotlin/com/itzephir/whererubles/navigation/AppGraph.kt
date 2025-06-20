@@ -15,15 +15,19 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.itzephir.whererubles.app.R
+import com.itzephir.whererubles.di.appModule
 import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
+import com.itzephir.whererubles.feature.account.di.AccountContext
 import com.itzephir.whererubles.feature.account.ui.screen.AccountScreen
 import com.itzephir.whererubles.feature.categories.ui.screen.CategoriesScreen
 import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
@@ -218,7 +222,16 @@ sealed interface AppGraph {
 
         fun NavGraphBuilder.account() {
             composable<Account> {
-                AccountScreen()
+                val applicationContext = LocalContext.current.applicationContext
+
+                val accountContext = remember {
+                    AccountContext(
+                        applicationContext = applicationContext,
+                        parentModule = appModule,
+                    )
+                }
+
+                AccountScreen(accountContext)
             }
         }
     }

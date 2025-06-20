@@ -40,7 +40,7 @@ android {
 
 dependencies {
     implementation(projects.core.ui)
-    debugImplementation(projects.core.ui.theme)
+    implementation(projects.core.ui.theme)
 
     implementation(projects.domain)
 

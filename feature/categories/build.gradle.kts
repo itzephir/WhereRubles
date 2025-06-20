@@ -41,7 +41,7 @@ android {
 dependencies {
     implementation(projects.core.format)
     implementation(projects.core.ui)
-    debugImplementation(projects.core.ui.theme)
+    implementation(projects.core.ui.theme)
 
     implementation(projects.domain)
     implementation(projects.data.category)

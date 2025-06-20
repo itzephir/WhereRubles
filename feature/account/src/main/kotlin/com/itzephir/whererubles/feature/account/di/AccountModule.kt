@@ -1,8 +1,8 @@
 package com.itzephir.whererubles.feature.account.di
 
-import com.itzephir.whererubles.data.account.FakeAccountRepository
-import com.itzephir.whererubles.domain.repository.AccountRepository
-import com.itzephir.whererubles.domain.usecase.GetAccountByIdUseCase
+import com.itzephir.whererubles.feature.account.data.repository.RemoteAccountRepository
+import com.itzephir.whererubles.feature.account.domain.repository.AccountRepository
+import com.itzephir.whererubles.feature.account.domain.usecase.GetAccountUseCase
 import com.itzephir.whererubles.feature.account.presentation.viewmodel.AccountViewModel
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val accountModule = module {
     viewModelOf(::AccountViewModel)
 
-    factoryOf(::GetAccountByIdUseCase)
+    factoryOf(::GetAccountUseCase)
 
-    singleOf(::FakeAccountRepository) bind AccountRepository::class
+    singleOf(::RemoteAccountRepository) bind AccountRepository::class
 }

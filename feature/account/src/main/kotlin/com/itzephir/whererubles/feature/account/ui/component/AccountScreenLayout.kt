@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.itzephir.whererubles.feature.account.presentation.model.AccountId
 import com.itzephir.whererubles.feature.account.presentation.state.AccountState
 import com.itzephir.whererubles.feature.account.presentation.state.AccountState.Account
+import com.itzephir.whererubles.feature.account.presentation.state.AccountState.Error
 import com.itzephir.whererubles.feature.account.presentation.state.AccountState.Loading
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 
@@ -31,6 +32,12 @@ fun AccountScreenLayout(state: AccountState) {
 
             is Account -> Account(
                 account = state,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+            )
+
+            is Error   -> Error(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),

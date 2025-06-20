@@ -18,10 +18,18 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-        val apiKey = properties.getProperty("api.key") as String
-        buildConfigField(type = "String", name = "apiKey", value = apiKey)
+        run {
+            val properties = Properties()
+            properties.load(project.rootProject.file("local.properties").inputStream())
+            val apiKey = properties.getProperty("api.key") as String
+            buildConfigField(type = "String", name = "apiKey", value = apiKey)
+        }
+
+        buildConfigField(
+            type = "String",
+            name = "apiBaseUrl",
+            value = "\"${properties["api.baseUrl"]!! as String}\""
+        )
     }
 
     buildTypes {
@@ -49,6 +57,8 @@ android {
 
 dependencies {
     implementation(projects.core.ui.theme)
+
+    implementation(projects.core.network)
 
     implementation(projects.feature.expenses)
     implementation(projects.feature.income)
@@ -80,4 +90,6 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
+
+    implementation(libs.ktor.client.core)
 }

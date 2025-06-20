@@ -16,5 +16,10 @@ sealed interface AccountState: MVIState, Parcelable {
     ): AccountState
 
     @Parcelize
+    data class Error(
+        val message: String
+    ): AccountState
+
+    @Parcelize
     data object Loading: AccountState
 }
