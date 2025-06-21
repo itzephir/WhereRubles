@@ -6,8 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -45,6 +47,7 @@ fun SingleItem(
     title: String,
     modifier: Modifier = Modifier,
     info: String? = null,
+    infoComment: String? = null,
     trailingIcon: ImageVector? = null,
     leadingEmoji: String? = null,
     description: String? = null,
@@ -108,14 +111,7 @@ fun SingleItem(
                     )
                 }
             }
-            info?.let {
-                Text(
-                    info,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    color = colors.textColor,
-                )
-            }
+            InfoBlock(info, infoComment, colors, modifier = Modifier.width(IntrinsicSize.Max))
             trailingIcon?.let {
                 Icon(
                     trailingIcon,
@@ -129,9 +125,41 @@ fun SingleItem(
     }
 }
 
+@Composable
+private fun InfoBlock(
+    info: String?,
+    infoComment: String?,
+    colors: SingleItemColors,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.End
+    ) {
+        info?.let {
+            Text(
+                text = info,
+                maxLines = 1,
+                overflow = TextOverflow.Visible,
+                textAlign = TextAlign.End,
+                color = colors.textColor,
+            )
+        }
+        infoComment?.let {
+            Text(
+                text = infoComment,
+                maxLines = 1,
+                overflow = TextOverflow.Visible,
+                textAlign = TextAlign.End,
+                color = colors.textColor,
+            )
+        }
+    }
+}
+
 
 @PreviewFontScale
-@Preview(wallpaper = GREEN_DOMINATED_EXAMPLE)
+@Preview(wallpaper = GREEN_DOMINATED_EXAMPLE, showSystemUi = true)
 @Composable
 fun SingleItemPreview() {
     WhereRublesTheme {
@@ -140,7 +168,9 @@ fun SingleItemPreview() {
             title = "Goool",
             description = "Gooooooooooooooool",
             info = "gool",
+            infoComment = "goooool",
             trailingIcon = Icons.AutoMirrored.Default.KeyboardArrowRight,
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }

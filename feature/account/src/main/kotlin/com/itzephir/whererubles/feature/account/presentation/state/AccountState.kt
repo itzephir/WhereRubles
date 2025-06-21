@@ -15,6 +15,11 @@ sealed interface AccountState: MVIState, Parcelable {
         // TODO: add more fields for graph implementation
     ): AccountState
 
+    sealed interface Error: AccountState{
+        @Parcelize
+        data object Initial: Error
+    }
+
     @Parcelize
     data object Loading: AccountState
 }

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.itzephir.whererubles.feature.income"
+    namespace = "com.itzephir.whererubles.feature.settings"
     compileSdk = libs.versions.android.compile.sdk.get().toInt()
 
     defaultConfig {
@@ -40,7 +40,7 @@ android {
 
 dependencies {
     implementation(projects.core.ui)
-    debugImplementation(projects.core.ui.theme)
+    implementation(projects.core.ui.theme)
 
     implementation(projects.domain)
 

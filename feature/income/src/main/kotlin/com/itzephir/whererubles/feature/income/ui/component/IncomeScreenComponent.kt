@@ -7,8 +7,19 @@ import org.koin.compose.viewmodel.koinViewModel
 import pro.respawn.flowmvi.compose.dsl.subscribe
 
 @Composable
-fun IncomeScreenComponent(viewModel: IncomeViewModel = koinViewModel()) {
+internal fun IncomeScreenComponent(
+    viewModel: IncomeViewModel = koinViewModel(),
+    onActonClick: () -> Unit = {},
+    onFabClick: () -> Unit = {},
+) {
     val state by viewModel.subscribe()
 
-    IncomeScreenLayout(state)
+    IncomeScreenLayout(
+        state,
+        onActionClick = onActonClick,
+        onFabClick = onFabClick,
+        onErrorRetry = {
+            viewModel.retry()
+        },
+    )
 }

@@ -2,14 +2,26 @@ package com.itzephir.whererubles.expenses.presentation.model
 
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
+import com.itzephir.whererubles.core.common.InstantParceler
+import com.itzephir.whererubles.expenses.common.formatTime
+import kotlinx.datetime.Instant
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.TypeParceler
 
 @Parcelize
+@TypeParceler<Instant, InstantParceler>()
 @Immutable
 data class Expense(
     val id: ExpenseId,
     val icon: String,
     val title: String,
     val amount: String,
+    val time: Instant,
     val comment: String? = null,
-) : Parcelable
+) : Parcelable {
+    @IgnoredOnParcel
+    @Stable
+    val timeString = time.formatTime()
+}

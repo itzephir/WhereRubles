@@ -1,0 +1,44 @@
+package com.itzephir.whererubles.core.network
+
+import arrow.resilience.Schedule
+import arrow.resilience.ktor.client.HttpRequestSchedule
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.request.bearerAuth
+import io.ktor.http.URLProtocol
+import io.ktor.http.path
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
+import kotlin.time.Duration.Companion.seconds
+
+fun provideHttpClient(baseUrl: String, authorizationToken: String) =
+    HttpClient(engineFactory = CIO) {
+        install(plugin = ContentNegotiation) {
+            json(json = Json {
+                ignoreUnknownKeys = true
+                isLenient = true
+                explicitNulls = false
+                prettyPrint = true
+            })
+        }
+
+        install(HttpRequestSchedule) {
+            fun <A> delay() = Schedule.exponential<A>(2.seconds).jittered()
+
+            retry(delay<Throwable>().and(Schedule.recurs(3)))
+        }
+
+        defaultRequest {
+            url {
+                protocol = URLProtocol.HTTPS
+                host = baseUrl
+                path("api/", "v1/")
+            }
+            bearerAuth(authorizationToken)
+        }
+
+        expectSuccess = true
+        followRedirects = true
+    }

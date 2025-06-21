@@ -16,6 +16,7 @@ import com.itzephir.whererubles.feature.categories.presentation.model.SearchStat
 import com.itzephir.whererubles.feature.categories.presentation.state.CategoriesState
 import com.itzephir.whererubles.feature.categories.presentation.state.CategoriesState.Categories
 import com.itzephir.whererubles.feature.categories.presentation.state.CategoriesState.Loading
+import com.itzephir.whererubles.ui.TopBar
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 
 @Composable
@@ -25,6 +26,11 @@ fun CategoriesScreenLayout(
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopBar(
+                title = "Мои статьи",
+            )
+        },
         contentWindowInsets = WindowInsets.ime,
     ) { innerPadding ->
         when (state) {

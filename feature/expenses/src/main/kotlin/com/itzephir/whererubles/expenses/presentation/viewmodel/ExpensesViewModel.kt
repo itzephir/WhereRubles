@@ -1,38 +1,59 @@
 package com.itzephir.whererubles.expenses.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
-import com.itzephir.whererubles.core.format.formatAmount
-import com.itzephir.whererubles.domain.model.AccountId
-import com.itzephir.whererubles.domain.usecase.GetExpensesUseCase
+import androidx.lifecycle.viewModelScope
 import com.itzephir.whererubles.expenses.presentation.action.ExpensesAction
 import com.itzephir.whererubles.expenses.presentation.intent.ExpensesIntent
-import com.itzephir.whererubles.expenses.presentation.model.Expense
-import com.itzephir.whererubles.expenses.presentation.model.ExpenseId
+import com.itzephir.whererubles.expenses.presentation.mapper.toExpensesState
 import com.itzephir.whererubles.expenses.presentation.state.ExpensesState
 import com.itzephir.whererubles.expenses.presentation.store.ExpensesStore
+import com.itzephir.whererubles.feature.expenses.domain.model.ExpensesToday
+import com.itzephir.whererubles.feature.expenses.domain.usecase.GetExpensesTodayUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pro.respawn.flowmvi.android.StoreViewModel
+import pro.respawn.flowmvi.api.PipelineContext
+import pro.respawn.flowmvi.dsl.intent
+import pro.respawn.flowmvi.dsl.state
 
 class ExpensesViewModel(
     savedStateHandle: SavedStateHandle,
-    private val getExpenses: GetExpensesUseCase,
+    private val getExpensesToday: GetExpensesTodayUseCase,
 ) : StoreViewModel<ExpensesState, ExpensesIntent, ExpensesAction>(
     ExpensesStore(savedStateHandle) {
-        val (total, expenses) = withContext(Dispatchers.IO) { getExpenses(AccountId(0)) }
-        updateState {
-            ExpensesState.Expenses(
-                total = total.formatAmount(),
-                expenses = expenses.map {
-                    Expense(
-                        id = ExpenseId(it.id.value),
-                        icon = it.category.emoji,
-                        title = it.category.name,
-                        amount = it.amount.formatAmount(it.account.currency),
-                        comment = it.comment,
-                    )
+        val expenses = withContext(Dispatchers.IO) {
+            getExpensesToday().fold(
+                ifLeft = {
+                    Log.e("ExpensesViewModel", "Error handled: $it")
+                    ExpensesState.Error.Initial
                 },
+                ifRight = ExpensesToday::toExpensesState
             )
         }
+        updateState { expenses }
     },
-)
+) {
+    fun retry() = intent {
+        val state = state as? ExpensesState.Error ?: return@intent
+        viewModelScope.launch {
+            when (state) {
+                is ExpensesState.Error.Initial -> retryInit()
+            }
+        }
+    }
+
+    suspend fun PipelineContext<ExpensesState, ExpensesIntent, ExpensesAction>.retryInit() {
+        updateState { ExpensesState.Loading }
+
+        val expenses = withContext(Dispatchers.IO) {
+            getExpensesToday().fold(
+                ifLeft = { ExpensesState.Error.Initial },
+                ifRight = ExpensesToday::toExpensesState
+            )
+        }
+        updateState { expenses }
+    }
+}
+

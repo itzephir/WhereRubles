@@ -13,20 +13,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.itzephir.whererubles.expenses.presentation.model.Expense
 import com.itzephir.whererubles.expenses.presentation.model.ExpenseId
-import com.itzephir.whererubles.expenses.presentation.state.ExpensesState
 import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.SingleItemColors.Companion.singleItemColors
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
+import kotlinx.datetime.Clock
 
 @Composable
 fun Expenses(
-    expenses: ExpensesState.Expenses,
+    total: String,
+    expenses: List<Expense>,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         SingleItem(
             title = "Всего",
-            info = expenses.total,
+            info = total,
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 48.dp),
@@ -38,12 +39,13 @@ fun Expenses(
         )
 
         LazyColumn(modifier = Modifier.weight(1f)) {
-            items(items = expenses.expenses, key = { it.id }) { expense ->
+            items(items = expenses, key = { it.id }) { expense ->
                 ExpenseItem(
                     expense = expense,
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 64.dp),
+                    isTimeEnabled = false,
                 )
             }
         }
@@ -55,16 +57,15 @@ fun Expenses(
 private fun ExpensesPreview() {
     WhereRublesTheme {
         Expenses(
-            ExpensesState.Expenses(
-                total = "500 000",
-                expenses = listOf(
-                    Expense(
-                        id = ExpenseId(0),
-                        icon = "\uD83D\uDE08",
-                        title = "Расхоооод",
-                        amount = "100 000",
-                        comment = "расхоооооооооооооод",
-                    )
+            total = "500 000",
+            expenses = listOf(
+                Expense(
+                    id = ExpenseId(0),
+                    icon = "\uD83D\uDE08",
+                    title = "Расхоооод",
+                    amount = "100 000",
+                    comment = "расхоооооооооооооод",
+                    time = Clock.System.now(),
                 )
             ),
             modifier = Modifier.fillMaxSize(),

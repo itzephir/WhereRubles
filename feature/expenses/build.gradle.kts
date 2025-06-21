@@ -39,14 +39,21 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.common)
     implementation(projects.core.format)
     implementation(projects.core.ui)
-    debugImplementation(projects.core.ui.theme)
+    implementation(projects.core.ui.theme)
 
     implementation(projects.domain)
     implementation(projects.data.transaction)
 
+    implementation(projects.feature.expenses.domain)
+    implementation(projects.feature.expenses.data)
+
     implementation(libs.kotlinx.datetime)
+
+    implementation(libs.arrow.core)
+    implementation(libs.arrow.resilience)
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -56,9 +63,12 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
 
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons.extended)
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.respawn.flowmvi.core)
     implementation(libs.respawn.flowmvi.compose)
@@ -68,4 +78,6 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
+
+    implementation(libs.ktor.client.core)
 }
