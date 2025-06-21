@@ -12,6 +12,7 @@ import com.itzephir.whererubles.feature.income.presentation.store.IncomeHistoryS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Instant
 import pro.respawn.flowmvi.android.StoreViewModel
 import pro.respawn.flowmvi.api.PipelineContext
 import pro.respawn.flowmvi.dsl.intent
@@ -50,6 +51,34 @@ class IncomeHistoryViewModel(
         }
 
         updateState { incomeHistory }
+    }
+
+    fun changeStart(start: Long?) = intent {
+        if (start == null) return@intent
+        val new = Instant.fromEpochMilliseconds(start)
+        updateState {
+            IncomeHistoryState.Loading(
+                start = new,
+                end = end,
+            )
+        }
+        viewModelScope.launch {
+            retryInitial()
+        }
+    }
+
+    fun changeEnd(end: Long?) = intent {
+        if (end == null) return@intent
+        val new = Instant.fromEpochMilliseconds(end)
+        updateState {
+            IncomeHistoryState.Loading(
+                start = start,
+                end = new,
+            )
+        }
+        viewModelScope.launch {
+            retryInitial()
+        }
     }
 }
 

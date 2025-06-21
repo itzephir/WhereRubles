@@ -12,6 +12,7 @@ import com.itzephir.whererubles.feature.expenses.domain.usecase.GetExpensesByPer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Instant
 import pro.respawn.flowmvi.android.StoreViewModel
 import pro.respawn.flowmvi.api.PipelineContext
 import pro.respawn.flowmvi.dsl.intent
@@ -35,13 +36,13 @@ class ExpensesHistoryViewModel(
     fun retry() = intent {
         val state = state as? ExpensesHistoryState.Error ?: return@intent
         viewModelScope.launch {
-            when(state){
+            when (state) {
                 is ExpensesHistoryState.Error.Initial -> retryInitial()
             }
         }
     }
 
-    suspend fun PipelineContext<ExpensesHistoryState, ExpensesHistoryIntent, ExpensesHistoryAction>.retryInitial(){
+    suspend fun PipelineContext<ExpensesHistoryState, ExpensesHistoryIntent, ExpensesHistoryAction>.retryInitial() {
         val expensesHistory = withContext(Dispatchers.IO) {
             getExpensesByPeriod(state.start, state.end).fold(
                 ifLeft = { ExpensesHistoryState.Error.Initial(state.start, state.end) },
@@ -50,6 +51,34 @@ class ExpensesHistoryViewModel(
         }
 
         updateState { expensesHistory }
+    }
+
+    fun changeStart(start: Long?) = intent {
+        if (start == null) return@intent
+        val new = Instant.fromEpochMilliseconds(start)
+        updateState {
+            ExpensesHistoryState.Loading(
+                start = new,
+                end = end,
+            )
+        }
+        viewModelScope.launch {
+            retryInitial()
+        }
+    }
+
+    fun changeEnd(end: Long?) = intent {
+        if (end == null) return@intent
+        val new = Instant.fromEpochMilliseconds(end)
+        updateState {
+            ExpensesHistoryState.Loading(
+                start = start,
+                end = new,
+            )
+        }
+        viewModelScope.launch {
+            retryInitial()
+        }
     }
 }
 

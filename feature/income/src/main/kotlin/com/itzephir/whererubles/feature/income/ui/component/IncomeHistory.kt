@@ -8,11 +8,16 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.itzephir.whererubles.feature.income.presentation.model.Income
 import com.itzephir.whererubles.feature.income.presentation.model.IncomeId
+import com.itzephir.whererubles.ui.DatePicker
 import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.SingleItemColors.Companion.singleItemColors
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
@@ -24,8 +29,26 @@ fun IncomeHistory(
     end: String,
     total: String,
     income: List<Income>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onStartChanged: (Long?) -> Unit = {},
+    onEndChanged: (Long?) -> Unit = {},
 ) {
+    var openStartDialog by remember { mutableStateOf(false) }
+    if (openStartDialog) {
+        DatePicker(
+            onDateSelected = onStartChanged,
+            onDismiss = { openStartDialog = false },
+        )
+    }
+
+    var openEndDialog by remember { mutableStateOf(false) }
+    if (openEndDialog) {
+        DatePicker(
+            onDateSelected = onEndChanged,
+            onDismiss = { openEndDialog = false },
+        )
+    }
+
     Column(modifier = modifier) {
 
         SingleItem(
@@ -38,7 +61,9 @@ fun IncomeHistory(
                 background = MaterialTheme.colorScheme.primaryContainer,
                 textColor = MaterialTheme.colorScheme.onSurface,
             ),
-            onClick = {},
+            onClick = {
+                openStartDialog = true
+            },
         )
 
         SingleItem(
@@ -51,7 +76,9 @@ fun IncomeHistory(
                 background = MaterialTheme.colorScheme.primaryContainer,
                 textColor = MaterialTheme.colorScheme.onSurface,
             ),
-            onClick = {},
+            onClick = {
+                openEndDialog = true
+            },
         )
 
         SingleItem(

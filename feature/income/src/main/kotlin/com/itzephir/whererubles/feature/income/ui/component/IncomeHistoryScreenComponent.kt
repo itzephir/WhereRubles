@@ -23,5 +23,7 @@ fun IncomeHistoryScreenComponent(
         onErrorRetry = {
             viewModel.retry()
         },
+        onStartChanged = viewModel::changeStart,
+        onEndChanged = viewModel::changeEnd,
     )
 }
