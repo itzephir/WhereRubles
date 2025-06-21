@@ -33,6 +33,8 @@ fun ExpensesHistoryLayout(
     onBackClick: () -> Unit = {},
     onActionClick: () -> Unit = {},
     onErrorRetry: () -> Unit = {},
+    onStartChanged: (Long?) -> Unit = {},
+    onEndChanged: (Long?) -> Unit = {},
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -97,6 +99,8 @@ fun ExpensesHistoryLayout(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
+                onStartChanged = onStartChanged,
+                onEndChanged = onEndChanged,
             )
 
             is ExpensesHistoryState.Error           -> Error(

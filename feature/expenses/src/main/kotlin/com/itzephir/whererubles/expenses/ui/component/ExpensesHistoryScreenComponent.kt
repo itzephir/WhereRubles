@@ -23,5 +23,7 @@ fun ExpensesHistoryScreenComponent(
         onErrorRetry = {
             viewModel.retry()
         },
+        onStartChanged = viewModel::changeStart,
+        onEndChanged = viewModel::changeEnd,
     )
 }
