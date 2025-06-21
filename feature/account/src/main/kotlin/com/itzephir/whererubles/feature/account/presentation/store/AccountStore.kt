@@ -27,7 +27,7 @@ fun AccountStore(
         recover {
             Log.e("Account Store Recover", "Exception", it)
             updateState {
-                AccountState.Error(message = "error")
+                AccountState.Error.Initial
             }
             null
         }

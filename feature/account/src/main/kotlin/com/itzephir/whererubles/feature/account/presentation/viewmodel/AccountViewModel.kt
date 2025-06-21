@@ -23,7 +23,7 @@ class AccountViewModel(
             delay(1.seconds)
             getAccount().fold(
                 ifLeft = {
-                    AccountState.Error(it.toString())
+                    AccountState.Error.Initial
                 },
                 ifRight = {
                     AccountState.Account(
@@ -37,7 +37,7 @@ class AccountViewModel(
 
         updateState { account }
     }
-){
+) {
     override fun onCleared() {
         super.onCleared()
 

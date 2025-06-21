@@ -9,8 +9,17 @@ import pro.respawn.flowmvi.compose.dsl.subscribe
 @Composable
 internal fun ExpensesScreenComponent(
     viewModel: ExpensesViewModel = koinViewModel(),
+    onActonClick: () -> Unit = {},
+    onFabClick: () -> Unit = {},
 ) {
     val state by viewModel.subscribe()
 
-    ExpensesScreenLayout(state)
+    ExpensesScreenLayout(
+        state,
+        onActionClick = onActonClick,
+        onFabClick = onFabClick,
+        onErrorRetry = {
+            viewModel.retry()
+        },
+    )
 }

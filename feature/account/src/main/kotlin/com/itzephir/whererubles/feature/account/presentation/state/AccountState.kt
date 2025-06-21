@@ -15,10 +15,10 @@ sealed interface AccountState: MVIState, Parcelable {
         // TODO: add more fields for graph implementation
     ): AccountState
 
-    @Parcelize
-    data class Error(
-        val message: String
-    ): AccountState
+    sealed interface Error: AccountState{
+        @Parcelize
+        data object Initial: Error
+    }
 
     @Parcelize
     data object Loading: AccountState
