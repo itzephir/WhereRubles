@@ -45,6 +45,8 @@ class ExpensesViewModel(
     }
 
     suspend fun PipelineContext<ExpensesState, ExpensesIntent, ExpensesAction>.retryInit() {
+        updateState { ExpensesState.Loading }
+
         val expenses = withContext(Dispatchers.IO) {
             getExpensesToday().fold(
                 ifLeft = { ExpensesState.Error.Initial },

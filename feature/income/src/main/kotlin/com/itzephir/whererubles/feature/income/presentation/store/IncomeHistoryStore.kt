@@ -34,7 +34,7 @@ fun IncomeHistoryStore(
         parcelizeState(savedStateHandle)
 
         recover {
-            Log.e("Account Store Recover", "Exception", it)
+            Log.e("Expenses Store Recover", "Exception", it)
             updateState {
                 IncomeHistoryState.Error.Initial(start, end)
             }

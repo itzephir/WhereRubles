@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 
     implementation(libs.arrow.core)
+    implementation(libs.arrow.resilience)
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

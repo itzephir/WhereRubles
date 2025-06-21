@@ -43,6 +43,8 @@ class ExpensesHistoryViewModel(
     }
 
     suspend fun PipelineContext<ExpensesHistoryState, ExpensesHistoryIntent, ExpensesHistoryAction>.retryInitial() {
+        updateState { ExpensesHistoryState.Loading(start, end) }
+
         val expensesHistory = withContext(Dispatchers.IO) {
             getExpensesByPeriod(state.start, state.end).fold(
                 ifLeft = { ExpensesHistoryState.Error.Initial(state.start, state.end) },

@@ -43,6 +43,8 @@ class IncomeHistoryViewModel(
     }
 
     suspend fun PipelineContext<IncomeHistoryState, IncomeHistoryIntent, IncomeHistoryAction>.retryInitial() {
+        updateState { IncomeHistoryState.Loading(start, end) }
+
         val incomeHistory = withContext(Dispatchers.IO) {
             getIncomeByPeriod(state.start, state.end).fold(
                 ifLeft = { IncomeHistoryState.Error.Initial(state.start, state.end) },
