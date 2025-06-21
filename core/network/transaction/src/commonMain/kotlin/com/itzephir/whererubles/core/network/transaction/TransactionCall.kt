@@ -103,17 +103,15 @@ suspend fun HttpClient.deleteTransactionById(
 
 suspend fun HttpClient.readTransactionsByAccountIdAndPeriod(
     accountId: Id,
-    period: Pair<Instant, Instant>? = null,
+    start: Instant? = null,
+    end: Instant? = null,
 ): Either<TransactionError.ReadByAccountIdAndPeriodError, List<TransactionResponse>> = either {
     try {
-        get("/transactions/account") {
+        get {
             url {
-                path("account", accountId.value.toString(), "period")
-                period?.let {
-                    val (startDate, endDate) = period
-                    parameter(key = "startDate", value = startDate.format())
-                    parameter(key = "endDate", value = endDate.format())
-                }
+                path("transactions", "account", accountId.value.toString(), "period")
+                start?.let { parameter(key = "startDate", value = start.format()) }
+                end?.let { parameter(key = "endDate", value = end.format()) }
             }
         }.body()
     } catch (e: ClientRequestException) {

@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.itzephir.whererubles.feature.settings.presentation.state.SettingsState
+import com.itzephir.whererubles.ui.TopBar
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 import kotlinx.coroutines.launch
 
@@ -31,6 +32,11 @@ fun SettingsScreenLayout(
     onDarkThemeChanged: (Boolean) -> Unit,
 ) {
     Scaffold(
+        topBar = {
+            TopBar(
+                title = "Настройки",
+            )
+        },
         modifier = Modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets.ime,
     ) { innerPadding ->

@@ -13,6 +13,11 @@ sealed interface ExpensesState : Parcelable, MVIState {
         val expenses: List<Expense>,
     ) : ExpensesState
 
+    sealed interface Error : ExpensesState {
+        @Parcelize
+        data object Initial : Error
+    }
+
     @Parcelize
     data object Loading : ExpensesState
 }
