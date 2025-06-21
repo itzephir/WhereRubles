@@ -5,14 +5,18 @@ import kotlinx.parcelize.Parcelize
 import pro.respawn.flowmvi.api.MVIState
 
 
-sealed interface IncomeState : MVIState, Parcelable {
+sealed interface IncomeState : Parcelable, MVIState {
     @Parcelize
     data class Income(
         val total: String,
-        val income: List<com.itzephir.whererubles.feature.income.presentation.model.Income>
-    ): IncomeState
+        val income: List<com.itzephir.whererubles.feature.income.presentation.model.Income>,
+    ) : IncomeState
+
+    sealed interface Error : IncomeState {
+        @Parcelize
+        data object Initial : Error
+    }
 
     @Parcelize
     data object Loading : IncomeState
-    companion object
 }

@@ -25,6 +25,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "WhereRubles"
 include(":app")
+include(":core:common")
 include(":core:format")
 include(":core:ui")
 include(":core:ui:theme")
@@ -41,6 +42,8 @@ include(":feature:expenses")
 include(":feature:expenses:domain")
 include(":feature:expenses:data")
 include(":feature:income")
+include(":feature:income:domain")
+include(":feature:income:data")
 include(":feature:account")
 include(":feature:account:domain")
 include(":feature:account:data")

@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.expenses.di
 
+import com.itzephir.whererubles.expenses.presentation.viewmodel.ExpensesHistoryViewModel
 import com.itzephir.whererubles.expenses.presentation.viewmodel.ExpensesViewModel
 import com.itzephir.whererubles.feature.expenses.data.repository.RemoteAccountRepository
 import com.itzephir.whererubles.feature.expenses.data.repository.RemoteExpensesRepository
@@ -15,6 +16,7 @@ import org.koin.dsl.module
 
 val expensesModule = module {
     viewModelOf(::ExpensesViewModel)
+    viewModelOf(::ExpensesHistoryViewModel)
 
     factoryOf(::GetExpensesTodayUseCase)
     factoryOf(::GetExpensesByPeriodUseCase)

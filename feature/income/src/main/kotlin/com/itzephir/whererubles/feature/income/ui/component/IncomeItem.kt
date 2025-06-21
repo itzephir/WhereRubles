@@ -12,30 +12,38 @@ import com.itzephir.whererubles.feature.income.presentation.model.Income
 import com.itzephir.whererubles.feature.income.presentation.model.IncomeId
 import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
+import kotlinx.datetime.Clock
 
 @Composable
-fun IncomeItem(income: Income, modifier: Modifier = Modifier) {
-   SingleItem(
-       title = income.title,
-       info = income.amount,
-       modifier = modifier,
-       trailingIcon = Icons.AutoMirrored.Default.KeyboardArrowRight,
-       leadingEmoji = null,
-       description = null,
-       onClick = {},
-       border = BorderStroke(width = 0.25.dp, Color.Gray),
-   )
+fun IncomeItem(
+    income: Income,
+    modifier: Modifier = Modifier,
+    isTimeEnabled: Boolean = false,
+) {
+    SingleItem(
+        title = income.title,
+        info = income.amount,
+        infoComment = if (isTimeEnabled) income.timeString else null,
+        trailingIcon = Icons.AutoMirrored.Default.KeyboardArrowRight,
+        description = income.comment,
+        modifier = modifier,
+        onClick = {},
+        border = BorderStroke(width = 0.25.dp, color = Color.Gray),
+    )
 }
 
 @Preview
 @Composable
-private fun IncomeItemPreview() {
+private fun ExpenseItemPreview() {
     WhereRublesTheme {
         IncomeItem(
             Income(
                 id = IncomeId(0),
+                icon = "\uD83D\uDE08",
                 title = "Расхоооод",
                 amount = "100 000",
+                comment = "расхооооооооооооооод",
+                time = Clock.System.now(),
             ),
         )
     }

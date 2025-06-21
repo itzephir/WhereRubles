@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.expenses.presentation.store
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.itzephir.whererubles.expenses.presentation.action.ExpensesHistoryAction
 import com.itzephir.whererubles.expenses.presentation.intent.ExpensesHistoryIntent
@@ -15,6 +16,7 @@ import pro.respawn.flowmvi.api.Store
 import pro.respawn.flowmvi.dsl.reduceLambdas
 import pro.respawn.flowmvi.dsl.store
 import pro.respawn.flowmvi.plugins.init
+import pro.respawn.flowmvi.plugins.recover
 import pro.respawn.flowmvi.savedstate.plugins.parcelizeState
 
 typealias ExpensesHistoryStore = Store<ExpensesHistoryState, ExpensesHistoryIntent, ExpensesHistoryAction>
@@ -30,6 +32,14 @@ fun ExpensesHistoryStore(
         )
     ) {
         parcelizeState(savedStateHandle)
+
+        recover {
+            Log.e("Account Store Recover", "Exception", it)
+            updateState {
+                ExpensesHistoryState.Error.Initial(start, end)
+            }
+            null
+        }
 
         init(init)
 

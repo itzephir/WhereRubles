@@ -24,7 +24,7 @@ fun ExpensesNavigation() {
         composable<ExpensesGraph.History> {
             ExpensesHistoryScreenComponent(
                 onBackClick = {
-                    navController.popBackStack()
+                    navController.navigateUp()
                 }
             )
         }
