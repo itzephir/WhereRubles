@@ -15,6 +15,7 @@ import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
 import com.itzephir.whererubles.feature.account.di.AccountContext
 import com.itzephir.whererubles.feature.account.ui.screen.AccountScreen
 import com.itzephir.whererubles.feature.categories.ui.screen.CategoriesScreen
+import com.itzephir.whererubles.feature.income.di.IncomeContext
 import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
 import com.itzephir.whererubles.feature.settings.ui.screen.SettingsScreen
 import kotlinx.serialization.Serializable
@@ -50,14 +51,14 @@ sealed interface AppGraph {
             composable<Expenses> {
                 val applicationContext = LocalContext.current.applicationContext
 
-                val accountContext = remember {
+                val expensesContext = remember {
                     ExpensesContext(
                         applicationContext = applicationContext,
                         parentModule = appModule,
                     )
                 }
 
-                ExpensesScreen(accountContext)
+                ExpensesScreen(expensesContext)
             }
         }
     }
@@ -78,7 +79,16 @@ sealed interface AppGraph {
 
         fun NavGraphBuilder.income() {
             composable<Income> {
-                IncomeScreen()
+                val applicationContext = LocalContext.current.applicationContext
+
+                val incomeContext = remember {
+                    IncomeContext(
+                        applicationContext = applicationContext,
+                        parentModule = appModule,
+                    )
+                }
+
+                IncomeScreen(incomeContext)
             }
         }
     }

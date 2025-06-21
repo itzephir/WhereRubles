@@ -1,36 +1,53 @@
 package com.itzephir.whererubles.feature.income.presentation.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
-import com.itzephir.whererubles.core.format.formatAmount
-import com.itzephir.whererubles.domain.model.AccountId
-import com.itzephir.whererubles.domain.usecase.GetIncomeUseCase
+import androidx.lifecycle.viewModelScope
+import com.itzephir.whererubles.feature.income.domain.model.IncomeToday
+import com.itzephir.whererubles.feature.income.domain.usecase.GetIncomeTodayUseCase
 import com.itzephir.whererubles.feature.income.presentation.action.IncomeAction
 import com.itzephir.whererubles.feature.income.presentation.intent.IncomeIntent
-import com.itzephir.whererubles.feature.income.presentation.model.Income
-import com.itzephir.whererubles.feature.income.presentation.model.IncomeId
+import com.itzephir.whererubles.feature.income.presentation.mapper.toIncomeState
 import com.itzephir.whererubles.feature.income.presentation.state.IncomeState
 import com.itzephir.whererubles.feature.income.presentation.store.IncomeStore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pro.respawn.flowmvi.android.StoreViewModel
+import pro.respawn.flowmvi.api.PipelineContext
+import pro.respawn.flowmvi.dsl.intent
+import pro.respawn.flowmvi.dsl.state
 
 class IncomeViewModel(
     savedStateHandle: SavedStateHandle,
-    val getIncome: GetIncomeUseCase,
+    val getIncomeToday: GetIncomeTodayUseCase,
 ) : StoreViewModel<IncomeState, IncomeIntent, IncomeAction>(
     IncomeStore(savedStateHandle) {
-        val (total, income) = withContext(Dispatchers.IO) { getIncome(AccountId(0)) }
-        updateState {
-            IncomeState.Income(
-                total = total.formatAmount(),
-                income = income.map { transaction ->
-                    Income(
-                        id = IncomeId(transaction.id.value),
-                        title = transaction.category.name,
-                        amount = transaction.amount.formatAmount(transaction.account.currency),
-                    )
-                },
+        val incomeHistory = withContext(Dispatchers.IO) {
+            getIncomeToday().fold(
+                ifLeft = { IncomeState.Error.Initial },
+                ifRight = IncomeToday::toIncomeState
             )
         }
+
+        updateState { incomeHistory }
     },
-)
+) {
+    fun retry() = intent {
+        val state = state as? IncomeState.Error ?: return@intent
+        viewModelScope.launch {
+            when (state) {
+                is IncomeState.Error.Initial -> retryInit()
+            }
+        }
+    }
+
+    suspend fun PipelineContext<IncomeState, IncomeIntent, IncomeAction>.retryInit() {
+        val income = withContext(Dispatchers.IO) {
+            getIncomeToday().fold(
+                ifLeft = { IncomeState.Error.Initial },
+                ifRight = IncomeToday::toIncomeState
+            )
+        }
+        updateState { income }
+    }
+}

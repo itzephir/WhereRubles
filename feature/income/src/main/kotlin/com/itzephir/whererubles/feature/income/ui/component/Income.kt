@@ -13,37 +13,39 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.itzephir.whererubles.feature.income.presentation.model.Income
 import com.itzephir.whererubles.feature.income.presentation.model.IncomeId
-import com.itzephir.whererubles.feature.income.presentation.state.IncomeState
 import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.SingleItemColors.Companion.singleItemColors
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
+import kotlinx.datetime.Clock
 
 @Composable
 fun Income(
-    income: IncomeState.Income,
+    total: String,
+    income: List<Income>,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         SingleItem(
             title = "Всего",
-            info = income.total,
+            info = total,
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 48.dp),
-            onClick = {},
             colors = singleItemColors(
                 background = MaterialTheme.colorScheme.primaryContainer,
                 textColor = MaterialTheme.colorScheme.onSurface,
-            )
+            ),
+            onClick = {},
         )
 
         LazyColumn(modifier = Modifier.weight(1f)) {
-            items(items = income.income, key = { it.id }) { expense ->
+            items(items = income, key = { it.id }) { income ->
                 IncomeItem(
-                    income = expense,
+                    income = income,
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 64.dp),
+                    isTimeEnabled = false,
                 )
             }
         }
@@ -52,21 +54,21 @@ fun Income(
 
 @Preview(showSystemUi = true)
 @Composable
-private fun IncomePreview() {
+private fun ExpensesPreview() {
     WhereRublesTheme {
         Income(
-            IncomeState.Income(
-                total = "500 000",
-                income = listOf(
-                    Income(
-                        id = IncomeId(0),
-                        title = "Дохоооооод",
-                        amount = "100 000",
-                    )
+            total = "500 000",
+            income = listOf(
+                Income(
+                    id = IncomeId(0),
+                    icon = "\uD83D\uDE08",
+                    title = "Расхоооод",
+                    amount = "100 000",
+                    comment = "расхоооооооооооооод",
+                    time = Clock.System.now(),
                 )
             ),
             modifier = Modifier.fillMaxSize(),
         )
     }
 }
-

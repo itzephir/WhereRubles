@@ -32,7 +32,7 @@ internal fun BottomNavigation(
                 onClick = {
                     navController.navigate(item) {
                         popUpTo<AppGraph.Expenses> {
-                            inclusive = false
+                            inclusive = true
                             saveState = true
                         }
                         launchSingleTop = true
