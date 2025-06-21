@@ -19,6 +19,8 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.bundles.ktor.client)
             implementation(libs.arrow.core)
+            implementation(libs.arrow.resilience)
+            implementation(libs.arrow.resilience.ktor.client)
         }
     }
 }

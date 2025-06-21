@@ -42,6 +42,8 @@ class IncomeViewModel(
     }
 
     suspend fun PipelineContext<IncomeState, IncomeIntent, IncomeAction>.retryInit() {
+        updateState { IncomeState.Loading }
+
         val income = withContext(Dispatchers.IO) {
             getIncomeToday().fold(
                 ifLeft = { IncomeState.Error.Initial },
