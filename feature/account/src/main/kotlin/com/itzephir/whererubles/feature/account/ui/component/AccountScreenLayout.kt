@@ -92,4 +92,3 @@ private fun AccountScreenLayoutPreview(
         AccountScreenLayout(state)
     }
 }
-

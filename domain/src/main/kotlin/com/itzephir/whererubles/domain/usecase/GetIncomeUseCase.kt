@@ -15,7 +15,7 @@ class GetIncomeUseCase(
     ): IncomeList {
         val transactions = transactionRepository.readByAccount(accountId, period)
         val income = transactions.filter { it.category.isIncome }
-        val total = income.fold(initial = 0.0) { acc, it -> acc + it.amount.toDouble() }
+        val total = income.fold(initial = 0.0) { acc, income -> acc + income.amount.toDouble() }
             .let { String.format(Locale.US, "%.2f", it) }
         return IncomeList(total, income)
     }

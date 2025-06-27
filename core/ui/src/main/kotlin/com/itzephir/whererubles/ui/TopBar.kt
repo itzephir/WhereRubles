@@ -31,5 +31,4 @@ fun TopBar(
             titleContentColor = MaterialTheme.colorScheme.onSurface,
         )
     )
-
 }

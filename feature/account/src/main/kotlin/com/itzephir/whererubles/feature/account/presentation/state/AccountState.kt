@@ -12,7 +12,6 @@ sealed interface AccountState: MVIState, Parcelable {
         val id: AccountId,
         val balance: String,
         val currency: String,
-        // TODO: add more fields for graph implementation
     ): AccountState
 
     sealed interface Error: AccountState{

@@ -44,7 +44,7 @@ class ExpensesViewModel(
         }
     }
 
-    suspend fun PipelineContext<ExpensesState, ExpensesIntent, ExpensesAction>.retryInit() {
+    private suspend fun PipelineContext<ExpensesState, ExpensesIntent, ExpensesAction>.retryInit() {
         updateState { ExpensesState.Loading }
 
         val expenses = withContext(Dispatchers.IO) {
@@ -53,6 +53,7 @@ class ExpensesViewModel(
                 ifRight = ExpensesToday::toExpensesState
             )
         }
+
         updateState { expenses }
     }
 }

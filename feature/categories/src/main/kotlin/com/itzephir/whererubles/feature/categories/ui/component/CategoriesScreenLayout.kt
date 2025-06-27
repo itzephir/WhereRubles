@@ -51,6 +51,7 @@ fun CategoriesScreenLayout(
     }
 }
 
+@Suppress("MagicNumber")
 private val categories = listOf(
     Category(
         id = CategoryId(0),

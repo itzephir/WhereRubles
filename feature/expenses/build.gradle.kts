@@ -45,7 +45,6 @@ dependencies {
     implementation(projects.core.ui.theme)
 
     implementation(projects.domain)
-    implementation(projects.data.transaction)
 
     implementation(projects.feature.expenses.domain)
     implementation(projects.feature.expenses.data)
