@@ -7,7 +7,6 @@ import com.itzephir.whererubles.feature.income.domain.model.AccountId
 import com.itzephir.whererubles.feature.income.domain.repository.AccountRepository
 import io.ktor.client.HttpClient
 
-// TODO: replace with datastore implementation to not handle first account
 class RemoteAccountRepository(private val httpClient: HttpClient) : AccountRepository {
     override suspend fun current(): AccountId? = httpClient.readAccounts().fold(
         ifLeft = { emptyList<Account>() },

@@ -27,8 +27,8 @@ class GetExpensesByPeriodUseCase(
             end = end,
         ).mapLeft(ExpensesByAccountAndPeriodError::toExpensesByPeriodError).bind()
 
-        val totalAmount = expenses.fold(initial = 0.0) { acc, it ->
-            acc + it.amount.toDouble()
+        val totalAmount = expenses.fold(initial = 0.0) { acc, expense ->
+            acc + expense.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
         ExpensesByPeriod(totalAmount, start, end, expenses)

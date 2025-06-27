@@ -105,6 +105,7 @@ internal fun ExpensesScreenLayout(
     }
 }
 
+@Suppress("MagicNumber")
 private val expenses = listOf(
     Expense(
         id = ExpenseId(0),

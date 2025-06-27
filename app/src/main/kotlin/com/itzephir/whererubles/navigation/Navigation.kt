@@ -5,11 +5,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.itzephir.whererubles.navigation.AppGraph.Account.account
-import com.itzephir.whererubles.navigation.AppGraph.Categories.categories
-import com.itzephir.whererubles.navigation.AppGraph.Expenses.expenses
-import com.itzephir.whererubles.navigation.AppGraph.Income.income
-import com.itzephir.whererubles.navigation.AppGraph.Settings.settings
+import com.itzephir.whererubles.navigation.AppGraph.Account.accountNavDestination
+import com.itzephir.whererubles.navigation.AppGraph.Categories.categoriesNavDestination
+import com.itzephir.whererubles.navigation.AppGraph.Expenses.expensesNavDestination
+import com.itzephir.whererubles.navigation.AppGraph.Income.incomeNavDestination
+import com.itzephir.whererubles.navigation.AppGraph.Settings.settingsNavDestination
 
 @Composable
 fun Navigation(
@@ -21,10 +21,10 @@ fun Navigation(
         startDestination = AppGraph.Expenses,
         modifier = modifier,
     ) {
-        expenses()
-        income()
-        account()
-        categories()
-        settings()
+        expensesNavDestination()
+        incomeNavDestination()
+        accountNavDestination()
+        categoriesNavDestination()
+        settingsNavDestination()
     }
 }

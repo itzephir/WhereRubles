@@ -15,7 +15,7 @@ class GetExpensesUseCase(
     ): ExpensesList {
         val transactions = transactionRepository.readByAccount(accountId, period)
         val expenses = transactions.filterNot { it.category.isIncome }
-        val total = expenses.fold(initial = 0.0) { acc, it -> acc + it.amount.toDouble() }.also { println(it) }
+        val total = expenses.fold(initial = 0.0) { acc, expense -> acc + expense.amount.toDouble() }
             .let { String.format(Locale.US, "%.2f", it) }
         return ExpensesList(total, expenses)
     }

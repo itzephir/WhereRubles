@@ -47,7 +47,7 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle() = "Расходы"
 
-        fun NavGraphBuilder.expenses() {
+        fun NavGraphBuilder.expensesNavDestination() {
             composable<Expenses> {
                 val applicationContext = LocalContext.current.applicationContext
 
@@ -77,7 +77,7 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Доходы"
 
-        fun NavGraphBuilder.income() {
+        fun NavGraphBuilder.incomeNavDestination() {
             composable<Income> {
                 val applicationContext = LocalContext.current.applicationContext
 
@@ -107,7 +107,7 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Счет"
 
-        fun NavGraphBuilder.account() {
+        fun NavGraphBuilder.accountNavDestination() {
             composable<Account> {
                 val applicationContext = LocalContext.current.applicationContext
 
@@ -137,7 +137,7 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Статьи"
 
-        fun NavGraphBuilder.categories() {
+        fun NavGraphBuilder.categoriesNavDestination() {
             composable<Categories> {
                 CategoriesScreen()
             }
@@ -157,7 +157,7 @@ sealed interface AppGraph {
         @Composable
         override fun shortTitle(): String = "Настройки"
 
-        fun NavGraphBuilder.settings() {
+        fun NavGraphBuilder.settingsNavDestination() {
             composable<Settings> {
                 SettingsScreen()
             }
