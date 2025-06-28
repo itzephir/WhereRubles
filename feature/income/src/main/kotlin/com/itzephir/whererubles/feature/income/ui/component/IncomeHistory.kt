@@ -23,6 +23,11 @@ import com.itzephir.whererubles.ui.SingleItemColors.Companion.singleItemColors
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 import kotlinx.datetime.Clock
 
+/**
+ * It is the same layout as ExpenseHistory.
+ * The reason for this copy-paste is to prevent any difficult changes when the history layouts will
+ * be changed independently
+ */
 @Composable
 fun IncomeHistory(
     start: String,
