@@ -27,6 +27,7 @@ rootProject.name = "WhereRubles"
 include(":app")
 include(":core:common")
 include(":core:format")
+include(":core:navigation")
 include(":core:ui")
 include(":core:ui:theme")
 include(":core:network")

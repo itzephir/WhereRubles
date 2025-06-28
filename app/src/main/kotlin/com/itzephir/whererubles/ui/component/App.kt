@@ -15,8 +15,9 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.itzephir.whererubles.navigation.AppGraph
-import com.itzephir.whererubles.navigation.Navigation
+import com.itzephir.whererubles.core.navigation.AppGraph
+import com.itzephir.whererubles.core.navigation.Navigation
+import com.itzephir.whererubles.di.appModule
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 
 @Composable
@@ -45,6 +46,7 @@ fun App() {
                 contentWindowInsets = WindowInsets.ime,
             ) { innerPadding ->
                 Navigation(
+                    sharedModule = appModule,
                     navHostController = navController,
                     modifier = Modifier
                         .padding(innerPadding)

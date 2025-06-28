@@ -59,12 +59,7 @@ dependencies {
     implementation(projects.core.ui.theme)
 
     implementation(projects.core.network)
-
-    implementation(projects.feature.expenses)
-    implementation(projects.feature.income)
-    implementation(projects.feature.account)
-    implementation(projects.feature.categories)
-    implementation(projects.feature.settings)
+    implementation(projects.core.navigation)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)

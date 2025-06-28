@@ -1,4 +1,4 @@
-package com.itzephir.whererubles.navigation
+package com.itzephir.whererubles.core.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -8,8 +8,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.itzephir.whererubles.app.R
-import com.itzephir.whererubles.di.appModule
 import com.itzephir.whererubles.expenses.di.ExpensesContext
 import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
 import com.itzephir.whererubles.feature.account.di.AccountContext
@@ -19,6 +17,7 @@ import com.itzephir.whererubles.feature.income.di.IncomeContext
 import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
 import com.itzephir.whererubles.feature.settings.ui.screen.SettingsScreen
 import kotlinx.serialization.Serializable
+import org.koin.core.module.Module
 
 /**
  * Graph for main navigation
@@ -53,14 +52,14 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle() = "Расходы"
 
-        fun NavGraphBuilder.expensesNavDestination() {
+        fun NavGraphBuilder.expensesNavDestination(sharedModule: Module) {
             composable<Expenses> {
                 val applicationContext = LocalContext.current.applicationContext
 
                 val expensesContext = remember {
                     ExpensesContext(
                         applicationContext = applicationContext,
-                        parentModule = appModule,
+                        parentModule = sharedModule,
                     )
                 }
 
@@ -86,14 +85,14 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Доходы"
 
-        fun NavGraphBuilder.incomeNavDestination() {
+        fun NavGraphBuilder.incomeNavDestination(sharedModule: Module) {
             composable<Income> {
                 val applicationContext = LocalContext.current.applicationContext
 
                 val incomeContext = remember {
                     IncomeContext(
                         applicationContext = applicationContext,
-                        parentModule = appModule,
+                        parentModule = sharedModule,
                     )
                 }
 
@@ -119,14 +118,14 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Счет"
 
-        fun NavGraphBuilder.accountNavDestination() {
+        fun NavGraphBuilder.accountNavDestination(sharedModule: Module) {
             composable<Account> {
                 val applicationContext = LocalContext.current.applicationContext
 
                 val accountContext = remember {
                     AccountContext(
                         applicationContext = applicationContext,
-                        parentModule = appModule,
+                        parentModule = sharedModule,
                     )
                 }
 
