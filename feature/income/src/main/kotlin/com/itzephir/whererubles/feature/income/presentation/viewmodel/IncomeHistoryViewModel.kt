@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.feature.income.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.itzephir.whererubles.feature.income.domain.model.IncomeByPeriod
@@ -10,6 +11,7 @@ import com.itzephir.whererubles.feature.income.presentation.mapper.toIncomeHisto
 import com.itzephir.whererubles.feature.income.presentation.state.IncomeHistoryState
 import com.itzephir.whererubles.feature.income.presentation.store.IncomeHistoryStore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Instant
@@ -48,11 +50,17 @@ class IncomeHistoryViewModel(
     suspend fun PipelineContext<IncomeHistoryState, IncomeHistoryIntent, IncomeHistoryAction>.retryInitial() {
         updateState { IncomeHistoryState.Loading(start, end) }
 
-        val incomeHistory = withContext(Dispatchers.IO) {
-            getIncomeByPeriod(state.start, state.end).fold(
-                ifLeft = { IncomeHistoryState.Error.Initial(state.start, state.end) },
-                ifRight = IncomeByPeriod::toIncomeHistory
-            )
+        val incomeHistory = runCatching {
+            withContext(Dispatchers.IO) {
+                getIncomeByPeriod(state.start, state.end).fold(
+                    ifLeft = { IncomeHistoryState.Error.Initial(state.start, state.end) },
+                    ifRight = IncomeByPeriod::toIncomeHistory
+                )
+            }
+        }.getOrElse {
+            coroutineContext.ensureActive()
+            Log.e("IncomeHistoryViewModel", "Exception", it)
+            IncomeHistoryState.Error.Initial(state.start, state.end)
         }
 
         updateState { incomeHistory }

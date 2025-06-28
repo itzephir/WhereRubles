@@ -60,7 +60,7 @@ class ExpensesViewModel(
             }
         }.getOrElse {
             coroutineContext.ensureActive()
-            Log.w("ExpensesViewModel", "Exception", it)
+            Log.e("ExpensesViewModel", "Exception", it)
             ExpensesState.Error.Initial
         }
 

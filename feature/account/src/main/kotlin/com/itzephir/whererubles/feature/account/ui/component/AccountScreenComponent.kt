@@ -12,5 +12,7 @@ fun AccountScreenComponent(
 ) {
     val state by viewModel.subscribe()
 
-    AccountScreenLayout(state)
+    AccountScreenLayout(state, onErrorRetry = {
+        viewModel.retry()
+    })
 }
