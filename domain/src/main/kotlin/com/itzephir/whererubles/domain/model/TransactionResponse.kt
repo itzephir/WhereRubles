@@ -2,6 +2,9 @@ package com.itzephir.whererubles.domain.model
 
 import kotlinx.datetime.Instant
 
+/**
+ * TransactionResponse entity
+ */
 data class TransactionResponse(
     val id: TransactionId,
     val account: AccountBrief,

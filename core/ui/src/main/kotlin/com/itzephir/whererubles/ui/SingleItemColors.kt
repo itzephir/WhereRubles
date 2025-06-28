@@ -5,12 +5,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 
+/**
+ * Entity to represent all used colors in [SingleItem]
+ */
 @Stable
 data class SingleItemColors(
     val background: Color,
     val emojiBackground: Color,
     val textColor: Color,
 ) {
+    /**
+     * Companion for extensions and generator functions
+     */
     companion object {
         @Stable
         @Composable

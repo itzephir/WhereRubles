@@ -8,7 +8,10 @@ import com.itzephir.whererubles.feature.expenses.domain.repository.AccountReposi
 import io.ktor.client.HttpClient
 import kotlin.collections.firstOrNull
 
-// TODO: replace with datastore implementation to not handle first account
+/**
+ * Repository for setup account
+ * @param httpClient client for http calls
+ */
 class RemoteAccountRepository(private val httpClient: HttpClient) : AccountRepository {
     override suspend fun current(): AccountId? = httpClient.readAccounts().fold(
         ifLeft = { emptyList<Account>() },

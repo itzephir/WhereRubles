@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.itzephir.whererubles.navigation.AppGraph
+import com.itzephir.whererubles.core.navigation.AppGraph
 
 @Composable
 internal fun BottomNavigation(

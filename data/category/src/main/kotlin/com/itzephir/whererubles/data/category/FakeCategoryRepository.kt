@@ -4,7 +4,12 @@ import com.itzephir.whererubles.domain.model.Category
 import com.itzephir.whererubles.domain.model.CategoryId
 import com.itzephir.whererubles.domain.repository.CategoryRepository
 
+/**
+ * Fake implementation to mock categories
+ */
+@Suppress("MagicNumber")
 class FakeCategoryRepository : CategoryRepository {
+    @Suppress("LongMethod")
     override suspend fun readAll(): List<Category> = listOf(
         Category(
             id = CategoryId(0),

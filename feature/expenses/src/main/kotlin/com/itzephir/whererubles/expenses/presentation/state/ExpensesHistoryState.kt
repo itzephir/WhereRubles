@@ -11,7 +11,9 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.TypeParceler
 import pro.respawn.flowmvi.api.MVIState
 
-
+/**
+ * State of expenses history screen
+ */
 sealed interface ExpensesHistoryState : Parcelable, MVIState {
     val start: Instant
     val end: Instant
@@ -26,6 +28,9 @@ sealed interface ExpensesHistoryState : Parcelable, MVIState {
     val endString: String
         get() = end.formatDate()
 
+    /**
+     * Show history
+     */
     @Parcelize
     @TypeParceler<Instant, InstantParceler>()
     data class ExpensesHistory(
@@ -35,7 +40,14 @@ sealed interface ExpensesHistoryState : Parcelable, MVIState {
         val expenses: List<Expense>,
     ) : ExpensesHistoryState
 
+    /**
+     * Show error
+     */
     sealed interface Error : ExpensesHistoryState {
+
+        /**
+         * Error on initial loading
+         */
         @Parcelize
         @TypeParceler<Instant, InstantParceler>()
         data class Initial(
@@ -44,6 +56,9 @@ sealed interface ExpensesHistoryState : Parcelable, MVIState {
         ) : Error
     }
 
+    /**
+     * Show loading
+     */
     @Parcelize
     @TypeParceler<Instant, InstantParceler>()
     data class Loading(

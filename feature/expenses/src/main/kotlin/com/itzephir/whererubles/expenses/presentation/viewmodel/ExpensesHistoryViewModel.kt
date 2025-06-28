@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.expenses.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.itzephir.whererubles.expenses.presentation.action.ExpensesHistoryAction
@@ -10,6 +11,7 @@ import com.itzephir.whererubles.expenses.presentation.store.ExpensesHistoryStore
 import com.itzephir.whererubles.feature.expenses.domain.model.ExpensesByPeriod
 import com.itzephir.whererubles.feature.expenses.domain.usecase.GetExpensesByPeriodUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Instant
@@ -18,6 +20,9 @@ import pro.respawn.flowmvi.api.PipelineContext
 import pro.respawn.flowmvi.dsl.intent
 import pro.respawn.flowmvi.dsl.state
 
+/**
+ * ViewModel of expenses history screen
+ */
 class ExpensesHistoryViewModel(
     savedStateHandle: SavedStateHandle,
     private val getExpensesByPeriod: GetExpensesByPeriodUseCase,
@@ -45,11 +50,17 @@ class ExpensesHistoryViewModel(
     suspend fun PipelineContext<ExpensesHistoryState, ExpensesHistoryIntent, ExpensesHistoryAction>.retryInitial() {
         updateState { ExpensesHistoryState.Loading(start, end) }
 
-        val expensesHistory = withContext(Dispatchers.IO) {
-            getExpensesByPeriod(state.start, state.end).fold(
-                ifLeft = { ExpensesHistoryState.Error.Initial(state.start, state.end) },
-                ifRight = ExpensesByPeriod::toExpensesHistory
-            )
+        val expensesHistory = runCatching {
+            withContext(Dispatchers.IO) {
+                getExpensesByPeriod(state.start, state.end).fold(
+                    ifLeft = { ExpensesHistoryState.Error.Initial(state.start, state.end) },
+                    ifRight = ExpensesByPeriod::toExpensesHistory
+                )
+            }
+        }.getOrElse {
+            coroutineContext.ensureActive()
+            Log.e("ExpensesHistoryViewModel", "Exception", it)
+            ExpensesHistoryState.Error.Initial(state.start, state.end)
         }
 
         updateState { expensesHistory }

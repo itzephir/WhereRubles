@@ -16,6 +16,11 @@ import kotlinx.datetime.toLocalDateTime
 import java.util.Locale
 import kotlin.time.Duration.Companion.days
 
+/**
+ * Use case for getting today expenses
+ * @param accountRepository repository for interacting with account
+ * @param expensesRepository repository for interacting with expenses
+ */
 class GetExpensesTodayUseCase(
     private val accountRepository: AccountRepository,
     private val expensesRepository: ExpensesRepository,
@@ -30,8 +35,8 @@ class GetExpensesTodayUseCase(
             end = endOfTheDay(),
         ).mapLeft(ExpensesByAccountAndPeriodError::toExpensesTodayError).bind()
 
-        val totalAmount = expenses.fold(initial = 0.0) { acc, it ->
-            acc + it.amount.toDouble()
+        val totalAmount = expenses.fold(initial = 0.0) { acc, expense ->
+            acc + expense.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
         ExpensesToday(totalAmount, expenses)

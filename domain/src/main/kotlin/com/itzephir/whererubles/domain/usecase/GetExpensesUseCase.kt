@@ -6,6 +6,9 @@ import com.itzephir.whererubles.domain.model.ExpensesList
 import com.itzephir.whererubles.domain.repository.TransactionRepository
 import java.util.Locale
 
+/**
+ * Use case to get all expenses
+ */
 class GetExpensesUseCase(
     private val transactionRepository: TransactionRepository,
 ) {
@@ -15,7 +18,7 @@ class GetExpensesUseCase(
     ): ExpensesList {
         val transactions = transactionRepository.readByAccount(accountId, period)
         val expenses = transactions.filterNot { it.category.isIncome }
-        val total = expenses.fold(initial = 0.0) { acc, it -> acc + it.amount.toDouble() }.also { println(it) }
+        val total = expenses.fold(initial = 0.0) { acc, expense -> acc + expense.amount.toDouble() }
             .let { String.format(Locale.US, "%.2f", it) }
         return ExpensesList(total, expenses)
     }

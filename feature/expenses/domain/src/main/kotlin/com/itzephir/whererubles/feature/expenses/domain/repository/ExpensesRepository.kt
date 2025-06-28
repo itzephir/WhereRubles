@@ -6,6 +6,9 @@ import com.itzephir.whererubles.feature.expenses.domain.model.AccountId
 import com.itzephir.whererubles.feature.expenses.domain.model.Expense
 import kotlinx.datetime.Instant
 
+/**
+ * Expenses Repository contract
+ */
 interface ExpensesRepository {
     suspend fun getByAccountIdAndPeriod(
         accountId: AccountId,

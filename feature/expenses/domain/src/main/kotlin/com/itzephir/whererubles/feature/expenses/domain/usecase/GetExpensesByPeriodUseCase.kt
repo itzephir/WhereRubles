@@ -11,6 +11,11 @@ import com.itzephir.whererubles.feature.expenses.domain.repository.ExpensesRepos
 import kotlinx.datetime.Instant
 import java.util.Locale
 
+/**
+ * Use case for getting expenses by defined period
+ * @param accountRepository repository to interact with account
+ * @param expensesRepository repository to interact with expenses
+ */
 class GetExpensesByPeriodUseCase(
     private val accountRepository: AccountRepository,
     private val expensesRepository: ExpensesRepository,
@@ -27,8 +32,8 @@ class GetExpensesByPeriodUseCase(
             end = end,
         ).mapLeft(ExpensesByAccountAndPeriodError::toExpensesByPeriodError).bind()
 
-        val totalAmount = expenses.fold(initial = 0.0) { acc, it ->
-            acc + it.amount.toDouble()
+        val totalAmount = expenses.fold(initial = 0.0) { acc, expense ->
+            acc + expense.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
         ExpensesByPeriod(totalAmount, start, end, expenses)

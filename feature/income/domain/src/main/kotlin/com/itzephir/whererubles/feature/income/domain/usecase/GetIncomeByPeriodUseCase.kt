@@ -11,6 +11,11 @@ import com.itzephir.whererubles.feature.income.domain.repository.IncomeRepositor
 import kotlinx.datetime.Instant
 import java.util.Locale
 
+/**
+ * Use case for getting income by given period
+ * @param accountRepository repository to interact with account
+ * @param incomeRepository repository to interact with income
+ */
 class GetIncomeByPeriodUseCase(
     private val accountRepository: AccountRepository,
     private val incomeRepository: IncomeRepository,
@@ -27,8 +32,8 @@ class GetIncomeByPeriodUseCase(
             end = end,
         ).mapLeft(IncomeByAccountAndPeriodError::toExpensesByPeriodError).bind()
 
-        val totalAmount = income.fold(initial = 0.0) { acc, it ->
-            acc + it.amount.toDouble()
+        val totalAmount = income.fold(initial = 0.0) { acc, income ->
+            acc + income.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
         IncomeByPeriod(totalAmount, start, end, income)

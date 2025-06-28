@@ -6,6 +6,9 @@ import com.itzephir.whererubles.feature.income.domain.model.AccountId
 import com.itzephir.whererubles.feature.income.domain.model.Income
 import kotlinx.datetime.Instant
 
+/**
+ * Income repository contract
+ */
 interface IncomeRepository {
     suspend fun getByAccountIdAndPeriod(
         accountId: AccountId,
