@@ -8,6 +8,9 @@ import com.itzephir.whererubles.feature.settings.presentation.store.SettingsStor
 import pro.respawn.flowmvi.android.StoreViewModel
 import pro.respawn.flowmvi.dsl.intent
 
+/**
+ * ViewModel for settings screen
+ */
 class SettingsViewModel(
     savedStateHandle: SavedStateHandle,
 ) : StoreViewModel<SettingsState, SettingsIntent, SettingsAction>(

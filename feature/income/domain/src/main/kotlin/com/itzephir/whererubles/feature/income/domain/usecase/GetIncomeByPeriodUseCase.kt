@@ -11,6 +11,11 @@ import com.itzephir.whererubles.feature.income.domain.repository.IncomeRepositor
 import kotlinx.datetime.Instant
 import java.util.Locale
 
+/**
+ * Use case for getting income by given period
+ * @param accountRepository repository to interact with account
+ * @param incomeRepository repository to interact with income
+ */
 class GetIncomeByPeriodUseCase(
     private val accountRepository: AccountRepository,
     private val incomeRepository: IncomeRepository,

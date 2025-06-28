@@ -14,6 +14,9 @@ import kotlinx.coroutines.withContext
 import pro.respawn.flowmvi.android.StoreViewModel
 import kotlin.time.Duration.Companion.seconds
 
+/**
+ * ViewModel for account screen
+ */
 class AccountViewModel(
     savedStateHandle: SavedStateHandle,
     private val getAccount: GetAccountUseCase,

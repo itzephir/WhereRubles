@@ -16,6 +16,11 @@ import kotlinx.datetime.toLocalDateTime
 import java.util.Locale
 import kotlin.time.Duration.Companion.days
 
+/**
+ * Use case for getting today expenses
+ * @param accountRepository repository for interacting with account
+ * @param expensesRepository repository for interacting with expenses
+ */
 class GetExpensesTodayUseCase(
     private val accountRepository: AccountRepository,
     private val expensesRepository: ExpensesRepository,

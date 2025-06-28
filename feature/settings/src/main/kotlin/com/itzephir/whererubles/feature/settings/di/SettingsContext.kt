@@ -8,6 +8,9 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.koinApplication
 import org.koin.dsl.module
 
+/**
+ * Required di context for settings screen
+ */
 class SettingsContext(applicationContext: Context) {
     val koinApplication = koinApplication {
         androidLogger()

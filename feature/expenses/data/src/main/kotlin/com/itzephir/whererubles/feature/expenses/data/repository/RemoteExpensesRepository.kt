@@ -13,6 +13,10 @@ import com.itzephir.whererubles.feature.expenses.domain.repository.ExpensesRepos
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Instant
 
+/**
+ * Repository for setup expenses
+ * @param httpClient client for http calls
+ */
 class RemoteExpensesRepository(private val httpClient: HttpClient) : ExpensesRepository {
     override suspend fun getByAccountIdAndPeriod(
         accountId: AccountId,

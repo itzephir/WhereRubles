@@ -154,7 +154,7 @@ fun SettingsScreenLayout(
     }
 }
 
-class SettingsStateParameterProvider : PreviewParameterProvider<SettingsState> {
+private class SettingsStateParameterProvider : PreviewParameterProvider<SettingsState> {
     override val values: Sequence<SettingsState> = sequenceOf(
         SettingsState(false),
         SettingsState(true),

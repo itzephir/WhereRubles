@@ -2,6 +2,9 @@ package com.itzephir.whererubles.domain.model
 
 import kotlinx.datetime.Instant
 
+/**
+ * TransactionRequest Entity
+ */
 @Suppress("unused")
 data class TransactionRequest(
     val accountId: AccountId,

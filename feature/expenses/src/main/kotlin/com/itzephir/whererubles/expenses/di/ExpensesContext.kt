@@ -7,6 +7,9 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.module.Module
 import org.koin.dsl.koinApplication
 
+/**
+ * Required di context for expenses screen
+ */
 @Stable
 class ExpensesContext(applicationContext: Context, parentModule: Module) {
     val koinApplication = koinApplication {

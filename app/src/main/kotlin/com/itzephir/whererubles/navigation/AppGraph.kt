@@ -20,6 +20,9 @@ import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
 import com.itzephir.whererubles.feature.settings.ui.screen.SettingsScreen
 import kotlinx.serialization.Serializable
 
+/**
+ * Graph for main navigation
+ */
 sealed interface AppGraph {
     @Composable
     @Stable
@@ -33,6 +36,9 @@ sealed interface AppGraph {
     @Stable
     fun shortTitle(): String
 
+    /**
+     * Expenses screen entry
+     */
     @Serializable
     data object Expenses : AppGraph {
         @Composable
@@ -63,6 +69,9 @@ sealed interface AppGraph {
         }
     }
 
+    /**
+     * Income screen entry
+     */
     @Serializable
     data object Income : AppGraph {
         @Composable
@@ -93,6 +102,9 @@ sealed interface AppGraph {
         }
     }
 
+    /**
+     * Account screen entry
+     */
     @Serializable
     data object Account : AppGraph {
         @Composable
@@ -123,6 +135,9 @@ sealed interface AppGraph {
         }
     }
 
+    /**
+     * Categories screen entry
+     */
     @Serializable
     data object Categories : AppGraph {
         @Composable
@@ -144,6 +159,9 @@ sealed interface AppGraph {
         }
     }
 
+    /**
+     * Settings screen entry
+     */
     @Serializable
     data object Settings : AppGraph {
         @Composable
@@ -164,6 +182,10 @@ sealed interface AppGraph {
         }
     }
 
+
+    /**
+     * Companion to combine all routes together
+     */
     companion object {
         val routes = listOf(
             Expenses,

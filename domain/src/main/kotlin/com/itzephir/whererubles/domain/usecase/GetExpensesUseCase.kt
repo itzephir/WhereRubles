@@ -6,6 +6,9 @@ import com.itzephir.whererubles.domain.model.ExpensesList
 import com.itzephir.whererubles.domain.repository.TransactionRepository
 import java.util.Locale
 
+/**
+ * Use case to get all expenses
+ */
 class GetExpensesUseCase(
     private val transactionRepository: TransactionRepository,
 ) {

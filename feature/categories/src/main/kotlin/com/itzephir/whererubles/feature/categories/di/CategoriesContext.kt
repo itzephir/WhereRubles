@@ -6,6 +6,9 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.dsl.koinApplication
 
+/**
+ * Required di context for categories screen
+ */
 @Stable
 class CategoriesContext(applicationContext: Context) {
     val koinApplication = koinApplication {

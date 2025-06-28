@@ -6,7 +6,10 @@ import com.itzephir.whererubles.core.network.account.readAccounts
 import com.itzephir.whererubles.feature.account.domain.repository.AccountRepository
 import io.ktor.client.HttpClient
 
-
+/**
+ * Repository to setup accounts
+ * @param httpClient client for http calls
+ */
 class RemoteAccountRepository(private val httpClient: HttpClient) : AccountRepository {
     override suspend fun getAccounts() =
         httpClient.readAccounts()

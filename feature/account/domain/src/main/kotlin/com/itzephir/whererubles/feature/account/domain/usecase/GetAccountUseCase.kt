@@ -5,6 +5,9 @@ import arrow.core.raise.either
 import com.itzephir.whererubles.feature.account.domain.error.AccountError
 import com.itzephir.whererubles.feature.account.domain.repository.AccountRepository
 
+/**
+ * Use case to get current account
+ */
 class GetAccountUseCase(
     private val accountRepository: AccountRepository,
 ) {

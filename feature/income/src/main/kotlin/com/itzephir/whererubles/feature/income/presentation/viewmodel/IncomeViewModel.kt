@@ -17,6 +17,9 @@ import pro.respawn.flowmvi.api.PipelineContext
 import pro.respawn.flowmvi.dsl.intent
 import pro.respawn.flowmvi.dsl.state
 
+/**
+ * ViewModel for income screen
+ */
 class IncomeViewModel(
     savedStateHandle: SavedStateHandle,
     val getIncomeToday: GetIncomeTodayUseCase,

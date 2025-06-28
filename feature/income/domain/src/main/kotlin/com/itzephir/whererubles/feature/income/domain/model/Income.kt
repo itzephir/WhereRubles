@@ -2,6 +2,9 @@ package com.itzephir.whererubles.feature.income.domain.model
 
 import kotlinx.datetime.Instant
 
+/**
+ * Income entity
+ */
 data class Income(
     val id: IncomeId,
     val title: String,

@@ -75,7 +75,7 @@ fun AccountScreenLayout(
     }
 }
 
-class AccountStateParameterProvider : PreviewParameterProvider<AccountState> {
+private class AccountStateParameterProvider : PreviewParameterProvider<AccountState> {
     override val values: Sequence<AccountState> = sequenceOf(
         Loading,
         Account(id = AccountId(0), balance = "100 000 ₽", currency = "₽"),

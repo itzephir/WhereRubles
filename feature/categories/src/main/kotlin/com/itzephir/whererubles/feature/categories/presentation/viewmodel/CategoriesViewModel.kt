@@ -16,6 +16,9 @@ import pro.respawn.flowmvi.android.StoreViewModel
 import pro.respawn.flowmvi.dsl.intent
 import kotlin.time.Duration.Companion.seconds
 
+/**
+ * ViewModel of categories screen
+ */
 class CategoriesViewModel(
     savedStateHandle: SavedStateHandle,
     private val getCategories: GetCategoriesUseCase,

@@ -13,6 +13,10 @@ import com.itzephir.whererubles.feature.income.domain.repository.IncomeRepositor
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Instant
 
+/**
+ * Repository for setup income
+ * @param httpClient client for http calls
+ */
 class RemoteIncomeRepository(private val httpClient: HttpClient) : IncomeRepository {
     override suspend fun getByAccountIdAndPeriod(
         accountId: AccountId,

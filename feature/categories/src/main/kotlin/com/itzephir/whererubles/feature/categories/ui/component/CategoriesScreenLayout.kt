@@ -100,7 +100,7 @@ private val categories = listOf(
     ),
 )
 
-class CategoriesStateParameterProvider : PreviewParameterProvider<CategoriesState> {
+private class CategoriesStateParameterProvider : PreviewParameterProvider<CategoriesState> {
     override val values: Sequence<CategoriesState> = sequenceOf(
         Loading,
         Categories(searchState = SearchState(""), categories = emptyList()),

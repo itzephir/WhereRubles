@@ -10,6 +10,9 @@ import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.TypeParceler
 
+/**
+ * Income entity
+ */
 @Parcelize
 @TypeParceler<Instant, InstantParceler>()
 @Immutable

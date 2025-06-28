@@ -5,6 +5,9 @@ import com.itzephir.whererubles.domain.model.AccountResponse
 import com.itzephir.whererubles.domain.repository.AccountRepository
 import kotlinx.datetime.Instant
 
+/**
+ * Fake account implementation for mocking data
+ */
 class FakeAccountRepository : AccountRepository {
     override suspend fun readById(accountId: AccountId): AccountResponse = AccountResponse(
         id = AccountId(0),

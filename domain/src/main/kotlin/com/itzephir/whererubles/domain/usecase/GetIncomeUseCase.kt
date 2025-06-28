@@ -6,6 +6,9 @@ import com.itzephir.whererubles.domain.model.IncomeList
 import com.itzephir.whererubles.domain.repository.TransactionRepository
 import java.util.Locale
 
+/**
+ * Use case to get all income
+ */
 class GetIncomeUseCase(
     private val transactionRepository: TransactionRepository,
 ) {

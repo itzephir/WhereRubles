@@ -122,7 +122,7 @@ private val income = listOf(
     ),
 )
 
-class IncomeStateParameterProvider : PreviewParameterProvider<IncomeState> {
+private class IncomeStateParameterProvider : PreviewParameterProvider<IncomeState> {
     override val values: Sequence<IncomeState> = sequenceOf(
         IncomeState.Loading,
         IncomeState.Income(total = "0₽", income = emptyList()),
