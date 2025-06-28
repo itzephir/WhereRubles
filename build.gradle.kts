@@ -1,5 +1,4 @@
 import io.gitlab.arturbosch.detekt.Detekt
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
@@ -20,13 +19,10 @@ subprojects {
             plugin(libs.plugins.detekt.get().pluginId)
         }
 
-
         detekt {
             toolVersion = libs.versions.detekt.get()
             buildUponDefaultConfig = true
         }
-
-
 
         tasks.withType<Detekt>().configureEach {
             jvmTarget = "17"
