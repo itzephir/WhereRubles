@@ -148,7 +148,8 @@ complexity:
     ignoreArgumentsMatchingNames: false
   NestedBlockDepth:
     active: true
-    threshold: 4
+    threshold: 2
+    ignoreAnnotated: [ 'Composable' ]
   NestedScopeFunctions:
     active: false
     threshold: 1
