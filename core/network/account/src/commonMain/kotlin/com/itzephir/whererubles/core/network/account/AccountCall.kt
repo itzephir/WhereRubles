@@ -78,7 +78,6 @@ suspend fun HttpClient.updateAccountById(
     account: AccountUpdateRequest,
 ): Either<AccountError.UpdateByIdError, Account> = either {
     try {
-        println("wtf")
         put("accounts/${id.value}") {
             contentType(ContentType.Application.Json)
             setBody(account)

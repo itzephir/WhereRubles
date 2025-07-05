@@ -58,8 +58,6 @@ class ExpensesViewModel(
             ExpensesState.Error.Initial
         }
 
-        println(expenses)
-
         updateState { expenses }
     }
 }

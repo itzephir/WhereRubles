@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.feature.categories.presentation.store
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.itzephir.whererubles.feature.categories.presentation.action.CategoriesAction
 import com.itzephir.whererubles.feature.categories.presentation.intent.CategoriesIntent
@@ -9,6 +10,7 @@ import pro.respawn.flowmvi.api.Store
 import pro.respawn.flowmvi.dsl.reduceLambdas
 import pro.respawn.flowmvi.dsl.store
 import pro.respawn.flowmvi.plugins.init
+import pro.respawn.flowmvi.plugins.recover
 import pro.respawn.flowmvi.savedstate.plugins.parcelizeState
 
 typealias CategoriesStore = Store<CategoriesState, CategoriesIntent, CategoriesAction>
@@ -21,6 +23,14 @@ fun CategoriesStore(
         parcelizeState(savedStateHandle)
 
         init(init)
+
+        recover {
+            Log.e("Categories Store Recover", "Exception", it)
+            updateState {
+                CategoriesState.Error.Initial
+            }
+            null
+        }
 
         reduceLambdas()
     }

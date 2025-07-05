@@ -12,5 +12,9 @@ fun CategoriesScreenComponent(
 ) {
     val state by viewModel.subscribe()
 
-    CategoriesScreenLayout(state = state, onSearchStateChanged = viewModel::updateSearchState)
+    CategoriesScreenLayout(
+        state = state,
+        onSearchStateChanged = viewModel::updateSearchState,
+        onErrorRetry = viewModel::retry,
+    )
 }

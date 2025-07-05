@@ -46,7 +46,12 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.data.category)
 
+    implementation(projects.feature.categories.domain)
+    implementation(projects.feature.categories.data)
+
     implementation(libs.kotlinx.datetime)
+
+    implementation(libs.arrow.core)
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -68,4 +73,6 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
+
+    implementation(libs.ktor.client.core)
 }

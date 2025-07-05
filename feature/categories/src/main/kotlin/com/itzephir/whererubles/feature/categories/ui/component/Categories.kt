@@ -70,7 +70,7 @@ fun Categories(
         )
 
         LazyColumn(modifier = Modifier.weight(1f)) {
-            items(items = categories.categories, key = { it.id }) { expense ->
+            items(items = categories.filtered, key = { it.id }) { expense ->
                 CategoryItem(
                     category = expense,
                     modifier = Modifier
@@ -95,7 +95,14 @@ private fun CategoriesPreview() {
                         icon = "\uD83D\uDE08",
                         title = "Расхоооод",
                     )
-                )
+                ),
+                filtered = listOf(
+                    Category(
+                        id = CategoryId(0),
+                        icon = "\uD83D\uDE08",
+                        title = "Расхоооод",
+                    )
+                ),
             ),
             modifier = Modifier.fillMaxSize(),
             onSearchStateChanged = {},

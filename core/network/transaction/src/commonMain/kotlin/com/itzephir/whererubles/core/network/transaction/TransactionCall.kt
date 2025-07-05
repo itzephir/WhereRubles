@@ -113,9 +113,7 @@ suspend fun HttpClient.readTransactionsByAccountIdAndPeriod(
                 start?.let { parameter(key = "startDate", value = start.format()) }
                 end?.let { parameter(key = "endDate", value = end.format()) }
             }
-        }.body<List<TransactionResponse>>().also {
-            println(it)
-        }
+        }.body()
     } catch (e: ClientRequestException) {
         e.printStackTrace()
         when (e.response.status) {

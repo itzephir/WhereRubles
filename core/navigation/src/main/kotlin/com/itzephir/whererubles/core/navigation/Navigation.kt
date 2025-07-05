@@ -26,7 +26,7 @@ fun Navigation(
         expensesNavDestination(sharedModule)
         incomeNavDestination(sharedModule)
         accountNavDestination(sharedModule)
-        categoriesNavDestination()
+        categoriesNavDestination(sharedModule)
         settingsNavDestination()
     }
 }

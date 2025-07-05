@@ -12,6 +12,7 @@ import com.itzephir.whererubles.expenses.di.ExpensesContext
 import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
 import com.itzephir.whererubles.feature.account.di.AccountContext
 import com.itzephir.whererubles.feature.account.ui.screen.AccountScreen
+import com.itzephir.whererubles.feature.categories.di.CategoriesContext
 import com.itzephir.whererubles.feature.categories.ui.screen.CategoriesScreen
 import com.itzephir.whererubles.feature.income.di.IncomeContext
 import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
@@ -151,9 +152,18 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Статьи"
 
-        fun NavGraphBuilder.categoriesNavDestination() {
+        fun NavGraphBuilder.categoriesNavDestination(sharedModule: Module) {
             composable<Categories> {
-                CategoriesScreen()
+                val applicationContext = LocalContext.current.applicationContext
+
+                val categoriesContext = remember {
+                    CategoriesContext(
+                        applicationContext = applicationContext,
+                        parentModule = sharedModule,
+                    )
+                }
+
+                CategoriesScreen(categoriesContext)
             }
         }
     }

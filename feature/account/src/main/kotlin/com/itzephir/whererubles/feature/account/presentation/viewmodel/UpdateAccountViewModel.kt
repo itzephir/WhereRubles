@@ -48,8 +48,6 @@ class UpdateAccountViewModel(
     fun update(name: String, balance: String) = intent {
         val accountForm = state as? UpdateAccountState.Form ?: return@intent
 
-        println(accountForm)
-
         updateState { accountForm.copy(name = name, balance = balance) }
     }
 
@@ -60,10 +58,8 @@ class UpdateAccountViewModel(
     fun clear() = viewModelScope.cancel()
 
     fun done() = intent {
-        println(state)
         val accountForm = state as? UpdateAccountState.Form ?: return@intent
 
-        println("wtf2 $accountForm")
         viewModelScope.launch(Dispatchers.IO) {
             updateAccount(
                 com.itzephir.whererubles.feature.account.domain.model.AccountId(

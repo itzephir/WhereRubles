@@ -16,6 +16,7 @@ import com.itzephir.whererubles.feature.categories.presentation.model.SearchStat
 import com.itzephir.whererubles.feature.categories.presentation.state.CategoriesState
 import com.itzephir.whererubles.feature.categories.presentation.state.CategoriesState.Categories
 import com.itzephir.whererubles.feature.categories.presentation.state.CategoriesState.Loading
+import com.itzephir.whererubles.ui.Error
 import com.itzephir.whererubles.ui.TopBar
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 
@@ -23,6 +24,7 @@ import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 fun CategoriesScreenLayout(
     state: CategoriesState,
     onSearchStateChanged: (SearchState) -> Unit,
+    onErrorRetry: () -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -34,18 +36,27 @@ fun CategoriesScreenLayout(
         contentWindowInsets = WindowInsets.ime,
     ) { innerPadding ->
         when (state) {
-            is Loading    -> Loading(
+            is Loading               -> Loading(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
             )
 
-            is Categories -> Categories(
+            is Categories            -> Categories(
                 categories = state,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
                 onSearchStateChanged = onSearchStateChanged,
+            )
+
+            is CategoriesState.Error -> Error(
+                message = "Ошибка",
+                retryMessage = "Повторить",
+                onRetry = onErrorRetry,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
             )
         }
     }
@@ -103,9 +114,9 @@ private val categories = listOf(
 private class CategoriesStateParameterProvider : PreviewParameterProvider<CategoriesState> {
     override val values: Sequence<CategoriesState> = sequenceOf(
         Loading,
-        Categories(searchState = SearchState(""), categories = emptyList()),
-        Categories(searchState = SearchState(""), categories = categories),
-        Categories(searchState = SearchState("blabla"), categories = categories)
+        Categories(searchState = SearchState(""), categories = emptyList(), emptyList()),
+        Categories(searchState = SearchState(""), categories = categories, categories),
+        Categories(searchState = SearchState("blabla"), categories = categories, categories)
     )
 }
 
@@ -115,7 +126,7 @@ private fun CategoriesScreenLayoutPreview(
     @PreviewParameter(CategoriesStateParameterProvider::class) state: CategoriesState,
 ) {
     WhereRublesTheme {
-        CategoriesScreenLayout(state, onSearchStateChanged = {})
+        CategoriesScreenLayout(state, onSearchStateChanged = {}, onErrorRetry = {})
     }
 }
 
