@@ -113,8 +113,11 @@ suspend fun HttpClient.readTransactionsByAccountIdAndPeriod(
                 start?.let { parameter(key = "startDate", value = start.format()) }
                 end?.let { parameter(key = "endDate", value = end.format()) }
             }
-        }.body()
+        }.body<List<TransactionResponse>>().also {
+            println(it)
+        }
     } catch (e: ClientRequestException) {
+        e.printStackTrace()
         when (e.response.status) {
             HttpStatusCode.BadRequest   -> raise(TransactionError.ReadByAccountIdAndPeriodError.WrongFormat)
             HttpStatusCode.Unauthorized -> raise(TransactionError.ReadByAccountIdAndPeriodError.Unauthorized)

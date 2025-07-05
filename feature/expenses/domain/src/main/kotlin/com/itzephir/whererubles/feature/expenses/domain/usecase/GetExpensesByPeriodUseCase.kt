@@ -27,7 +27,7 @@ class GetExpensesByPeriodUseCase(
         val account = accountRepository.current() ?: raise(ExpensesByPeriodError.NoAccount)
 
         val expenses = expensesRepository.getByAccountIdAndPeriod(
-            accountId = account,
+            accountId = account.id,
             start = start,
             end = end,
         ).mapLeft(ExpensesByAccountAndPeriodError::toExpensesByPeriodError).bind()
@@ -36,6 +36,6 @@ class GetExpensesByPeriodUseCase(
             acc + expense.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
-        ExpensesByPeriod(totalAmount, start, end, expenses)
+        ExpensesByPeriod(totalAmount, currency = account.currency,start, end, expenses)
     }
 }

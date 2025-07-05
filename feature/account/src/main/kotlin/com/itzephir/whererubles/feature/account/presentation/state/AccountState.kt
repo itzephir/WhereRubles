@@ -18,6 +18,7 @@ sealed interface AccountState: MVIState, Parcelable {
         val id: AccountId,
         val balance: String,
         val currency: String,
+        val isModalShown: Boolean = false,
     ): AccountState
 
     /**

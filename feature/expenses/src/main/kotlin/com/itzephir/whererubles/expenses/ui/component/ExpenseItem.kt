@@ -1,6 +1,7 @@
 package com.itzephir.whererubles.expenses.ui.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
@@ -27,9 +28,9 @@ fun ExpenseItem(
         infoComment = if (isTimeEnabled) expense.timeString else null,
         trailingIcon = Icons.AutoMirrored.Default.KeyboardArrowRight,
         description = expense.comment,
-        modifier = modifier,
+        modifier = modifier
+            .heightIn(min = 70.dp),
         onClick = {},
-        border = BorderStroke(width = 0.25.dp, color = Color.Gray),
     )
 }
 

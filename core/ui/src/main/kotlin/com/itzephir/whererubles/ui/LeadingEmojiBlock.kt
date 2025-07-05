@@ -33,13 +33,12 @@ fun LeadingEmojiBlock(
                 text = leadingEmoji,
                 style = TextStyle(
                     textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.SemiBold,
                     color = colors.textColor
                 ),
                 autoSize = TextAutoSize.StepBased(
-                    minFontSize = with(LocalDensity.current) { 10.dp.toSp() },
-                    maxFontSize = with(LocalDensity.current) { 20.dp.toSp() },
-                    stepSize = with(LocalDensity.current) { 10.dp.toSp() }
+                    minFontSize = with(LocalDensity.current) { 8.dp.toSp() },
+                    maxFontSize = with(LocalDensity.current) { 16.dp.toSp() },
+                    stepSize = with(LocalDensity.current) { 8.dp.toSp() }
                 )
             )
         }

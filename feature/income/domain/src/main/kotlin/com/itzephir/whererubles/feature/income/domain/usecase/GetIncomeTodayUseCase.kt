@@ -30,7 +30,7 @@ class GetIncomeTodayUseCase(
             accountRepository.current() ?: raise(IncomeTodayError.NoAccount)
 
         val income = incomeRepository.getByAccountIdAndPeriod(
-            account,
+            account.id,
             start = startOfTheDay(),
             end = endOfTheDay(),
         ).mapLeft(IncomeByAccountAndPeriodError::toExpensesTodayError).bind()
@@ -39,7 +39,7 @@ class GetIncomeTodayUseCase(
             acc + income.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
-        IncomeToday(totalAmount, income)
+        IncomeToday(totalAmount, account.currency, income)
     }
 
     private fun startOfTheDay(): Instant {

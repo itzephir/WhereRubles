@@ -1,6 +1,7 @@
 package com.itzephir.whererubles.expenses.ui.component
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import com.itzephir.whererubles.expenses.presentation.viewmodel.ExpensesViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -13,6 +14,13 @@ internal fun ExpensesScreenComponent(
     onFabClick: () -> Unit = {},
 ) {
     val state by viewModel.subscribe()
+
+    DisposableEffect(Unit) {
+        viewModel.init()
+        onDispose {
+            viewModel.clear()
+        }
+    }
 
     ExpensesScreenLayout(
         state,
