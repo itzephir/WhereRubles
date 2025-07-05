@@ -18,6 +18,7 @@ sealed interface CategoriesState : MVIState, Parcelable {
     data class Categories(
         val searchState: SearchState,
         val categories: List<Category>,
+        val filtered: List<Category>,
     ) : CategoriesState
 
     /**
@@ -25,4 +26,9 @@ sealed interface CategoriesState : MVIState, Parcelable {
      */
     @Parcelize
     data object Loading : CategoriesState
+
+    sealed interface Error : CategoriesState {
+        @Parcelize
+        data object Initial : Error
+    }
 }

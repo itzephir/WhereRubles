@@ -6,16 +6,12 @@ import androidx.compose.ui.platform.LocalContext
 import com.itzephir.whererubles.feature.categories.di.CategoriesContext
 import com.itzephir.whererubles.feature.categories.ui.component.CategoriesScreenComponent
 import org.koin.compose.KoinIsolatedContext
+import org.koin.dsl.koinApplication
 
 @Composable
-fun CategoriesScreen() {
-    val applicationContext = LocalContext.current.applicationContext
+fun CategoriesScreen(categoriesContext: CategoriesContext) {
 
-    val categoriesContext = remember { CategoriesContext(applicationContext) }
-
-    val koinApplication = categoriesContext.koinApplication
-
-    KoinIsolatedContext(koinApplication) {
+    KoinIsolatedContext(categoriesContext.koinApplication) {
         CategoriesScreenComponent()
     }
 }

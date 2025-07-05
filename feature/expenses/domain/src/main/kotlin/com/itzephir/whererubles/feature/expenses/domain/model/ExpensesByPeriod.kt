@@ -7,6 +7,7 @@ import kotlinx.datetime.Instant
  */
 data class ExpensesByPeriod(
     val total: String,
+    val currency: String,
     val start: Instant,
     val end: Instant,
     val expenses: List<Expense>,

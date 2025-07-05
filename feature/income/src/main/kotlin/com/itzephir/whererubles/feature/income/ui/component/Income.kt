@@ -30,7 +30,7 @@ fun Income(
             info = total,
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 48.dp),
+                .heightIn(min = 56.dp),
             colors = singleItemColors(
                 background = MaterialTheme.colorScheme.primaryContainer,
                 textColor = MaterialTheme.colorScheme.onSurface,

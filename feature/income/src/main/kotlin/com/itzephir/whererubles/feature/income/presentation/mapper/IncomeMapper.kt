@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.feature.income.presentation.mapper
 
+import com.itzephir.whererubles.core.format.formatAmount
 import com.itzephir.whererubles.feature.income.domain.model.Income
 import com.itzephir.whererubles.feature.income.domain.model.IncomeByPeriod
 import com.itzephir.whererubles.feature.income.domain.model.IncomeToday
@@ -12,19 +13,19 @@ internal fun Income.map(): com.itzephir.whererubles.feature.income.presentation.
         id = IncomeId(id.value),
         icon = emoji,
         title = title,
-        amount = amount,
+        amount = amount.formatAmount(currency),
         time = transactionDate,
         comment = comment,
     )
 
 internal fun IncomeToday.toIncomeState(): IncomeState = IncomeState.Income(
-    total,
+    total.formatAmount(currency),
     income.map(Income::map),
 )
 
 internal fun IncomeByPeriod.toIncomeHistory(): IncomeHistoryState.IncomeHistory =
     IncomeHistoryState.IncomeHistory(
-        total = total,
+        total = total.formatAmount(currency),
         start = start,
         end = end,
         income = income.map { it.map() }

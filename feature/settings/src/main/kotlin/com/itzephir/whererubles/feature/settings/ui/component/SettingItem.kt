@@ -1,17 +1,18 @@
 package com.itzephir.whererubles.feature.settings.ui.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,14 +28,11 @@ fun SettingItem(
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit = {},
 ) {
-    OutlinedCard(
-        modifier = modifier
-            .clickable(enabled = onClick != null) { onClick?.invoke() },
-        shape = RoundedCornerShape(4.dp),
-        border = BorderStroke(0.25.dp, Color.Gray)
-    ) {
+    Column {
         Row(
-            modifier = Modifier
+            modifier = modifier
+                .clickable(enabled = onClick != null) { onClick?.invoke() }
+                .border(BorderStroke(0.dp, Color.Unspecified))
                 .heightIn(min = 56.dp)
                 .padding(horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -43,6 +41,9 @@ fun SettingItem(
             Text(text = title, modifier = Modifier.weight(1f))
             content()
         }
+        HorizontalDivider(
+            color = Color.Gray,
+        )
     }
 }
 

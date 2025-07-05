@@ -3,6 +3,7 @@ package com.itzephir.whererubles.expenses.ui.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,7 +31,7 @@ fun Expenses(
             info = total,
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 48.dp),
+                .heightIn(min = 56.dp),
             colors = singleItemColors(
                 background = MaterialTheme.colorScheme.primaryContainer,
                 textColor = MaterialTheme.colorScheme.onSurface,

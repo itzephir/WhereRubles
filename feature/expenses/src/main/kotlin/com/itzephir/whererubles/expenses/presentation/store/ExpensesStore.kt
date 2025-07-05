@@ -25,10 +25,8 @@ fun ExpensesStore(
         recover {
             Log.e("Expenses Store Recover", "Exception", it)
             updateState {
-                println("cool")
                 ExpensesState.Error.Initial
             }
-            println("cool")
             null
         }
 

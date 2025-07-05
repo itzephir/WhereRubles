@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.itzephir.whererubles.feature.account.presentation.model.AccountId
+import com.itzephir.whererubles.feature.account.presentation.model.Currency
 import com.itzephir.whererubles.feature.account.presentation.state.AccountState
 import com.itzephir.whererubles.feature.account.presentation.state.AccountState.Account
 import com.itzephir.whererubles.feature.account.presentation.state.AccountState.Error
@@ -29,8 +30,12 @@ import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 @Composable
 fun AccountScreenLayout(
     state: AccountState,
+    onCurrencyChange: (Currency) -> Unit = {},
     onActonClick: () -> Unit = {},
     onErrorRetry: () -> Unit = {},
+    openModal: () -> Unit = {},
+    closeModal: () -> Unit = {},
+    onBalance: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -61,6 +66,10 @@ fun AccountScreenLayout(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
+                onChose = onCurrencyChange,
+                openModal = openModal,
+                closeModal = closeModal,
+                onBalance = onBalance,
             )
 
             is Error   -> Error(

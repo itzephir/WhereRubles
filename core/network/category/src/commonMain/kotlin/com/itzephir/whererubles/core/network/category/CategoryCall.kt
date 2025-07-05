@@ -23,7 +23,7 @@ data class Category(
 suspend fun HttpClient.readCategories(): Either<CategoryError.ReadAllError, List<Category>> =
     either {
         try {
-            get("/categories").body()
+            get("categories").body()
         } catch (e: ClientRequestException) {
             when (e.response.status) {
                 HttpStatusCode.Unauthorized -> raise(CategoryError.ReadAllError.Unauthorized)

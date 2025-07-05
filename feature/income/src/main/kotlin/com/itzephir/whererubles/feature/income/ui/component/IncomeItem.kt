@@ -1,11 +1,10 @@
 package com.itzephir.whererubles.feature.income.ui.component
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.itzephir.whererubles.feature.income.presentation.model.Income
@@ -26,9 +25,9 @@ fun IncomeItem(
         infoComment = if (isTimeEnabled) income.timeString else null,
         trailingIcon = Icons.AutoMirrored.Default.KeyboardArrowRight,
         description = income.comment,
-        modifier = modifier,
+        modifier = modifier
+            .heightIn(min = 70.dp),
         onClick = {},
-        border = BorderStroke(width = 0.25.dp, color = Color.Gray),
     )
 }
 

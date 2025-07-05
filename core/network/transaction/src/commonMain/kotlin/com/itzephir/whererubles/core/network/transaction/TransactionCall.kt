@@ -115,6 +115,7 @@ suspend fun HttpClient.readTransactionsByAccountIdAndPeriod(
             }
         }.body()
     } catch (e: ClientRequestException) {
+        e.printStackTrace()
         when (e.response.status) {
             HttpStatusCode.BadRequest   -> raise(TransactionError.ReadByAccountIdAndPeriodError.WrongFormat)
             HttpStatusCode.Unauthorized -> raise(TransactionError.ReadByAccountIdAndPeriodError.Unauthorized)

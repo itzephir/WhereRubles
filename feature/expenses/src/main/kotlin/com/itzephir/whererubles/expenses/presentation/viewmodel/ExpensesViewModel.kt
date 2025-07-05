@@ -11,6 +11,7 @@ import com.itzephir.whererubles.expenses.presentation.store.ExpensesStore
 import com.itzephir.whererubles.feature.expenses.domain.model.ExpensesToday
 import com.itzephir.whererubles.feature.expenses.domain.usecase.GetExpensesTodayUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,19 +27,12 @@ class ExpensesViewModel(
     savedStateHandle: SavedStateHandle,
     private val getExpensesToday: GetExpensesTodayUseCase,
 ) : StoreViewModel<ExpensesState, ExpensesIntent, ExpensesAction>(
-    ExpensesStore(savedStateHandle) {
-        val expenses = withContext(Dispatchers.IO) {
-            getExpensesToday().fold(
-                ifLeft = {
-                    Log.e("ExpensesViewModel", "Error handled: $it")
-                    ExpensesState.Error.Initial
-                },
-                ifRight = ExpensesToday::toExpensesState
-            )
-        }
-        updateState { expenses }
-    },
+    ExpensesStore(savedStateHandle) {},
 ) {
+    fun init() = intent { retryInit() }
+
+    fun clear() = viewModelScope.cancel()
+
     fun retry() = intent {
         val state = state as? ExpensesState.Error ?: return@intent
         viewModelScope.launch {
@@ -55,7 +49,7 @@ class ExpensesViewModel(
             withContext(Dispatchers.IO) {
                 getExpensesToday().fold(
                     ifLeft = { ExpensesState.Error.Initial },
-                    ifRight = ExpensesToday::toExpensesState
+                    ifRight = ExpensesToday::toExpensesState,
                 )
             }
         }.getOrElse {

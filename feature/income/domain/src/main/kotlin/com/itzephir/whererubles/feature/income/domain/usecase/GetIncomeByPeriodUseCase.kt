@@ -27,7 +27,7 @@ class GetIncomeByPeriodUseCase(
         val account = accountRepository.current() ?: raise(IncomeByPeriodError.NoAccount)
 
         val income = incomeRepository.getByAccountIdAndPeriod(
-            accountId = account,
+            accountId = account.id,
             start = start,
             end = end,
         ).mapLeft(IncomeByAccountAndPeriodError::toExpensesByPeriodError).bind()
@@ -36,6 +36,6 @@ class GetIncomeByPeriodUseCase(
             acc + income.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
-        IncomeByPeriod(totalAmount, start, end, income)
+        IncomeByPeriod(totalAmount, account.currency, start, end, income)
     }
 }

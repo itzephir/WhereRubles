@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.expenses.presentation.mapper
 
+import com.itzephir.whererubles.core.format.formatAmount
 import com.itzephir.whererubles.expenses.presentation.model.ExpenseId
 import com.itzephir.whererubles.expenses.presentation.state.ExpensesHistoryState
 import com.itzephir.whererubles.expenses.presentation.state.ExpensesState
@@ -12,19 +13,19 @@ internal fun Expense.map(): com.itzephir.whererubles.expenses.presentation.model
         id = ExpenseId(id.value),
         icon = emoji,
         title = title,
-        amount = amount,
+        amount = amount.formatAmount(currency),
         time = transactionDate,
         comment = comment,
     )
 
 internal fun ExpensesToday.toExpensesState(): ExpensesState.Expenses = ExpensesState.Expenses(
-    total,
-    expenses.map(Expense::map),
+    total = total.formatAmount(currency),
+    expenses = expenses.map(Expense::map),
 )
 
 internal fun ExpensesByPeriod.toExpensesHistory(): ExpensesHistoryState.ExpensesHistory =
     ExpensesHistoryState.ExpensesHistory(
-        total = total,
+        total = total.formatAmount(currency),
         start = start,
         end = end,
         expenses = expenses.map { it.map() }

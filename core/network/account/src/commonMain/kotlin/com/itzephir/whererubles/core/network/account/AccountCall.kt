@@ -56,12 +56,9 @@ suspend fun HttpClient.readAccountById(
     id: Id,
 ): Either<AccountError.ReadByIdError, AccountResponse> = either {
     try {
-        get("accounts") {
-            url {
-                path(id.value.toString())
-            }
-        }.body()
+        get("accounts/${id.value}").body()
     } catch (e: ClientRequestException) {
+        e.printStackTrace()
         when (e.response.status) {
             HttpStatusCode.BadRequest   -> raise(AccountError.ReadByIdError.WrongId)
 
@@ -81,14 +78,12 @@ suspend fun HttpClient.updateAccountById(
     account: AccountUpdateRequest,
 ): Either<AccountError.UpdateByIdError, Account> = either {
     try {
-        put("/accounts") {
-            url {
-                path(id.value.toString())
-            }
+        put("accounts/${id.value}") {
             contentType(ContentType.Application.Json)
             setBody(account)
         }.body()
     } catch (e: ClientRequestException) {
+        e.printStackTrace()
         when (e.response.status) {
             HttpStatusCode.BadRequest   -> raise(AccountError.UpdateByIdError.WrongData)
 
@@ -108,7 +103,7 @@ suspend fun HttpClient.deleteAccountById(
 ): Either<AccountError.DeleteByIdError, Unit> = either {
 
     try {
-        delete("/transactions") {
+        delete("accounts") {
             url {
                 path(id.value.toString())
             }
@@ -134,7 +129,7 @@ suspend fun HttpClient.readAccountHistoryById(
     id: Id,
 ): Either<AccountError.ReadAccountHistoryByIdError, AccountHistoryResponse> = either {
     try {
-        get("/accounts") {
+        get("accounts") {
             url {
                 path(id.value.toString(), "history")
             }

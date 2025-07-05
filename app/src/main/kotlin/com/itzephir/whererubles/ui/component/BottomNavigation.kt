@@ -1,5 +1,7 @@
 package com.itzephir.whererubles.ui.component
 
+import android.net.http.SslCertificate.restoreState
+import android.net.http.SslCertificate.saveState
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -33,7 +35,7 @@ internal fun BottomNavigation(
                     navController.navigate(item) {
                         popUpTo<AppGraph.Expenses> {
                             inclusive = true
-                            saveState = true
+                            saveState = false
                         }
                         launchSingleTop = true
                         restoreState = true

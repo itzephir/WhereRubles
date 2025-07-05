@@ -1,8 +1,10 @@
 package com.itzephir.whererubles.expenses.presentation.viewmodel
 
+import android.R.attr.end
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.itzephir.whererubles.expenses.presentation.action.ExpensesHistoryAction
 import com.itzephir.whererubles.expenses.presentation.intent.ExpensesHistoryIntent
 import com.itzephir.whererubles.expenses.presentation.mapper.toExpensesHistory
@@ -11,6 +13,7 @@ import com.itzephir.whererubles.expenses.presentation.store.ExpensesHistoryStore
 import com.itzephir.whererubles.feature.expenses.domain.model.ExpensesByPeriod
 import com.itzephir.whererubles.feature.expenses.domain.usecase.GetExpensesByPeriodUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,17 +30,12 @@ class ExpensesHistoryViewModel(
     savedStateHandle: SavedStateHandle,
     private val getExpensesByPeriod: GetExpensesByPeriodUseCase,
 ) : StoreViewModel<ExpensesHistoryState, ExpensesHistoryIntent, ExpensesHistoryAction>(
-    ExpensesHistoryStore(savedStateHandle) {
-        val expensesHistory = withContext(Dispatchers.IO) {
-            getExpensesByPeriod(state.start, state.end).fold(
-                ifLeft = { ExpensesHistoryState.Error.Initial(state.start, state.end) },
-                ifRight = ExpensesByPeriod::toExpensesHistory
-            )
-        }
-
-        updateState { expensesHistory }
-    },
+    ExpensesHistoryStore(savedStateHandle) {},
 ) {
+    fun init() = intent { retryInitial() }
+
+    fun clear() = viewModelScope.cancel()
+
     fun retry() = intent {
         val state = state as? ExpensesHistoryState.Error ?: return@intent
         viewModelScope.launch {

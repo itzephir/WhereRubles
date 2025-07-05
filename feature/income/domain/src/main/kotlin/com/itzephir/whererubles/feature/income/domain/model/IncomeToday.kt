@@ -5,5 +5,6 @@ package com.itzephir.whererubles.feature.income.domain.model
  */
 data class IncomeToday(
     val total: String,
+    val currency: String,
     val income: List<Income>
 )
