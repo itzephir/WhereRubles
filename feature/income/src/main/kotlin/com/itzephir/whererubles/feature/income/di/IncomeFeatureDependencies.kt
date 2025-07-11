@@ -1,7 +1,5 @@
 package com.itzephir.whererubles.feature.income.di
 
-import io.ktor.client.HttpClient
+import com.itzephir.whererubles.core.di.NetworkDependencies
 
-interface IncomeFeatureDependencies {
-    val httpClient: HttpClient
-}
+interface IncomeFeatureDependencies: NetworkDependencies

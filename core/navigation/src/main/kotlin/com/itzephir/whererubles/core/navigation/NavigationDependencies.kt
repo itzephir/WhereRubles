@@ -4,8 +4,8 @@ import android.content.Context
 import io.ktor.client.HttpClient
 
 
-interface NavigationDependencies{
-    fun httpClient(): HttpClient
+interface NavigationDependencies {
+    val httpClient: HttpClient
 
-    fun context(): Context
+    val context: Context
 }

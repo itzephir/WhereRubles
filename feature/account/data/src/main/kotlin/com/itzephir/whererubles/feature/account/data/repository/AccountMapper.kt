@@ -4,7 +4,9 @@ import com.itzephir.whererubles.core.network.account.Account
 import com.itzephir.whererubles.core.network.account.AccountError
 import com.itzephir.whererubles.core.network.account.AccountResponse
 import com.itzephir.whererubles.core.network.common.Id
+import com.itzephir.whererubles.feature.account.domain.error.AccountError.GetAccountByIdError
 import com.itzephir.whererubles.feature.account.domain.model.AccountId
+import com.itzephir.whererubles.feature.account.domain.model.AccountResponse.StatItem
 import com.itzephir.whererubles.feature.account.domain.model.Currency
 import com.itzephir.whererubles.feature.account.domain.model.UserId
 
@@ -27,22 +29,20 @@ internal fun Id.toAccountId() =
 internal fun Id.toUserId() =
     UserId(value)
 
-fun AccountResponse.StatItem.map(): com.itzephir.whererubles.feature.account.domain.model.AccountResponse.StatItem =
-    com.itzephir.whererubles.feature.account.domain.model.AccountResponse.StatItem(
-        categoryId = com.itzephir.whererubles.feature.account.domain.model.AccountResponse.StatItem.CategoryId(categoryId.value),
+fun AccountResponse.StatItem.map(): StatItem =
+    StatItem(
+        categoryId = StatItem.CategoryId(categoryId.value),
         categoryName = categoryName,
         emoji = emoji,
         amount = amount,
     )
 
-fun AccountError.ReadByIdError.toGetAccountByIdError(): com.itzephir.whererubles.feature.account.domain.error.AccountError.GetAccountByIdError =
+fun AccountError.ReadByIdError.toGetAccountByIdError(): GetAccountByIdError =
     when (this) {
-        is AccountError.ReadByIdError.Unauthorized -> com.itzephir.whererubles.feature.account.domain.error.AccountError.GetAccountByIdError.Unauthorized
-        is AccountError.ReadByIdError.NotFound     -> com.itzephir.whererubles.feature.account.domain.error.AccountError.GetAccountByIdError.NotFound
-        is AccountError.ReadByIdError.WrongId      -> com.itzephir.whererubles.feature.account.domain.error.AccountError.GetAccountByIdError.WrongFormat
-        is AccountError.ReadByIdError.Else         -> com.itzephir.whererubles.feature.account.domain.error.AccountError.GetAccountByIdError.Else(
-            this.cause
-        )
+        is AccountError.ReadByIdError.Unauthorized -> GetAccountByIdError.Unauthorized
+        is AccountError.ReadByIdError.NotFound     -> GetAccountByIdError.NotFound
+        is AccountError.ReadByIdError.WrongId      -> GetAccountByIdError.WrongFormat
+        is AccountError.ReadByIdError.Else         -> GetAccountByIdError.Else(cause)
     }
 
 fun AccountResponse.map(): com.itzephir.whererubles.feature.account.domain.model.AccountResponse =

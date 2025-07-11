@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.income.common
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeComponents
 import kotlinx.datetime.format.char

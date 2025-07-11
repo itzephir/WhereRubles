@@ -1,9 +1,5 @@
 package com.itzephir.whererubles.feature.account.di
 
-import android.content.Context
-import io.ktor.client.HttpClient
+import com.itzephir.whererubles.core.di.NetworkDependencies
 
-interface AccountFeatureDependencies {
-    fun httpClient(): HttpClient
-    fun context(): Context
-}
+interface AccountFeatureDependencies: NetworkDependencies

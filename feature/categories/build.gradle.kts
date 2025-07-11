@@ -44,12 +44,10 @@ kotlin {
 }
 
 dependencies {
+    implementation(projects.core.di)
     implementation(projects.core.format)
     implementation(projects.core.ui)
     implementation(projects.core.ui.theme)
-
-    implementation(projects.domain)
-    implementation(projects.data.category)
 
     implementation(projects.feature.categories.domain)
     implementation(projects.feature.categories.data)

@@ -45,11 +45,10 @@ kotlin {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.di)
     implementation(projects.core.format)
     implementation(projects.core.ui)
     implementation(projects.core.ui.theme)
-
-    implementation(projects.domain)
 
     implementation(projects.feature.expenses.domain)
     implementation(projects.feature.expenses.data)

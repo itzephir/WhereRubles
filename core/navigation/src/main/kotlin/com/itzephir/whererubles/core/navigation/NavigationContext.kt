@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.core.navigation
 
-import android.content.Context
+import com.itzephir.whererubles.core.di.NetworkDependencies
 import com.itzephir.whererubles.expenses.di.ExpensesFeatureDependencies
 import com.itzephir.whererubles.feature.account.di.AccountFeatureDependencies
 import com.itzephir.whererubles.feature.categories.di.CategoriesFeatureDependencies
@@ -11,13 +11,9 @@ import javax.inject.Inject
 
 class NavigationContext @Inject constructor(
     override val httpClient: HttpClient,
-    private val context: Context,
 ) : AccountFeatureDependencies,
     CategoriesFeatureDependencies,
     ExpensesFeatureDependencies,
     IncomeFeatureDependencies,
-    SettingsFeatureDependencies {
-    override fun httpClient(): HttpClient = httpClient
-
-    override fun context(): Context = context
-}
+    SettingsFeatureDependencies,
+    NetworkDependencies

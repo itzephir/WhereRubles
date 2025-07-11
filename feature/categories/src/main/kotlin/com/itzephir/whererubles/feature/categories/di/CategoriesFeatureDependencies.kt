@@ -1,7 +1,5 @@
 package com.itzephir.whererubles.feature.categories.di
 
-import io.ktor.client.HttpClient
+import com.itzephir.whererubles.core.di.NetworkDependencies
 
-interface CategoriesFeatureDependencies{
-    val httpClient: HttpClient
-}
+interface CategoriesFeatureDependencies: NetworkDependencies

@@ -48,8 +48,6 @@ dependencies {
     implementation(projects.core.ui)
     implementation(projects.core.ui.theme)
 
-    implementation(projects.domain)
-
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
 

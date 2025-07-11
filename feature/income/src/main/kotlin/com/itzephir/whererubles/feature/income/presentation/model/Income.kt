@@ -5,7 +5,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import com.itzephir.whererubles.core.common.InstantParceler
 import com.itzephir.whererubles.feature.income.common.formatTime
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.TypeParceler

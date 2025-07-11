@@ -6,10 +6,6 @@ import io.ktor.client.HttpClient
 import javax.inject.Inject
 
 class AppContext @Inject constructor(
-    val httpClient: HttpClient,
-    val context: Context,
-) : NavigationDependencies {
-    override fun httpClient(): HttpClient = httpClient
-
-    override fun context(): Context = context
-}
+    override val httpClient: HttpClient,
+    override val context: Context,
+) : NavigationDependencies

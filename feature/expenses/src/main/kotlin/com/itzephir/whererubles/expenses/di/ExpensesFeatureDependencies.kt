@@ -1,7 +1,6 @@
 package com.itzephir.whererubles.expenses.di
 
-import io.ktor.client.HttpClient
+import com.itzephir.whererubles.core.di.NetworkDependencies
 
-interface ExpensesFeatureDependencies{
-    val httpClient: HttpClient
-}
+
+interface ExpensesFeatureDependencies: NetworkDependencies
