@@ -5,8 +5,8 @@ import androidx.lifecycle.SavedStateHandle
 import com.itzephir.whererubles.expenses.presentation.action.ExpensesHistoryAction
 import com.itzephir.whererubles.expenses.presentation.intent.ExpensesHistoryIntent
 import com.itzephir.whererubles.expenses.presentation.state.ExpensesHistoryState
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant

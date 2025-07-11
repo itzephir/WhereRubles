@@ -5,8 +5,8 @@ import androidx.lifecycle.SavedStateHandle
 import com.itzephir.whererubles.feature.income.presentation.action.IncomeHistoryAction
 import com.itzephir.whererubles.feature.income.presentation.state.IncomeHistoryState
 import com.itzephir.whererubles.feature.income.presentation.intent.IncomeHistoryIntent
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant

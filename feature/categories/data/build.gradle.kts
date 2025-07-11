@@ -13,4 +13,6 @@ dependencies {
 
     implementation(libs.arrow.core)
     implementation(libs.ktor.client.core)
+
+    implementation(libs.dagger)
 }

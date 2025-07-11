@@ -3,12 +3,11 @@ package com.itzephir.whererubles.feature.income.ui.component
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.itzephir.whererubles.feature.income.presentation.viewmodel.IncomeHistoryViewModel
-import org.koin.compose.viewmodel.koinViewModel
 import pro.respawn.flowmvi.compose.dsl.subscribe
 
 @Composable
 fun IncomeHistoryScreenComponent(
-    viewModel: IncomeHistoryViewModel = koinViewModel(),
+    viewModel: IncomeHistoryViewModel,
     onBackClick: () -> Unit = {},
     onActionClick: () -> Unit = {},
     onFabClick: () -> Unit = {},

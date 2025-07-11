@@ -5,12 +5,13 @@ import com.itzephir.whererubles.feature.income.data.mapper.toAccountId
 import com.itzephir.whererubles.feature.income.domain.model.Account
 import com.itzephir.whererubles.feature.income.domain.repository.AccountRepository
 import io.ktor.client.HttpClient
+import javax.inject.Inject
 
 /**
  * Repository for setup account
  * @param httpClient client for http calls
  */
-class RemoteAccountRepository(private val httpClient: HttpClient) : AccountRepository {
+class RemoteAccountRepository @Inject constructor(private val httpClient: HttpClient) : AccountRepository {
     override suspend fun current(): Account? = httpClient.readAccounts().fold(
         ifLeft = { emptyList() },
         ifRight = { it }

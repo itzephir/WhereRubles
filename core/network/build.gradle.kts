@@ -21,6 +21,8 @@ kotlin {
             implementation(libs.arrow.core)
             implementation(libs.arrow.resilience)
             implementation(libs.arrow.resilience.ktor.client)
+
+            implementation(libs.kotlinx.serialization.core)
         }
     }
 }

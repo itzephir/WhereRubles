@@ -20,6 +20,7 @@ kotlin {
             implementation(projects.core.network.common)
 
             implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.serialization.core)
 
             implementation(libs.bundles.ktor.client)
             implementation(libs.arrow.core)

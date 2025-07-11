@@ -1,21 +1,25 @@
 package com.itzephir.whererubles.feature.settings.ui.screen
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
-import com.itzephir.whererubles.feature.settings.di.SettingsContext
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.itzephir.whererubles.feature.settings.di.DaggerSettingsFeatureComponent
+import com.itzephir.whererubles.feature.settings.di.SettingsFeatureDependencies
+import com.itzephir.whererubles.feature.settings.di.settings.DaggerSettingsComponent
+import com.itzephir.whererubles.feature.settings.presentation.viewmodel.SettingsViewModel
 import com.itzephir.whererubles.feature.settings.ui.component.SettingsScreenComponent
-import org.koin.compose.KoinIsolatedContext
 
 @Composable
-fun SettingsScreen() {
-    val applicationContext = LocalContext.current.applicationContext
+fun SettingsScreen(settingsFeatureDependencies: SettingsFeatureDependencies) {
+    val settingsFeatureComponent =
+        DaggerSettingsFeatureComponent.factory().create(settingsFeatureDependencies)
 
-    val settingsContext = remember { SettingsContext(applicationContext) }
+    val settingsFeatureContext = settingsFeatureComponent.settingsFeatureContext
 
-    val koinApplication = settingsContext.koinApplication
+    val settingsComponent = DaggerSettingsComponent.factory().create(settingsFeatureContext)
 
-    KoinIsolatedContext(koinApplication) {
-        SettingsScreenComponent()
-    }
+    val settingsContext = settingsComponent.settingsContext
+
+    val viewModel = viewModel<SettingsViewModel>(factory = settingsContext.viewModelFactory)
+
+    SettingsScreenComponent(viewModel)
 }

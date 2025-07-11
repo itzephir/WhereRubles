@@ -1,21 +1,22 @@
 package com.itzephir.whererubles.app
 
 import android.app.Application
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
+import com.itzephir.whererubles.di.AppComponent
+import com.itzephir.whererubles.di.DaggerAppComponent
 
 /**
  * Application class, configure base application
  */
 class WhereRublesApplication : Application() {
+    private lateinit var appComponent: AppComponent
+
     override fun onCreate() {
         super.onCreate()
 
-        startKoin {
-            androidContext(this@WhereRublesApplication)
-            androidLogger()
-            modules()
-        }
+        startDagger()
+    }
+
+    private fun startDagger() {
+        appComponent = DaggerAppComponent.factory().create(this)
     }
 }

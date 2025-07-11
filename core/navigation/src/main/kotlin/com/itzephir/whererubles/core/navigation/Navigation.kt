@@ -10,23 +10,25 @@ import com.itzephir.whererubles.core.navigation.AppGraph.Categories.categoriesNa
 import com.itzephir.whererubles.core.navigation.AppGraph.Expenses.expensesNavDestination
 import com.itzephir.whererubles.core.navigation.AppGraph.Income.incomeNavDestination
 import com.itzephir.whererubles.core.navigation.AppGraph.Settings.settingsNavDestination
-import org.koin.core.module.Module
 
 @Composable
 fun Navigation(
-    sharedModule: Module,
+    navigationDependencies: NavigationDependencies,
     modifier: Modifier = Modifier,
     navHostController: NavHostController = rememberNavController(),
 ) {
+    val navigationComponent = DaggerNavigationComponent.factory().create(navigationDependencies)
+    val navigationContext = navigationComponent.navigationContext()
+
     NavHost(
         navController = navHostController,
         startDestination = AppGraph.Expenses,
         modifier = modifier,
     ) {
-        expensesNavDestination(sharedModule)
-        incomeNavDestination(sharedModule)
-        accountNavDestination(sharedModule)
-        categoriesNavDestination(sharedModule)
-        settingsNavDestination()
+        expensesNavDestination(expensesFeatureDependencies = navigationContext)
+        incomeNavDestination(incomeFeatureDependencies = navigationContext)
+        accountNavDestination(accountFeatureDependencies = navigationContext)
+        categoriesNavDestination(categoriesFeatureDependencies = navigationContext)
+        settingsNavDestination(settingsFeatureDependencies = navigationContext)
     }
 }

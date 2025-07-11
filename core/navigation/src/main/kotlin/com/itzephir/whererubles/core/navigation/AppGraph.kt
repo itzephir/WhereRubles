@@ -2,23 +2,21 @@ package com.itzephir.whererubles.core.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.itzephir.whererubles.expenses.di.ExpensesContext
+import com.itzephir.whererubles.expenses.di.ExpensesFeatureDependencies
 import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
-import com.itzephir.whererubles.feature.account.di.AccountContext
+import com.itzephir.whererubles.feature.account.di.AccountFeatureDependencies
 import com.itzephir.whererubles.feature.account.ui.screen.AccountScreen
-import com.itzephir.whererubles.feature.categories.di.CategoriesContext
+import com.itzephir.whererubles.feature.categories.di.CategoriesFeatureDependencies
 import com.itzephir.whererubles.feature.categories.ui.screen.CategoriesScreen
-import com.itzephir.whererubles.feature.income.di.IncomeContext
+import com.itzephir.whererubles.feature.income.di.IncomeFeatureDependencies
 import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
+import com.itzephir.whererubles.feature.settings.di.SettingsFeatureDependencies
 import com.itzephir.whererubles.feature.settings.ui.screen.SettingsScreen
 import kotlinx.serialization.Serializable
-import org.koin.core.module.Module
 
 /**
  * Graph for main navigation
@@ -53,18 +51,9 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle() = "Расходы"
 
-        fun NavGraphBuilder.expensesNavDestination(sharedModule: Module) {
+        fun NavGraphBuilder.expensesNavDestination(expensesFeatureDependencies: ExpensesFeatureDependencies) {
             composable<Expenses> {
-                val applicationContext = LocalContext.current.applicationContext
-
-                val expensesContext = remember {
-                    ExpensesContext(
-                        applicationContext = applicationContext,
-                        parentModule = sharedModule,
-                    )
-                }
-
-                ExpensesScreen(expensesContext)
+                ExpensesScreen(expensesFeatureDependencies)
             }
         }
     }
@@ -86,18 +75,9 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Доходы"
 
-        fun NavGraphBuilder.incomeNavDestination(sharedModule: Module) {
+        fun NavGraphBuilder.incomeNavDestination(incomeFeatureDependencies: IncomeFeatureDependencies) {
             composable<Income> {
-                val applicationContext = LocalContext.current.applicationContext
-
-                val incomeContext = remember {
-                    IncomeContext(
-                        applicationContext = applicationContext,
-                        parentModule = sharedModule,
-                    )
-                }
-
-                IncomeScreen(incomeContext)
+                IncomeScreen(incomeFeatureDependencies)
             }
         }
     }
@@ -119,18 +99,9 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Счет"
 
-        fun NavGraphBuilder.accountNavDestination(sharedModule: Module) {
+        fun NavGraphBuilder.accountNavDestination(accountFeatureDependencies: AccountFeatureDependencies) {
             composable<Account> {
-                val applicationContext = LocalContext.current.applicationContext
-
-                val accountContext = remember {
-                    AccountContext(
-                        applicationContext = applicationContext,
-                        parentModule = sharedModule,
-                    )
-                }
-
-                AccountScreen(accountContext)
+                AccountScreen(accountFeatureDependencies)
             }
         }
     }
@@ -152,18 +123,9 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Статьи"
 
-        fun NavGraphBuilder.categoriesNavDestination(sharedModule: Module) {
+        fun NavGraphBuilder.categoriesNavDestination(categoriesFeatureDependencies: CategoriesFeatureDependencies) {
             composable<Categories> {
-                val applicationContext = LocalContext.current.applicationContext
-
-                val categoriesContext = remember {
-                    CategoriesContext(
-                        applicationContext = applicationContext,
-                        parentModule = sharedModule,
-                    )
-                }
-
-                CategoriesScreen(categoriesContext)
+                CategoriesScreen(categoriesFeatureDependencies)
             }
         }
     }
@@ -184,9 +146,9 @@ sealed interface AppGraph {
         @Composable
         override fun shortTitle(): String = "Настройки"
 
-        fun NavGraphBuilder.settingsNavDestination() {
+        fun NavGraphBuilder.settingsNavDestination(settingsFeatureDependencies: SettingsFeatureDependencies) {
             composable<Settings> {
-                SettingsScreen()
+                SettingsScreen(settingsFeatureDependencies)
             }
         }
     }

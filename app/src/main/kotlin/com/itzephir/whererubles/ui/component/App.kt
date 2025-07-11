@@ -11,17 +11,24 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.itzephir.whererubles.core.navigation.AppGraph
 import com.itzephir.whererubles.core.navigation.Navigation
-import com.itzephir.whererubles.di.appModule
+import com.itzephir.whererubles.di.DaggerAppComponent
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
 
 @Composable
 fun App() {
+    val context = LocalContext.current.applicationContext
+
+    val appComponent = DaggerAppComponent.factory().create(context)
+
+    val appContext = appComponent.appContext()
+
     WhereRublesTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -46,7 +53,7 @@ fun App() {
                 contentWindowInsets = WindowInsets.ime,
             ) { innerPadding ->
                 Navigation(
-                    sharedModule = appModule,
+                    navigationDependencies = appContext,
                     navHostController = navController,
                     modifier = Modifier
                         .padding(innerPadding)

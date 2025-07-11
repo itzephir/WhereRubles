@@ -12,6 +12,8 @@ dependencies {
 
     implementation(libs.kotlinx.datetime)
 
+    implementation(libs.dagger)
+
     implementation(libs.arrow.core)
     implementation(libs.ktor.client.core)
 }

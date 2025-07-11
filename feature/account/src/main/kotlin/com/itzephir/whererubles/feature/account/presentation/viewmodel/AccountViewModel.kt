@@ -1,9 +1,12 @@
 package com.itzephir.whererubles.feature.account.presentation.viewmodel
 
-import android.system.Os.stat
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import arrow.core.Either
 import com.itzephir.whererubles.feature.account.domain.error.AccountError
 import com.itzephir.whererubles.feature.account.domain.model.Account
@@ -12,9 +15,9 @@ import com.itzephir.whererubles.feature.account.domain.usecase.GetAccountUseCase
 import com.itzephir.whererubles.feature.account.presentation.action.AccountAction
 import com.itzephir.whererubles.feature.account.presentation.intent.AccountIntent
 import com.itzephir.whererubles.feature.account.presentation.model.AccountId
+import com.itzephir.whererubles.feature.account.presentation.model.Currency
 import com.itzephir.whererubles.feature.account.presentation.state.AccountState
 import com.itzephir.whererubles.feature.account.presentation.store.AccountStore
-import com.itzephir.whererubles.feature.account.presentation.model.Currency
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.ensureActive
@@ -24,8 +27,9 @@ import pro.respawn.flowmvi.android.StoreViewModel
 import pro.respawn.flowmvi.api.PipelineContext
 import pro.respawn.flowmvi.dsl.intent
 import pro.respawn.flowmvi.dsl.state
-import pro.respawn.flowmvi.dsl.updateState
+import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
+import kotlin.reflect.KClass
 
 /**
  * ViewModel for account screen
@@ -71,7 +75,7 @@ class AccountViewModel(
         }
     }
 
-    fun init() = intent{
+    fun init() = intent {
         retryInitial()
     }
 
@@ -122,5 +126,20 @@ class AccountViewModel(
         super.onCleared()
 
         Log.d("AccountViewModel", "ViewModel cleared")
+    }
+
+    class Factory @Inject constructor(
+        private val getAccountUseCase: GetAccountUseCase,
+        private val changeCurrency: ChangeCurrencyUseCase,
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+            val savedStateHandle = extras.createSavedStateHandle()
+            @Suppress("UNCHECKED_CAST")
+            return AccountViewModel(
+                savedStateHandle,
+                getAccountUseCase,
+                changeCurrency
+            ) as T
+        }
     }
 }

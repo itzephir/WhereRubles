@@ -11,7 +11,7 @@ import com.itzephir.whererubles.feature.income.presentation.model.Income
 import com.itzephir.whererubles.feature.income.presentation.model.IncomeId
 import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 @Composable
 fun IncomeItem(

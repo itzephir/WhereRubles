@@ -2,7 +2,11 @@ package com.itzephir.whererubles.feature.income.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.itzephir.whererubles.feature.income.domain.model.IncomeByPeriod
 import com.itzephir.whererubles.feature.income.domain.usecase.GetIncomeByPeriodUseCase
 import com.itzephir.whererubles.feature.income.presentation.action.IncomeHistoryAction
@@ -14,11 +18,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import pro.respawn.flowmvi.android.StoreViewModel
 import pro.respawn.flowmvi.api.PipelineContext
 import pro.respawn.flowmvi.dsl.intent
 import pro.respawn.flowmvi.dsl.state
+import javax.inject.Inject
+import kotlin.reflect.KClass
 
 /**
  * ViewModel for income history screen
@@ -91,6 +97,20 @@ class IncomeHistoryViewModel(
         }
         viewModelScope.launch {
             retryInitial()
+        }
+    }
+
+    class Factory @Inject constructor(
+        private val getIncomeByPeriodUseCase: GetIncomeByPeriodUseCase
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+            val savedStateHandle = extras.createSavedStateHandle()
+
+            @Suppress("UNCHECKED_CAST")
+            return IncomeHistoryViewModel(
+                savedStateHandle = savedStateHandle,
+                getIncomeByPeriod = getIncomeByPeriodUseCase,
+            ) as T
         }
     }
 }

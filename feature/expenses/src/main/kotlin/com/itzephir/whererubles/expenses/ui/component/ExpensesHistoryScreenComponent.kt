@@ -4,12 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import com.itzephir.whererubles.expenses.presentation.viewmodel.ExpensesHistoryViewModel
-import org.koin.compose.viewmodel.koinViewModel
 import pro.respawn.flowmvi.compose.dsl.subscribe
 
 @Composable
 fun ExpensesHistoryScreenComponent(
-    viewModel: ExpensesHistoryViewModel = koinViewModel(),
+    viewModel: ExpensesHistoryViewModel,
     onBackClick: () -> Unit = {},
     onActionClick: () -> Unit = {},
     onFabClick: () -> Unit = {},

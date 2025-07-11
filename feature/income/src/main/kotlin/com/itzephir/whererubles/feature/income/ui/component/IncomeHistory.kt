@@ -21,7 +21,7 @@ import com.itzephir.whererubles.ui.DatePicker
 import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.SingleItemColors.Companion.singleItemColors
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 /**
  * It is the same layout as ExpenseHistory.

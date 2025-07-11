@@ -1,15 +1,15 @@
 package com.itzephir.whererubles.expenses.ui.screen
 
 import androidx.compose.runtime.Composable
-import com.itzephir.whererubles.expenses.di.ExpensesContext
+import com.itzephir.whererubles.expenses.di.DaggerExpensesFeatureComponent
+import com.itzephir.whererubles.expenses.di.ExpensesFeatureDependencies
 import com.itzephir.whererubles.expenses.ui.navigation.ExpensesNavigation
-import org.koin.compose.KoinIsolatedContext
 
 @Composable
-fun ExpensesScreen(expensesContext: ExpensesContext) {
-    val koinApplication = expensesContext.koinApplication
+fun ExpensesScreen(expensesFeatureDependencies: ExpensesFeatureDependencies){
+    val expensesFeatureComponent = DaggerExpensesFeatureComponent.factory().create(expensesFeatureDependencies)
 
-    KoinIsolatedContext(koinApplication) {
-        ExpensesNavigation()
-    }
+    val expensesFeatureContext = expensesFeatureComponent.expensesFeatureContext
+
+    ExpensesNavigation(expensesFeatureContext)
 }

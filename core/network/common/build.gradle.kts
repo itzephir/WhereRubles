@@ -19,6 +19,8 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.bundles.ktor.client)
             implementation(libs.arrow.core)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.serialization.core)
         }
     }
 }

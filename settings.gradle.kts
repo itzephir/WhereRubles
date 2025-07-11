@@ -26,6 +26,7 @@ dependencyResolutionManagement {
 rootProject.name = "WhereRubles"
 include(":app")
 include(":core:common")
+include(":core:di")
 include(":core:format")
 include(":core:navigation")
 include(":core:ui")

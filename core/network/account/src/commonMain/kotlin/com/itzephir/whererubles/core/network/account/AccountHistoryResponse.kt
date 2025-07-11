@@ -1,8 +1,9 @@
 package com.itzephir.whererubles.core.network.account
 
 import com.itzephir.whererubles.core.network.common.Id
-import kotlinx.datetime.Instant
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 @Serializable
 data class AccountHistoryResponse(
@@ -19,8 +20,8 @@ data class AccountHistoryResponse(
         val changeType: ChangeType,
         val previousState: AccountState,
         val newState: AccountState,
-        val changeTimestamp: Instant,
-        val createdAt: Instant,
+        @Contextual val changeTimestamp: Instant,
+        @Contextual val createdAt: Instant,
     ) {
         @Serializable
         data class AccountState(

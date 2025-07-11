@@ -3,7 +3,11 @@ package com.itzephir.whererubles.expenses.presentation.viewmodel
 import android.R.attr.end
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.itzephir.whererubles.expenses.presentation.action.ExpensesHistoryAction
 import com.itzephir.whererubles.expenses.presentation.intent.ExpensesHistoryIntent
@@ -17,11 +21,13 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import pro.respawn.flowmvi.android.StoreViewModel
 import pro.respawn.flowmvi.api.PipelineContext
 import pro.respawn.flowmvi.dsl.intent
 import pro.respawn.flowmvi.dsl.state
+import javax.inject.Inject
+import kotlin.reflect.KClass
 
 /**
  * ViewModel of expenses history screen
@@ -89,6 +95,19 @@ class ExpensesHistoryViewModel(
         }
         viewModelScope.launch {
             retryInitial()
+        }
+    }
+
+    class Factory @Inject constructor(private val getExpensesByPeriodUseCase: GetExpensesByPeriodUseCase) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+            val savedStateHandle = extras.createSavedStateHandle()
+
+            @Suppress("UNCHECKED_CAST")
+            return ExpensesHistoryViewModel(
+                savedStateHandle = savedStateHandle,
+                getExpensesByPeriod = getExpensesByPeriodUseCase,
+            ) as T
         }
     }
 }

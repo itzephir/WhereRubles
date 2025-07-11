@@ -1,7 +1,8 @@
 package com.itzephir.whererubles.core.network.transaction
 
 import com.itzephir.whererubles.core.network.common.Id
-import kotlinx.datetime.Instant
+import kotlinx.serialization.Contextual
+import kotlin.time.Instant
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,10 +11,10 @@ data class TransactionResponse(
     val account: AccountBrief,
     val category: Category,
     val amount: String,
-    val transactionDate: Instant,
+    @Contextual val transactionDate: Instant,
     val comment: String?,
-    val createdAt: Instant,
-    val updatedAt: Instant,
+    @Contextual val createdAt: Instant,
+    @Contextual val updatedAt: Instant,
 ) {
     @Serializable
     data class AccountBrief(

@@ -7,8 +7,9 @@ import com.itzephir.whererubles.feature.categories.domain.error.GetAllCategories
 import com.itzephir.whererubles.feature.categories.domain.model.Category
 import com.itzephir.whererubles.feature.categories.domain.repository.CategoryRepository
 import io.ktor.client.HttpClient
+import javax.inject.Inject
 
-class RemoteCategoryRepository(
+class RemoteCategoryRepository @Inject constructor(
     private val httpClient: HttpClient,
 ) : CategoryRepository {
     override suspend fun getAll(): Either<GetAllCategoriesError, List<Category>> =

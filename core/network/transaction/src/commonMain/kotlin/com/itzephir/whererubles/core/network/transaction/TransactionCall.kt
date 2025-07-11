@@ -17,7 +17,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import io.ktor.http.path
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 suspend fun HttpClient.createTransaction(
     transaction: TransactionRequest,

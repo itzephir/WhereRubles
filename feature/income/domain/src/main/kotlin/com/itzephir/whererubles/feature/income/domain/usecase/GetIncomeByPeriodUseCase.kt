@@ -8,15 +8,16 @@ import com.itzephir.whererubles.feature.income.domain.mapper.toExpensesByPeriodE
 import com.itzephir.whererubles.feature.income.domain.model.IncomeByPeriod
 import com.itzephir.whererubles.feature.income.domain.repository.AccountRepository
 import com.itzephir.whererubles.feature.income.domain.repository.IncomeRepository
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import java.util.Locale
+import javax.inject.Inject
 
 /**
  * Use case for getting income by given period
  * @param accountRepository repository to interact with account
  * @param incomeRepository repository to interact with income
  */
-class GetIncomeByPeriodUseCase(
+class GetIncomeByPeriodUseCase @Inject constructor(
     private val accountRepository: AccountRepository,
     private val incomeRepository: IncomeRepository,
 ) {

@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.expenses.domain.model
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * List of expenses by defined period entity

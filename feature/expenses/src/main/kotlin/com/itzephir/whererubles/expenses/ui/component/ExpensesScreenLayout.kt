@@ -29,7 +29,7 @@ import com.itzephir.whererubles.ui.Error
 import com.itzephir.whererubles.ui.Loading
 import com.itzephir.whererubles.ui.TopBar
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 @Composable
 internal fun ExpensesScreenLayout(

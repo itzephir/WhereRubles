@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.expenses.common
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeComponents
 import kotlinx.datetime.format.MonthNames
@@ -25,7 +25,7 @@ val MonthNames.Companion.RUSSIAN_GENITIVE: MonthNames
     )
 
 fun Instant.formatDate(): String = format(format = DateTimeComponents.Format {
-    dayOfMonth()
+    day()
     char(' ')
     monthName(MonthNames.RUSSIAN_GENITIVE)
     char(' ')

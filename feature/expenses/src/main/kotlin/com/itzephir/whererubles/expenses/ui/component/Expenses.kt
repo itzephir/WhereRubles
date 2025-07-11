@@ -3,7 +3,6 @@ package com.itzephir.whererubles.expenses.ui.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,7 +16,7 @@ import com.itzephir.whererubles.expenses.presentation.model.ExpenseId
 import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.SingleItemColors.Companion.singleItemColors
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 @Composable
 fun Expenses(

@@ -1,18 +1,16 @@
 package com.itzephir.whererubles.feature.account.ui.screen
 
 import androidx.compose.runtime.Composable
-import com.itzephir.whererubles.feature.account.di.AccountContext
-import com.itzephir.whererubles.feature.account.ui.component.AccountScreenComponent
+import com.itzephir.whererubles.feature.account.di.AccountFeatureDependencies
+import com.itzephir.whererubles.feature.account.di.DaggerAccountFeatureComponent
 import com.itzephir.whererubles.feature.account.ui.navigation.AccountNavigation
-import org.koin.compose.KoinIsolatedContext
 
 @Composable
-fun AccountScreen(
-    accountContext: AccountContext,
-) {
-    val koinApplication = accountContext.koinApplication
+fun AccountScreen(accountFeatureDependencies: AccountFeatureDependencies) {
+    val accountFeatureComponent =
+        DaggerAccountFeatureComponent.factory().create(accountFeatureDependencies)
 
-    KoinIsolatedContext(koinApplication) {
-        AccountNavigation()
-    }
+    AccountNavigation(
+        accountFeatureContext = accountFeatureComponent.accountFeatureContext()
+    )
 }

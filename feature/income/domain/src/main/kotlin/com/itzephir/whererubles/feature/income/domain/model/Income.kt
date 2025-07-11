@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.income.domain.model
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Income entity

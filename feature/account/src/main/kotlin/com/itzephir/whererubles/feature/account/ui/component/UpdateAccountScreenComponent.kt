@@ -5,12 +5,11 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import com.itzephir.whererubles.feature.account.presentation.action.UpdateAccountAction
 import com.itzephir.whererubles.feature.account.presentation.viewmodel.UpdateAccountViewModel
-import org.koin.compose.viewmodel.koinViewModel
 import pro.respawn.flowmvi.compose.dsl.subscribe
 
 @Composable
 fun UpdateAccountScreenComponent(
-    viewModel: UpdateAccountViewModel = koinViewModel(),
+    viewModel: UpdateAccountViewModel,
     exit: () -> Unit = {},
 ) {
     val state by viewModel.subscribe {

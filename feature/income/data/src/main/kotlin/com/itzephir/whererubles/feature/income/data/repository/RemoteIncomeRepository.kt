@@ -11,13 +11,14 @@ import com.itzephir.whererubles.feature.income.domain.model.AccountId
 import com.itzephir.whererubles.feature.income.domain.model.Income
 import com.itzephir.whererubles.feature.income.domain.repository.IncomeRepository
 import io.ktor.client.HttpClient
-import kotlinx.datetime.Instant
+import javax.inject.Inject
+import kotlin.time.Instant
 
 /**
  * Repository for setup income
  * @param httpClient client for http calls
  */
-class RemoteIncomeRepository(private val httpClient: HttpClient) : IncomeRepository {
+class RemoteIncomeRepository @Inject constructor(private val httpClient: HttpClient) : IncomeRepository {
     override suspend fun getByAccountIdAndPeriod(
         accountId: AccountId,
         start: Instant,
