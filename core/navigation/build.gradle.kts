@@ -49,6 +49,7 @@ dependencies {
     implementation(projects.feature.account)
     implementation(projects.feature.categories)
     implementation(projects.feature.settings)
+    implementation(projects.feature.transactionEditor)
 
     implementation(projects.core.ui.theme)
 
@@ -62,6 +63,9 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(libs.androidx.navigation.compose)
+
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)

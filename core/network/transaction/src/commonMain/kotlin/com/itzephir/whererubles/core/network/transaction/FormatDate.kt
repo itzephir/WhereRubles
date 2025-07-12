@@ -10,5 +10,5 @@ fun Instant.format() = format(format = DateTimeComponents.Format {
     char('-')
     monthNumber()
     char('-')
-    dayOfMonth()
+    day()
 })

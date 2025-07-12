@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.expenses.ui.component
 
+import android.R.attr.onClick
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,7 @@ import com.itzephir.whererubles.ui.DatePicker
 import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.SingleItemColors.Companion.singleItemColors
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
+import kotlin.math.exp
 import kotlin.time.Clock
 
 @Composable
@@ -30,6 +32,7 @@ fun ExpensesHistory(
     total: String,
     expenses: List<Expense>,
     modifier: Modifier = Modifier,
+    onExpenseClick: (Expense) -> Unit = {},
     onStartChanged: (Long?) -> Unit = {},
     onEndChanged: (Long?) -> Unit = {},
 ) {
@@ -98,6 +101,7 @@ fun ExpensesHistory(
                         .fillMaxWidth()
                         .heightIn(min = 64.dp),
                     isTimeEnabled = true,
+                    onClick = { onExpenseClick(expense) }
                 )
             }
         }
@@ -119,7 +123,16 @@ private fun ExpensesPreview() {
                     title = "Расхоооод",
                     amount = "100 000",
                     comment = "расхоооооооооооооод",
+                    currency = "₽",
                     time = Clock.System.now(),
+                    account = Expense.Account(
+                        id = Expense.Account.AccountId(1),
+                        name = "author",
+                    ),
+                    category = Expense.Category(
+                        id = Expense.Category.CategoryId(1),
+                        name = "Расход",
+                    ),
                 )
             ),
             modifier = Modifier.fillMaxSize(),

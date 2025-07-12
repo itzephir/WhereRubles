@@ -13,4 +13,6 @@ data class Income(
     val transactionDate: Instant,
     val comment: String?,
     val emoji: String,
+    val account: Account,
+    val category: Category,
 )

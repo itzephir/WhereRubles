@@ -43,6 +43,8 @@ kotlin {
 dependencies {
     implementation(projects.core.ui.theme)
 
+    implementation(libs.kotlinx.datetime)
+
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
 

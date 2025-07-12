@@ -1,10 +1,12 @@
-package com.itzephir.whererubles.feature.income.common
+package com.itzephir.whererubles.core.format
 
-import kotlin.time.Instant
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeComponents
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
+import kotlinx.datetime.offsetIn
+import kotlin.time.Instant
 
 val MonthNames.Companion.RUSSIAN_GENITIVE: MonthNames
     get() = MonthNames(
@@ -24,10 +26,13 @@ val MonthNames.Companion.RUSSIAN_GENITIVE: MonthNames
         )
     )
 
-fun Instant.formatDate(): String = format(format = DateTimeComponents.Format {
-    day()
-    char(' ')
-    monthName(MonthNames.RUSSIAN_GENITIVE)
-    char(' ')
-    year()
-})
+fun Instant.formatDate(): String = format(
+    offset = offsetIn(TimeZone.currentSystemDefault()),
+    format = DateTimeComponents.Format {
+        day()
+        char(' ')
+        monthName(MonthNames.RUSSIAN_GENITIVE)
+        char(' ')
+        year()
+    },
+)

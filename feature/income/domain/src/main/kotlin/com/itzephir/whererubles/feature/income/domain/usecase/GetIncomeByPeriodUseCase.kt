@@ -37,6 +37,6 @@ class GetIncomeByPeriodUseCase @Inject constructor(
             acc + income.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
-        IncomeByPeriod(totalAmount, account.currency, start, end, income)
+        IncomeByPeriod(totalAmount, account.currency, start, end, income, account)
     }
 }

@@ -19,6 +19,7 @@ class RemoteAccountRepository @Inject constructor(private val httpClient: HttpCl
         Account(
             id = it.id.toAccountId(),
             currency = it.currency,
+            name = it.name,
         )
     }
 }

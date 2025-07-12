@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.itzephir.whererubles.expenses.presentation.model.Expense
 import com.itzephir.whererubles.expenses.presentation.state.ExpensesHistoryState
 import com.itzephir.whererubles.feature.expenses.R
 import com.itzephir.whererubles.ui.Error
@@ -33,6 +34,7 @@ fun ExpensesHistoryLayout(
     onBackClick: () -> Unit = {},
     onActionClick: () -> Unit = {},
     onErrorRetry: () -> Unit = {},
+    onExpenseClick: (Expense) -> Unit = {},
     onStartChanged: (Long?) -> Unit = {},
     onEndChanged: (Long?) -> Unit = {},
 ) {
@@ -99,6 +101,7 @@ fun ExpensesHistoryLayout(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
+                onExpenseClick = onExpenseClick,
                 onStartChanged = onStartChanged,
                 onEndChanged = onEndChanged,
             )

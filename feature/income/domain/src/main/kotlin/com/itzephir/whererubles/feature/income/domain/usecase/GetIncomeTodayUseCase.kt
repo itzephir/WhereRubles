@@ -40,7 +40,7 @@ class GetIncomeTodayUseCase @Inject constructor(
             acc + income.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
-        IncomeToday(totalAmount, account.currency, income)
+        IncomeToday(totalAmount, account.currency, income, account)
     }
 
     private fun startOfTheDay(): Instant {

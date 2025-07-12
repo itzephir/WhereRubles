@@ -11,4 +11,5 @@ data class ExpensesByPeriod(
     val start: Instant,
     val end: Instant,
     val expenses: List<Expense>,
+    val account: Account,
 )

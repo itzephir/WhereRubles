@@ -17,6 +17,7 @@ import kotlin.time.Clock
 fun IncomeItem(
     income: Income,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
     isTimeEnabled: Boolean = false,
 ) {
     SingleItem(
@@ -27,7 +28,7 @@ fun IncomeItem(
         description = income.comment,
         modifier = modifier
             .heightIn(min = 70.dp),
-        onClick = {},
+        onClick = onClick,
     )
 }
 
@@ -43,6 +44,15 @@ private fun ExpenseItemPreview() {
                 amount = "100 000",
                 comment = "расхооооооооооооооод",
                 time = Clock.System.now(),
+                account = Income.Account(
+                    id = Income.Account.AccountId(1),
+                    name = "author",
+                ),
+                category = Income.Category(
+                    id = Income.Category.CategoryId(1),
+                    name = "Расход",
+                ),
+                currency = "₽",
             ),
         )
     }

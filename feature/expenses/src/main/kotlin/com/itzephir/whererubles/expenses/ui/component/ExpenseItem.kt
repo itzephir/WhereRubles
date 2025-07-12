@@ -18,17 +18,18 @@ fun ExpenseItem(
     expense: Expense,
     modifier: Modifier = Modifier,
     isTimeEnabled: Boolean = false,
+    onClick: (() -> Unit)? = null,
 ) {
     SingleItem(
         leadingEmoji = expense.icon,
         title = expense.title,
-        info = expense.amount,
+        info = expense.amountString,
         infoComment = if (isTimeEnabled) expense.timeString else null,
         trailingIcon = Icons.AutoMirrored.Default.KeyboardArrowRight,
         description = expense.comment,
         modifier = modifier
             .heightIn(min = 70.dp),
-        onClick = {},
+        onClick = onClick,
     )
 }
 
@@ -43,7 +44,16 @@ private fun ExpenseItemPreview() {
                 title = "Расхоооод",
                 amount = "100 000",
                 comment = "расхооооооооооооооод",
+                currency = "₽",
                 time = Clock.System.now(),
+                account = Expense.Account(
+                    id = Expense.Account.AccountId(1),
+                    name = "author",
+                ),
+                category = Expense.Category(
+                    id = Expense.Category.CategoryId(1),
+                    name = "Расход",
+                ),
             ),
         )
     }

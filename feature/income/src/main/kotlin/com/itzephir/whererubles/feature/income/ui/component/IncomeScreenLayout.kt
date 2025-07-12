@@ -36,7 +36,8 @@ fun IncomeScreenLayout(
     state: IncomeState,
     onActionClick: () -> Unit = {},
     onFabClick: () -> Unit = {},
-    onErrorRetry: () -> Unit = {}
+    onErrorRetry: () -> Unit = {},
+    onIncomeClick: (Income) -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -88,6 +89,7 @@ fun IncomeScreenLayout(
             is IncomeState.Income -> Income(
                 total = state.total,
                 income = state.income,
+                onIncomeClick = onIncomeClick,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
@@ -109,16 +111,34 @@ private val income = listOf(
     Income(
         id = IncomeId(0),
         title = "Зарплата",
-        amount = "500 000 ₽",
+        amount = "500000.00",
         icon = "",
         time = Clock.System.now(),
+        account = Income.Account(
+            id = Income.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Income.Category(
+            id = Income.Category.CategoryId(1),
+            name = "Расход",
+        ),
+        currency = "₽",
     ),
     Income(
         id = IncomeId(1),
         title = "Подработка",
-        amount = "100 000 ₽",
+        amount = "100000.00",
         icon = "",
         time = Clock.System.now(),
+        account = Income.Account(
+            id = Income.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Income.Category(
+            id = Income.Category.CategoryId(1),
+            name = "Расход",
+        ),
+        currency = "₽",
     ),
 )
 

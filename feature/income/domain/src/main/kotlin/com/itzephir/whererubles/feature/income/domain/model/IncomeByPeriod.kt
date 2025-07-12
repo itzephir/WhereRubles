@@ -11,4 +11,5 @@ data class IncomeByPeriod(
     val start: Instant,
     val end: Instant,
     val income: List<Income>,
+    val account: Account,
 )

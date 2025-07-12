@@ -23,6 +23,7 @@ fun Income(
     total: String,
     income: List<Income>,
     modifier: Modifier = Modifier,
+    onIncomeClick: (Income) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         SingleItem(
@@ -45,6 +46,7 @@ fun Income(
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 64.dp),
+                    onClick = {onIncomeClick(income)},
                     isTimeEnabled = false,
                 )
             }
@@ -66,6 +68,15 @@ private fun ExpensesPreview() {
                     amount = "100 000",
                     comment = "расхоооооооооооооод",
                     time = Clock.System.now(),
+                    account = Income.Account(
+                        id = Income.Account.AccountId(1),
+                        name = "author",
+                    ),
+                    category = Income.Category(
+                        id = Income.Category.CategoryId(1),
+                        name = "Расход",
+                    ),
+                    currency = "₽",
                 )
             ),
             modifier = Modifier.fillMaxSize(),

@@ -17,7 +17,7 @@ class RemoteAccountRepository
         ifLeft = { emptyList() },
         ifRight = { it }
     ).firstOrNull()?.let {
-        Account(it.id.toAccountId(), it.currency)
+        Account(it.id.toAccountId(), it.currency, it.name)
     }
 }
 

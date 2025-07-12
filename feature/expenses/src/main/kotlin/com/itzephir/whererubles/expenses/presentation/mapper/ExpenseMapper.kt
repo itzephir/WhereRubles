@@ -13,9 +13,22 @@ internal fun Expense.map(): com.itzephir.whererubles.expenses.presentation.model
         id = ExpenseId(id.value),
         icon = emoji,
         title = title,
-        amount = amount.formatAmount(currency),
+        amount = amount,
         time = transactionDate,
+        currency = currency,
         comment = comment,
+        account = com.itzephir.whererubles.expenses.presentation.model.Expense.Account(
+            id = com.itzephir.whererubles.expenses.presentation.model.Expense.Account.AccountId(
+                account.id.value
+            ),
+            name = account.name,
+        ),
+        category = com.itzephir.whererubles.expenses.presentation.model.Expense.Category(
+            id = com.itzephir.whererubles.expenses.presentation.model.Expense.Category.CategoryId(
+                category.id.value
+            ),
+            name = category.name,
+        )
     )
 
 internal fun ExpensesToday.toExpensesState(): ExpensesState.Expenses = ExpensesState.Expenses(

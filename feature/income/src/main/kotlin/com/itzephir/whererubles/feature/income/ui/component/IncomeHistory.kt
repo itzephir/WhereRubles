@@ -35,6 +35,7 @@ fun IncomeHistory(
     total: String,
     income: List<Income>,
     modifier: Modifier = Modifier,
+    onIncomeClick: (Income) -> Unit = {},
     onStartChanged: (Long?) -> Unit = {},
     onEndChanged: (Long?) -> Unit = {},
 ) {
@@ -106,6 +107,7 @@ fun IncomeHistory(
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 64.dp),
+                    onClick = { onIncomeClick(income) },
                     isTimeEnabled = true,
                 )
             }
@@ -129,6 +131,15 @@ private fun ExpensesPreview() {
                     amount = "100 000",
                     comment = "расхоооооооооооооод",
                     time = Clock.System.now(),
+                    account = Income.Account(
+                        id = Income.Account.AccountId(1),
+                        name = "author",
+                    ),
+                    category = Income.Category(
+                        id = Income.Category.CategoryId(1),
+                        name = "Расход",
+                    ),
+                    currency = "₽",
                 )
             ),
             modifier = Modifier.fillMaxSize(),

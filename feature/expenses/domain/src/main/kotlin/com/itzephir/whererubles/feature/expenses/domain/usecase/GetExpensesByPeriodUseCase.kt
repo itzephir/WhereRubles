@@ -37,6 +37,6 @@ class GetExpensesByPeriodUseCase @Inject constructor(
             acc + expense.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
-        ExpensesByPeriod(totalAmount, currency = account.currency,start, end, expenses)
+        ExpensesByPeriod(totalAmount, currency = account.currency, start, end, expenses, account)
     }
 }

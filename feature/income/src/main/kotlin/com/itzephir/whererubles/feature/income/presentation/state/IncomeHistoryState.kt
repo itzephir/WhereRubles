@@ -3,7 +3,7 @@ package com.itzephir.whererubles.feature.income.presentation.state
 import android.os.Parcelable
 import androidx.compose.runtime.Stable
 import com.itzephir.whererubles.core.common.InstantParceler
-import com.itzephir.whererubles.feature.income.common.formatDate
+import com.itzephir.whererubles.core.format.formatDate
 import com.itzephir.whererubles.feature.income.presentation.model.Income
 import kotlin.time.Instant
 import kotlinx.parcelize.IgnoredOnParcel

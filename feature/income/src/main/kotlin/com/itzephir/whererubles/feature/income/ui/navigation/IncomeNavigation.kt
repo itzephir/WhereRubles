@@ -8,13 +8,14 @@ import androidx.navigation.compose.rememberNavController
 import com.itzephir.whererubles.feature.income.di.IncomeFeatureContext
 import com.itzephir.whererubles.feature.income.di.history.DaggerIncomeHistoryComponent
 import com.itzephir.whererubles.feature.income.di.income.DaggerIncomeComponent
+import com.itzephir.whererubles.feature.income.presentation.model.Income
 import com.itzephir.whererubles.feature.income.presentation.viewmodel.IncomeHistoryViewModel
 import com.itzephir.whererubles.feature.income.presentation.viewmodel.IncomeViewModel
 import com.itzephir.whererubles.feature.income.ui.component.IncomeHistoryScreenComponent
 import com.itzephir.whererubles.feature.income.ui.component.IncomeScreenComponent
 
 @Composable
-fun IncomeNavigation(incomeFeatureContext: IncomeFeatureContext) {
+fun IncomeNavigation(incomeFeatureContext: IncomeFeatureContext, onIncomeClick: (Income) -> Unit) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = IncomeGraph.Today) {
         composable<IncomeGraph.Today> {
@@ -32,6 +33,7 @@ fun IncomeNavigation(incomeFeatureContext: IncomeFeatureContext) {
                         restoreState = true
                     }
                 },
+                onIncomeClick = onIncomeClick,
                 viewModel = viewModel,
             )
         }
@@ -48,6 +50,7 @@ fun IncomeNavigation(incomeFeatureContext: IncomeFeatureContext) {
                 onBackClick = {
                     navController.navigateUp()
                 },
+                onIncomeClick = onIncomeClick,
                 viewModel = viewModel,
             )
         }
