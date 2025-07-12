@@ -1,9 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.google.ksp)
 }
 
 android {
@@ -29,22 +32,23 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-
     buildFeatures {
         compose = true
     }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
+
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.di)
     implementation(projects.core.format)
     implementation(projects.core.ui)
     implementation(projects.core.ui.theme)
-
-    implementation(projects.domain)
 
     implementation(projects.feature.expenses.domain)
     implementation(projects.feature.expenses.data)
@@ -74,9 +78,8 @@ dependencies {
     implementation(libs.respawn.flowmvi.android)
     implementation(libs.respawn.flowmvi.savedstate)
 
-    implementation(libs.koin.core)
-    implementation(libs.koin.compose)
-    implementation(libs.koin.compose.viewmodel)
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
 
     implementation(libs.ktor.client.core)
 }

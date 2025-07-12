@@ -1,24 +1,37 @@
 package com.itzephir.whererubles.core.navigation
 
+import android.net.http.SslCertificate.saveState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import com.itzephir.whererubles.expenses.di.ExpensesContext
+import androidx.navigation.navigation
+import androidx.navigation.toRoute
+import androidx.savedstate.SavedState
+import com.itzephir.whererubles.core.navigation.AppGraph.Expenses.ExpensesRoutes
+import com.itzephir.whererubles.core.navigation.mapper.toEdit
+import com.itzephir.whererubles.expenses.di.ExpensesFeatureDependencies
 import com.itzephir.whererubles.expenses.ui.screen.ExpensesScreen
-import com.itzephir.whererubles.feature.account.di.AccountContext
+import com.itzephir.whererubles.feature.account.di.AccountFeatureDependencies
 import com.itzephir.whererubles.feature.account.ui.screen.AccountScreen
-import com.itzephir.whererubles.feature.categories.di.CategoriesContext
+import com.itzephir.whererubles.feature.categories.di.CategoriesFeatureDependencies
 import com.itzephir.whererubles.feature.categories.ui.screen.CategoriesScreen
-import com.itzephir.whererubles.feature.income.di.IncomeContext
+import com.itzephir.whererubles.feature.income.di.IncomeFeatureDependencies
 import com.itzephir.whererubles.feature.income.ui.screen.IncomeScreen
+import com.itzephir.whererubles.feature.settings.di.SettingsFeatureDependencies
 import com.itzephir.whererubles.feature.settings.ui.screen.SettingsScreen
+import com.itzephir.whererubles.feature.transactionEditor.di.TransactionEditorFeatureDependencies
+import com.itzephir.whererubles.feature.transactionEditor.presentation.model.Transaction
+import com.itzephir.whererubles.feature.transactionEditor.presentation.model.TransactionId
+import com.itzephir.whererubles.feature.transactionEditor.ui.screen.TransactionEditorScreen
 import kotlinx.serialization.Serializable
-import org.koin.core.module.Module
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlin.reflect.typeOf
 
 /**
  * Graph for main navigation
@@ -41,6 +54,82 @@ sealed interface AppGraph {
      */
     @Serializable
     data object Expenses : AppGraph {
+
+        sealed interface ExpensesRoutes {
+            @Serializable
+            data object Main : ExpensesRoutes
+
+            @Serializable
+            data class Edit(
+                val transactionId: TransactionId?,
+                val transaction: Transaction,
+                val currency: String,
+            ) : ExpensesRoutes {
+                object EditNavType : NavType<Edit>(isNullableAllowed = false) {
+                    override fun put(
+                        bundle: SavedState,
+                        key: String,
+                        value: Edit,
+                    ) = bundle.putString(key, Json.encodeToString(value))
+
+                    override fun get(
+                        bundle: SavedState,
+                        key: String,
+                    ): Edit? = bundle.getString(key)?.let { Json.decodeFromString(it) }
+
+                    override fun parseValue(value: String): Edit = Json.decodeFromString(value)
+
+                    override fun serializeAsValue(value: Edit): String = Json.encodeToString(value)
+                }
+
+                object TransactionIdNavType : NavType<TransactionId>(isNullableAllowed = true) {
+                    override fun put(
+                        bundle: SavedState,
+                        key: String,
+                        value: TransactionId,
+                    ) = bundle.putString(key, Json.encodeToString(value))
+
+                    override fun get(
+                        bundle: SavedState,
+                        key: String,
+                    ): TransactionId? = bundle.getString(key)?.let { Json.decodeFromString(it) }
+
+                    override fun parseValue(value: String): TransactionId =
+                        Json.decodeFromString(value)
+
+                    override fun serializeAsValue(value: TransactionId): String =
+                        Json.encodeToString(value)
+                }
+
+                object TransactionNavType : NavType<Transaction>(isNullableAllowed = false) {
+                    override fun put(
+                        bundle: SavedState,
+                        key: String,
+                        value: Transaction,
+                    ) = bundle.putString(key, Json.encodeToString(value))
+
+                    override fun get(
+                        bundle: SavedState,
+                        key: String,
+                    ): Transaction? = bundle.getString(key)?.let { Json.decodeFromString(it) }
+
+                    override fun parseValue(value: String): Transaction =
+                        Json.decodeFromString(value)
+
+                    override fun serializeAsValue(value: Transaction): String =
+                        Json.encodeToString(value)
+                }
+
+                companion object {
+                    val typeMap = mapOf(
+                        typeOf<Edit>() to EditNavType,
+                        typeOf<TransactionId?>() to TransactionIdNavType,
+                        typeOf<Transaction>() to TransactionNavType,
+                    )
+                }
+            }
+        }
+
         @Composable
         @Stable
         override fun icon() = painterResource(R.drawable.expenses)
@@ -53,18 +142,45 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle() = "Расходы"
 
-        fun NavGraphBuilder.expensesNavDestination(sharedModule: Module) {
-            composable<Expenses> {
-                val applicationContext = LocalContext.current.applicationContext
-
-                val expensesContext = remember {
-                    ExpensesContext(
-                        applicationContext = applicationContext,
-                        parentModule = sharedModule,
+        fun NavGraphBuilder.expensesNavDestination(
+            navController: NavController,
+            expensesFeatureDependencies: ExpensesFeatureDependencies,
+            transactionEditorFeatureDependencies: TransactionEditorFeatureDependencies,
+        ) {
+            navigation<Expenses>(
+                startDestination = ExpensesRoutes.Main,
+                typeMap = ExpensesRoutes.Edit.Companion.typeMap,
+            ) {
+                composable<ExpensesRoutes.Main>(
+                    typeMap = ExpensesRoutes.Edit.Companion.typeMap,
+                ) {
+                    ExpensesScreen(
+                        expensesFeatureDependencies,
+                        onExpenseClick = {
+                            navController.navigate(it.toEdit()) {
+                                popUpTo<ExpensesRoutes.Main> {
+                                    inclusive = true
+                                    saveState = false
+                                }
+                                restoreState = true
+                                launchSingleTop = true
+                            }
+                        },
                     )
                 }
 
-                ExpensesScreen(expensesContext)
+                composable<ExpensesRoutes.Edit>(
+                    typeMap = ExpensesRoutes.Edit.Companion.typeMap,
+                ) {
+                    val route = it.toRoute<ExpensesRoutes.Edit>()
+                    TransactionEditorScreen(
+                        transactionId = route.transactionId,
+                        transaction = route.transaction,
+                        currency = route.currency,
+                        transactionEditorFeatureDependencies = transactionEditorFeatureDependencies,
+                        onConfirm = { navController.navigateUp() }
+                    )
+                }
             }
         }
     }
@@ -86,18 +202,120 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Доходы"
 
-        fun NavGraphBuilder.incomeNavDestination(sharedModule: Module) {
-            composable<Income> {
-                val applicationContext = LocalContext.current.applicationContext
+        sealed interface IncomeRoutes {
+            @Serializable
+            data object Main : IncomeRoutes
 
-                val incomeContext = remember {
-                    IncomeContext(
-                        applicationContext = applicationContext,
-                        parentModule = sharedModule,
+            @Serializable
+            data class Edit(
+                val transactionId: TransactionId?,
+                val transaction: Transaction,
+                val currency: String,
+            ) : IncomeRoutes {
+                object EditNavType : NavType<Edit>(isNullableAllowed = false) {
+                    override fun put(
+                        bundle: SavedState,
+                        key: String,
+                        value: Edit,
+                    ) = bundle.putString(key, Json.encodeToString(value))
+
+                    override fun get(
+                        bundle: SavedState,
+                        key: String,
+                    ): Edit? = bundle.getString(key)?.let { Json.decodeFromString(it) }
+
+                    override fun parseValue(value: String): Edit = Json.decodeFromString(value)
+
+                    override fun serializeAsValue(value: Edit): String = Json.encodeToString(value)
+                }
+
+                object TransactionIdNavType : NavType<TransactionId>(isNullableAllowed = true) {
+                    override fun put(
+                        bundle: SavedState,
+                        key: String,
+                        value: TransactionId,
+                    ) = bundle.putString(key, Json.encodeToString(value))
+
+                    override fun get(
+                        bundle: SavedState,
+                        key: String,
+                    ): TransactionId? = bundle.getString(key)?.let { Json.decodeFromString(it) }
+
+                    override fun parseValue(value: String): TransactionId =
+                        Json.decodeFromString(value)
+
+                    override fun serializeAsValue(value: TransactionId): String =
+                        Json.encodeToString(value)
+                }
+
+                object TransactionNavType : NavType<Transaction>(isNullableAllowed = false) {
+                    override fun put(
+                        bundle: SavedState,
+                        key: String,
+                        value: Transaction,
+                    ) = bundle.putString(key, Json.encodeToString(value))
+
+                    override fun get(
+                        bundle: SavedState,
+                        key: String,
+                    ): Transaction? = bundle.getString(key)?.let { Json.decodeFromString(it) }
+
+                    override fun parseValue(value: String): Transaction =
+                        Json.decodeFromString(value)
+
+                    override fun serializeAsValue(value: Transaction): String =
+                        Json.encodeToString(value)
+                }
+
+                companion object {
+                    val typeMap = mapOf(
+                        typeOf<Edit>() to EditNavType,
+                        typeOf<TransactionId?>() to TransactionIdNavType,
+                        typeOf<Transaction>() to TransactionNavType,
+                    )
+                }
+            }
+        }
+
+        fun NavGraphBuilder.incomeNavDestination(
+            incomeFeatureDependencies: IncomeFeatureDependencies,
+            transactionEditorFeatureDependencies: TransactionEditorFeatureDependencies,
+            navController: NavController,
+        ) {
+            navigation<Income>(
+                startDestination = IncomeRoutes.Main,
+                typeMap = IncomeRoutes.Edit.Companion.typeMap,
+            ) {
+                composable<IncomeRoutes.Main>(
+                    typeMap = IncomeRoutes.Edit.Companion.typeMap,
+                ) {
+                    IncomeScreen(
+                        incomeFeatureDependencies,
+                        onIncomeClick = {
+                            navController.navigate(it.toEdit()) {
+                                popUpTo<IncomeRoutes.Main> {
+                                    inclusive = true
+                                    saveState = false
+                                }
+                                restoreState = true
+                                launchSingleTop = true
+                            }
+                        },
                     )
                 }
 
-                IncomeScreen(incomeContext)
+                composable<IncomeRoutes.Edit>(
+                    typeMap = IncomeRoutes.Edit.Companion.typeMap,
+                ) {
+                    val route = it.toRoute<IncomeRoutes.Edit>()
+                    TransactionEditorScreen(
+                        transactionId = route.transactionId,
+                        transaction = route.transaction,
+                        currency = route.currency,
+                        transactionEditorFeatureDependencies = transactionEditorFeatureDependencies,
+                        onConfirm = { navController.navigateUp() }
+                    )
+                }
             }
         }
     }
@@ -119,18 +337,9 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Счет"
 
-        fun NavGraphBuilder.accountNavDestination(sharedModule: Module) {
+        fun NavGraphBuilder.accountNavDestination(accountFeatureDependencies: AccountFeatureDependencies) {
             composable<Account> {
-                val applicationContext = LocalContext.current.applicationContext
-
-                val accountContext = remember {
-                    AccountContext(
-                        applicationContext = applicationContext,
-                        parentModule = sharedModule,
-                    )
-                }
-
-                AccountScreen(accountContext)
+                AccountScreen(accountFeatureDependencies)
             }
         }
     }
@@ -152,18 +361,9 @@ sealed interface AppGraph {
         @Stable
         override fun shortTitle(): String = "Статьи"
 
-        fun NavGraphBuilder.categoriesNavDestination(sharedModule: Module) {
+        fun NavGraphBuilder.categoriesNavDestination(categoriesFeatureDependencies: CategoriesFeatureDependencies) {
             composable<Categories> {
-                val applicationContext = LocalContext.current.applicationContext
-
-                val categoriesContext = remember {
-                    CategoriesContext(
-                        applicationContext = applicationContext,
-                        parentModule = sharedModule,
-                    )
-                }
-
-                CategoriesScreen(categoriesContext)
+                CategoriesScreen(categoriesFeatureDependencies)
             }
         }
     }
@@ -184,9 +384,9 @@ sealed interface AppGraph {
         @Composable
         override fun shortTitle(): String = "Настройки"
 
-        fun NavGraphBuilder.settingsNavDestination() {
+        fun NavGraphBuilder.settingsNavDestination(settingsFeatureDependencies: SettingsFeatureDependencies) {
             composable<Settings> {
-                SettingsScreen()
+                SettingsScreen(settingsFeatureDependencies)
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.income.domain.model
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Income entity
@@ -13,4 +13,6 @@ data class Income(
     val transactionDate: Instant,
     val comment: String?,
     val emoji: String,
+    val account: Account,
+    val category: Category,
 )

@@ -29,7 +29,7 @@ import com.itzephir.whererubles.ui.Error
 import com.itzephir.whererubles.ui.Loading
 import com.itzephir.whererubles.ui.TopBar
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 @Composable
 internal fun ExpensesScreenLayout(
@@ -37,6 +37,7 @@ internal fun ExpensesScreenLayout(
     onFabClick: () -> Unit = {},
     onActionClick: () -> Unit = {},
     onErrorRetry: () -> Unit = {},
+    onExpenseClick: (Expense) -> Unit = {},
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -111,59 +112,131 @@ private val expenses = listOf(
         id = ExpenseId(0),
         icon = "\uD83C\uDFE0",
         title = "Аренда квартиры",
-        amount = "100 000₽",
+        amount = "100000.00",
+        currency = "₽",
         time = Clock.System.now(),
+        account = Expense.Account(
+            id = Expense.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Expense.Category(
+            id = Expense.Category.CategoryId(1),
+            name = "Расход",
+        ),
     ),
     Expense(
         id = ExpenseId(1),
         icon = "\uD83D\uDC57",
         title = "Одежда",
-        amount = "100 000₽",
+        amount = "100000.00",
+        currency = "₽",
         time = Clock.System.now(),
+        account = Expense.Account(
+            id = Expense.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Expense.Category(
+            id = Expense.Category.CategoryId(1),
+            name = "Расход",
+        ),
     ),
     Expense(
         id = ExpenseId(2),
         icon = "\uD83D\uDC36",
         title = "На собачку",
-        amount = "100 000₽",
+        amount = "100000.00",
         comment = "Джек",
+        currency = "₽",
         time = Clock.System.now(),
+        account = Expense.Account(
+            id = Expense.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Expense.Category(
+            id = Expense.Category.CategoryId(1),
+            name = "Расход",
+        ),
     ),
     Expense(
         id = ExpenseId(3),
         icon = "\uD83D\uDC36",
         title = "На собачку",
-        amount = "100 000₽",
+        amount = "100000.00",
         comment = "Энна",
+        currency = "₽",
         time = Clock.System.now(),
+        account = Expense.Account(
+            id = Expense.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Expense.Category(
+            id = Expense.Category.CategoryId(1),
+            name = "Расход",
+        ),
     ),
     Expense(
         id = ExpenseId(4),
         icon = "РК",
         title = "Ремонт квартиры",
-        amount = "100 000₽",
+        amount = "100000.00",
+        currency = "₽",
         time = Clock.System.now(),
+        account = Expense.Account(
+            id = Expense.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Expense.Category(
+            id = Expense.Category.CategoryId(1),
+            name = "Расход",
+        ),
     ),
     Expense(
         id = ExpenseId(5),
         icon = "\uD83C\uDF6D",
         title = "Продукты",
-        amount = "100 000₽",
+        amount = "100000.00",
+        currency = "₽",
         time = Clock.System.now(),
+        account = Expense.Account(
+            id = Expense.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Expense.Category(
+            id = Expense.Category.CategoryId(1),
+            name = "Расход",
+        ),
     ),
     Expense(
         id = ExpenseId(6),
         icon = "\uD83C\uDFCB\uFE0F",
         title = "Спортзал",
-        amount = "100 000₽",
+        amount = "100000.00",
+        currency = "₽",
         time = Clock.System.now(),
+        account = Expense.Account(
+            id = Expense.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Expense.Category(
+            id = Expense.Category.CategoryId(1),
+            name = "Расход",
+        ),
     ),
     Expense(
         id = ExpenseId(7),
         icon = "\uD83D\uDC8A",
         title = "Медицина",
-        amount = "100 000₽",
+        amount = "100000.00",
+        currency = "₽",
         time = Clock.System.now(),
+        account = Expense.Account(
+            id = Expense.Account.AccountId(1),
+            name = "author",
+        ),
+        category = Expense.Category(
+            id = Expense.Category.CategoryId(1),
+            name = "Расход",
+        ),
     ),
 )
 

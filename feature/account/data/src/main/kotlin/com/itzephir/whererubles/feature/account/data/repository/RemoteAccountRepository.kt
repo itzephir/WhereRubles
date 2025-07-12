@@ -11,12 +11,13 @@ import com.itzephir.whererubles.feature.account.domain.model.AccountId
 import com.itzephir.whererubles.feature.account.domain.model.AccountUpdateRequest
 import com.itzephir.whererubles.feature.account.domain.repository.AccountRepository
 import io.ktor.client.HttpClient
+import javax.inject.Inject
 
 /**
  * Repository to setup accounts
  * @param httpClient client for http calls
  */
-class RemoteAccountRepository(private val httpClient: HttpClient) : AccountRepository {
+class RemoteAccountRepository @Inject constructor(private val httpClient: HttpClient) : AccountRepository {
     override suspend fun getAccounts() =
         httpClient.readAccounts()
             .mapLeft(AccountError.ReadAllError::map)

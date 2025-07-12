@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.google.ksp)
 }
 
 dependencies {
@@ -14,4 +15,7 @@ dependencies {
 
     implementation(libs.arrow.core)
     implementation(libs.ktor.client.core)
+
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
 }

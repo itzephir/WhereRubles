@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.expenses.domain.model
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Expense entity
@@ -13,4 +13,6 @@ data class Expense(
     val transactionDate: Instant,
     val comment: String?,
     val emoji: String,
+    val account: Account,
+    val category: Category,
 )

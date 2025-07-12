@@ -4,7 +4,7 @@ import arrow.core.Either
 import com.itzephir.whererubles.feature.expenses.domain.error.ExpensesByAccountAndPeriodError
 import com.itzephir.whererubles.feature.expenses.domain.model.AccountId
 import com.itzephir.whererubles.feature.expenses.domain.model.Expense
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * Expenses Repository contract

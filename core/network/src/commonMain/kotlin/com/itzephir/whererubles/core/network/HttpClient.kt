@@ -10,8 +10,11 @@ import io.ktor.client.request.bearerAuth
 import io.ktor.http.URLProtocol
 import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 fun provideHttpClient(baseUrl: String, authorizationToken: String) =
     HttpClient(engineFactory = CIO) {
@@ -21,6 +24,9 @@ fun provideHttpClient(baseUrl: String, authorizationToken: String) =
                 isLenient = true
                 explicitNulls = false
                 prettyPrint = true
+                serializersModule = SerializersModule {
+                    contextual(Instant::class, Instant.serializer())
+                }
             })
         }
 

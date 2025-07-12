@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.domain.model
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * TransactionResponse entity

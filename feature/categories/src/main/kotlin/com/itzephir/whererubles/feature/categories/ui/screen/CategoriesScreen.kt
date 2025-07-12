@@ -1,17 +1,30 @@
 package com.itzephir.whererubles.feature.categories.ui.screen
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
-import com.itzephir.whererubles.feature.categories.di.CategoriesContext
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.itzephir.whererubles.feature.categories.di.CategoriesFeatureDependencies
+import com.itzephir.whererubles.feature.categories.di.DaggerCategoriesFeatureComponent
+import com.itzephir.whererubles.feature.categories.di.categories.DaggerCategoriesComponent
+import com.itzephir.whererubles.feature.categories.presentation.viewmodel.CategoriesViewModel
 import com.itzephir.whererubles.feature.categories.ui.component.CategoriesScreenComponent
-import org.koin.compose.KoinIsolatedContext
-import org.koin.dsl.koinApplication
 
 @Composable
-fun CategoriesScreen(categoriesContext: CategoriesContext) {
+fun CategoriesScreen(
+    categoriesFeatureDependencies: CategoriesFeatureDependencies,
+) {
+    val categoriesFeatureComponent =
+        DaggerCategoriesFeatureComponent.factory().create(categoriesFeatureDependencies)
 
-    KoinIsolatedContext(categoriesContext.koinApplication) {
-        CategoriesScreenComponent()
-    }
+    val categoriesFeatureContext = categoriesFeatureComponent.categoriesFeatureContext
+
+    val categoriesComponent =
+        DaggerCategoriesComponent.factory().create(categoriesFeatureContext)
+
+    val categoriesContext = categoriesComponent.categoriesContext
+
+    val viewModel = viewModel<CategoriesViewModel>(factory = categoriesContext.viewModelFactory)
+
+    CategoriesScreenComponent(
+        viewModel = viewModel
+    )
 }

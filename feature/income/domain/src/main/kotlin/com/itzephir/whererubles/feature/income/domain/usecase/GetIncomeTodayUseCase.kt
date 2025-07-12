@@ -8,12 +8,13 @@ import com.itzephir.whererubles.feature.income.domain.mapper.toExpensesTodayErro
 import com.itzephir.whererubles.feature.income.domain.model.IncomeToday
 import com.itzephir.whererubles.feature.income.domain.repository.AccountRepository
 import com.itzephir.whererubles.feature.income.domain.repository.IncomeRepository
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toLocalDateTime
 import java.util.Locale
+import javax.inject.Inject
 import kotlin.time.Duration.Companion.days
 
 /**
@@ -21,7 +22,7 @@ import kotlin.time.Duration.Companion.days
  * @param accountRepository repository to interact with account
  * @param incomeRepository repository to interact with income
  */
-class GetIncomeTodayUseCase(
+class GetIncomeTodayUseCase @Inject constructor(
     private val accountRepository: AccountRepository,
     private val incomeRepository: IncomeRepository,
 ) {
@@ -39,7 +40,7 @@ class GetIncomeTodayUseCase(
             acc + income.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
-        IncomeToday(totalAmount, account.currency, income)
+        IncomeToday(totalAmount, account.currency, income, account)
     }
 
     private fun startOfTheDay(): Instant {

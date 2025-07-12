@@ -1,4 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
@@ -10,6 +12,7 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.google.ksp) apply false
     alias(libs.plugins.detekt)
 }
 
@@ -31,6 +34,18 @@ subprojects {
                 html.required.set(true)
                 sarif.required.set(true)
                 md.required.set(true)
+            }
+        }
+
+        tasks.withType<KotlinCompileCommon>().configureEach {
+            compilerOptions{
+                freeCompilerArgs.addAll("-opt-in=kotlin.time.ExperimentalTime")
+            }
+        }
+
+        tasks.withType<KotlinCompile>().configureEach {
+            compilerOptions {
+                freeCompilerArgs.addAll("-opt-in=kotlin.time.ExperimentalTime")
             }
         }
     }

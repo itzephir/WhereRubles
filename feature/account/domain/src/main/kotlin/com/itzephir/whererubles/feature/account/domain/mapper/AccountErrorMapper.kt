@@ -7,7 +7,5 @@ fun AccountError.GetAccountByIdError.toUpdateAccountError(): AccountError.Update
         is AccountError.GetAccountByIdError.NotFound     -> AccountError.UpdateAccountError.NotFound
         is AccountError.GetAccountByIdError.Unauthorized -> AccountError.UpdateAccountError.Unauthorized
         is AccountError.GetAccountByIdError.WrongFormat  -> AccountError.UpdateAccountError.WrongFormat
-        is AccountError.GetAccountByIdError.Else         -> AccountError.UpdateAccountError.Else(
-            this.cause
-        )
+        is AccountError.GetAccountByIdError.Else         -> AccountError.UpdateAccountError.Else(cause)
     }

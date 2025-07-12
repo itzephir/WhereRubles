@@ -11,12 +11,13 @@ import com.itzephir.whererubles.feature.income.presentation.model.Income
 import com.itzephir.whererubles.feature.income.presentation.model.IncomeId
 import com.itzephir.whererubles.ui.SingleItem
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 @Composable
 fun IncomeItem(
     income: Income,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
     isTimeEnabled: Boolean = false,
 ) {
     SingleItem(
@@ -27,7 +28,7 @@ fun IncomeItem(
         description = income.comment,
         modifier = modifier
             .heightIn(min = 70.dp),
-        onClick = {},
+        onClick = onClick,
     )
 }
 
@@ -43,6 +44,15 @@ private fun ExpenseItemPreview() {
                 amount = "100 000",
                 comment = "расхооооооооооооооод",
                 time = Clock.System.now(),
+                account = Income.Account(
+                    id = Income.Account.AccountId(1),
+                    name = "author",
+                ),
+                category = Income.Category(
+                    id = Income.Category.CategoryId(1),
+                    name = "Расход",
+                ),
+                currency = "₽",
             ),
         )
     }

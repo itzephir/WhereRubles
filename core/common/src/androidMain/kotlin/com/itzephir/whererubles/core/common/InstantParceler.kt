@@ -1,7 +1,7 @@
 package com.itzephir.whererubles.core.common
 
 import android.os.Parcel
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.parcelize.Parceler
 
 object InstantParceler : Parceler<Instant> {

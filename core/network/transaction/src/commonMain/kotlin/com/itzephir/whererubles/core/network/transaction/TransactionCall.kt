@@ -17,13 +17,13 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import io.ktor.http.path
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 suspend fun HttpClient.createTransaction(
     transaction: TransactionRequest,
 ): Either<TransactionError.CreateError, TransactionResponse> = either {
     try {
-        post("/transactions") {
+        post("transactions") {
             contentType(ContentType.Application.Json)
             setBody(transaction)
         }.body()
@@ -65,12 +65,12 @@ suspend fun HttpClient.updateTransactionById(
     transaction: TransactionRequest,
 ): Either<TransactionError.UpdateByIdError, TransactionResponse> = either {
     try {
-        put("/transactions") {
-            parameter("id", id.value)
+        put("transactions/${id.value}/") {
             contentType(ContentType.Application.Json)
             setBody(transaction)
         }.body()
     } catch (e: ClientRequestException) {
+        e.printStackTrace()
         when (e.response.status) {
             HttpStatusCode.BadRequest   -> raise(TransactionError.UpdateByIdError.WrongFormat)
             HttpStatusCode.Unauthorized -> raise(TransactionError.UpdateByIdError.Unauthorized)
@@ -78,6 +78,7 @@ suspend fun HttpClient.updateTransactionById(
             else                        -> raise(TransactionError.UpdateByIdError.Else(cause = e))
         }
     } catch (e: ServerResponseException) {
+        e.printStackTrace()
         raise(TransactionError.UpdateByIdError.Else(cause = e))
     }
 }

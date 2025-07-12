@@ -5,15 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.itzephir.whererubles.feature.account.presentation.action.AccountAction
 import com.itzephir.whererubles.feature.account.presentation.viewmodel.AccountViewModel
-import org.koin.compose.viewmodel.koinViewModel
 import pro.respawn.flowmvi.compose.dsl.subscribe
 
 @Composable
 fun AccountScreenComponent(
-    viewModel: AccountViewModel = koinViewModel(),
+    viewModel: AccountViewModel,
     onBalance: () -> Unit,
     onAction:  () -> Unit,
 ) {

@@ -3,9 +3,9 @@ package com.itzephir.whererubles.expenses.presentation.state
 import android.os.Parcelable
 import androidx.compose.runtime.Stable
 import com.itzephir.whererubles.core.common.InstantParceler
-import com.itzephir.whererubles.expenses.common.formatDate
+import com.itzephir.whererubles.core.format.formatDate
 import com.itzephir.whererubles.expenses.presentation.model.Expense
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.TypeParceler

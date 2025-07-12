@@ -1,0 +1,7 @@
+package com.itzephir.whererubles.feature.transactionEditor.presentation.intent
+
+import com.itzephir.whererubles.feature.transactionEditor.presentation.action.TransactionEditorAction
+import com.itzephir.whererubles.feature.transactionEditor.presentation.state.TransactionEditorState
+import pro.respawn.flowmvi.dsl.LambdaIntent
+
+typealias TransactionEditorIntent = LambdaIntent<TransactionEditorState, TransactionEditorAction>

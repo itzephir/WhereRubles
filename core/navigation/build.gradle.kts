@@ -1,8 +1,11 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.google.ksp)
 }
 
 android {
@@ -28,21 +31,25 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-
     buildFeatures {
         compose = true
     }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
+
 dependencies {
+    implementation(projects.core.di)
     implementation(projects.feature.expenses)
     implementation(projects.feature.income)
     implementation(projects.feature.account)
     implementation(projects.feature.categories)
     implementation(projects.feature.settings)
+    implementation(projects.feature.transactionEditor)
 
     implementation(projects.core.ui.theme)
 
@@ -57,7 +64,13 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
 
-    implementation(libs.koin.core)
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
+
+    implementation(libs.ktor.client.core)
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)

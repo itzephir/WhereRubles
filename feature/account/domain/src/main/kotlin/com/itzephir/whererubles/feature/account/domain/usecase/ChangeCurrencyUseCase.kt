@@ -7,8 +7,9 @@ import com.itzephir.whererubles.feature.account.domain.model.AccountId
 import com.itzephir.whererubles.feature.account.domain.model.AccountUpdateRequest
 import com.itzephir.whererubles.feature.account.domain.model.Currency
 import com.itzephir.whererubles.feature.account.domain.repository.AccountRepository
+import javax.inject.Inject
 
-class ChangeCurrencyUseCase(
+class ChangeCurrencyUseCase @Inject constructor(
     private val accountRepository: AccountRepository,
 ) {
     suspend operator fun invoke(accountId: AccountId, currency: Currency) = either {

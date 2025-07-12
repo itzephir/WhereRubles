@@ -3,15 +3,16 @@ package com.itzephir.whererubles.expenses.ui.component
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import com.itzephir.whererubles.expenses.presentation.model.Expense
 import com.itzephir.whererubles.expenses.presentation.viewmodel.ExpensesViewModel
-import org.koin.compose.viewmodel.koinViewModel
 import pro.respawn.flowmvi.compose.dsl.subscribe
 
 @Composable
 internal fun ExpensesScreenComponent(
-    viewModel: ExpensesViewModel = koinViewModel(),
+    viewModel: ExpensesViewModel,
     onActonClick: () -> Unit = {},
     onFabClick: () -> Unit = {},
+    onExpenseClick: (Expense) -> Unit = {}
 ) {
     val state by viewModel.subscribe()
 

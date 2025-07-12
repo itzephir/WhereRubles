@@ -1,7 +1,11 @@
 package com.itzephir.whererubles.feature.categories.presentation.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.itzephir.whererubles.feature.categories.domain.usecase.GetCategoriesUseCase
 import com.itzephir.whererubles.feature.categories.presentation.action.CategoriesAction
 import com.itzephir.whererubles.feature.categories.presentation.intent.CategoriesIntent
@@ -20,6 +24,8 @@ import pro.respawn.flowmvi.api.PipelineContext
 import pro.respawn.flowmvi.dsl.intent
 import pro.respawn.flowmvi.dsl.state
 import pro.respawn.flowmvi.dsl.updateState
+import javax.inject.Inject
+import kotlin.reflect.KClass
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -93,6 +99,17 @@ class CategoriesViewModel(
         }
         updateState {
             categories
+        }
+    }
+
+    class Factory @Inject constructor(
+        private val getCategoriesUseCase: GetCategoriesUseCase
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+            val savedStateHandle = extras.createSavedStateHandle()
+
+            @Suppress("UNCHECKED_CAST")
+            return CategoriesViewModel(savedStateHandle, getCategoriesUseCase) as T
         }
     }
 }

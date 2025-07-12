@@ -1,7 +1,7 @@
 package com.itzephir.whererubles.core.network.account
 
 import com.itzephir.whererubles.core.network.common.Id
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -2,7 +2,11 @@ package com.itzephir.whererubles.feature.account.presentation.viewmodel
 
 import android.R.attr.action
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.itzephir.whererubles.feature.account.domain.model.AccountUpdateRequest
 import com.itzephir.whererubles.feature.account.domain.usecase.GetAccountUseCase
 import com.itzephir.whererubles.feature.account.domain.usecase.UpdateAccountUseCase
@@ -22,6 +26,8 @@ import pro.respawn.flowmvi.android.StoreViewModel
 import pro.respawn.flowmvi.api.PipelineContext
 import pro.respawn.flowmvi.dsl.intent
 import pro.respawn.flowmvi.dsl.state
+import javax.inject.Inject
+import kotlin.reflect.KClass
 
 class UpdateAccountViewModel(
     savedStateHandle: SavedStateHandle,
@@ -109,5 +115,21 @@ class UpdateAccountViewModel(
             )
         }
         updateState { account }
+    }
+
+    class Factory @Inject constructor(
+        val getAccountUseCase: GetAccountUseCase,
+        val updateAccountUseCase: UpdateAccountUseCase,
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+            val savedStateHandle = extras.createSavedStateHandle()
+
+            @Suppress("UNCHECKED_CAST")
+            return UpdateAccountViewModel(
+                savedStateHandle = savedStateHandle,
+                getAccount = getAccountUseCase,
+                updateAccount = updateAccountUseCase,
+            ) as T
+        }
     }
 }

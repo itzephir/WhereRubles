@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.itzephir.whererubles.feature.income.R
+import com.itzephir.whererubles.feature.income.presentation.model.Income
 import com.itzephir.whererubles.feature.income.presentation.state.IncomeHistoryState
 import com.itzephir.whererubles.ui.Error
 import com.itzephir.whererubles.ui.Loading
@@ -33,6 +34,7 @@ fun IncomeHistoryLayout(
     onBackClick: () -> Unit = {},
     onActionClick: () -> Unit = {},
     onErrorRetry: () -> Unit = {},
+    onIncomeClick: (Income) -> Unit = {},
     onStartChanged: (Long?) -> Unit = {},
     onEndChanged: (Long?) -> Unit = {},
 ) {
@@ -99,6 +101,7 @@ fun IncomeHistoryLayout(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
+                onIncomeClick = onIncomeClick,
                 onStartChanged = onStartChanged,
                 onEndChanged = onEndChanged,
             )

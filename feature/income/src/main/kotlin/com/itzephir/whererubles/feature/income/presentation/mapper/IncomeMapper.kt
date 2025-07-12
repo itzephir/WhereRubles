@@ -13,9 +13,22 @@ internal fun Income.map(): com.itzephir.whererubles.feature.income.presentation.
         id = IncomeId(id.value),
         icon = emoji,
         title = title,
-        amount = amount.formatAmount(currency),
+        amount = amount,
         time = transactionDate,
         comment = comment,
+        account = com.itzephir.whererubles.feature.income.presentation.model.Income.Account(
+            id = com.itzephir.whererubles.feature.income.presentation.model.Income.Account.AccountId(
+                account.id.value
+            ),
+            name = account.name,
+        ),
+        category = com.itzephir.whererubles.feature.income.presentation.model.Income.Category(
+            id = com.itzephir.whererubles.feature.income.presentation.model.Income.Category.CategoryId(
+                category.id.value
+            ),
+            name = category.name,
+        ),
+        currency = currency,
     )
 
 internal fun IncomeToday.toIncomeState(): IncomeState = IncomeState.Income(

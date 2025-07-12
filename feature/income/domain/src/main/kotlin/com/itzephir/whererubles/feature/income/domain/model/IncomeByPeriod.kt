@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.income.domain.model
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 /**
  * List of income by period entity
@@ -11,4 +11,5 @@ data class IncomeByPeriod(
     val start: Instant,
     val end: Instant,
     val income: List<Income>,
+    val account: Account,
 )

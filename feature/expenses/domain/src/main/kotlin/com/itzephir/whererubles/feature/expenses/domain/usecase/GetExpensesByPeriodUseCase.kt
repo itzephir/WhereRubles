@@ -8,15 +8,16 @@ import com.itzephir.whererubles.feature.expenses.domain.mapper.toExpensesByPerio
 import com.itzephir.whererubles.feature.expenses.domain.model.ExpensesByPeriod
 import com.itzephir.whererubles.feature.expenses.domain.repository.AccountRepository
 import com.itzephir.whererubles.feature.expenses.domain.repository.ExpensesRepository
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import java.util.Locale
+import javax.inject.Inject
 
 /**
  * Use case for getting expenses by defined period
  * @param accountRepository repository to interact with account
  * @param expensesRepository repository to interact with expenses
  */
-class GetExpensesByPeriodUseCase(
+class GetExpensesByPeriodUseCase @Inject constructor(
     private val accountRepository: AccountRepository,
     private val expensesRepository: ExpensesRepository,
 ) {
@@ -36,6 +37,6 @@ class GetExpensesByPeriodUseCase(
             acc + expense.amount.toDouble()
         }.let { String.format(Locale.US, "%.2f", it) }
 
-        ExpensesByPeriod(totalAmount, currency = account.currency,start, end, expenses)
+        ExpensesByPeriod(totalAmount, currency = account.currency, start, end, expenses, account)
     }
 }
