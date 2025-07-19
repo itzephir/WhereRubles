@@ -153,6 +153,7 @@ class TransactionRepository @Inject constructor(
             transactionDao.getTransactionsByPeriodFlow(accountId, start, end)
                 .map { it.map(TransactionEntity::toTransaction) })
         if (networkProvider.isConnected()) {
+            println("cool")
             val transactions = httpClient
                 .readTransactionsByAccountIdAndPeriod(accountId, start, end)
                 .fold(

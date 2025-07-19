@@ -44,6 +44,13 @@ kotlin {
 
 dependencies {
     implementation(projects.core.di)
+    implementation(projects.core.data.common)
+    implementation(projects.core.data.account)
+    implementation(projects.core.data.category)
+    implementation(projects.core.data.transaction)
+    implementation(projects.core.storage.account)
+    implementation(projects.core.storage.category)
+    implementation(projects.core.storage.transaction)
     implementation(projects.feature.expenses)
     implementation(projects.feature.income)
     implementation(projects.feature.account)
@@ -71,6 +78,7 @@ dependencies {
     ksp(libs.dagger.compiler)
 
     implementation(libs.ktor.client.core)
+    implementation(libs.room.runtime)
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)

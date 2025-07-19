@@ -29,6 +29,8 @@ sealed interface AccountError {
     }
 
     sealed interface GetAccountByIdError : AccountError {
+        data object NoInternet: GetAccountByIdError
+
         data object WrongFormat : GetAccountByIdError
 
         data object Unauthorized : GetAccountByIdError
@@ -39,6 +41,8 @@ sealed interface AccountError {
     }
 
     sealed interface UpdateAccountError : AccountError {
+        data object NoInternet: UpdateAccountError
+
         data object WrongFormat : UpdateAccountError
 
         data object Unauthorized : UpdateAccountError

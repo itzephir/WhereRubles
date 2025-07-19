@@ -107,7 +107,7 @@ class AccountRepository @Inject constructor(
 
     suspend fun createAccount(accountOperation: AccountOperation): Either<CreateAccountError, Account> =
         either {
-            if (networkProvider.isConnected())
+            if (networkProvider.isConnected()) {
                 httpClient.createAccount(
                     accountOperation.toCreateAccountRequest()
                 )
@@ -117,7 +117,7 @@ class AccountRepository @Inject constructor(
                     .also { account ->
                         accountDao.upsert(account.toAccountEntity())
                     }
-            else {
+            } else {
                 operationDao.upsertOperation(accountOperation.toOperationEntity())
                 accountOperation.toAccountEntity().also {
                     accountDao.upsert(it)
@@ -126,6 +126,7 @@ class AccountRepository @Inject constructor(
         }
 
     suspend fun getAccountById(id: Id): Either<GetAccountByIdError, AccountFull> = either {
+        println("uncool ${networkProvider.isConnected()}")
         if (networkProvider.isConnected())
             httpClient.readAccountById(id)
                 .mapLeft(AccountError.ReadByIdError::toGetAccountByIdError)
@@ -139,6 +140,7 @@ class AccountRepository @Inject constructor(
         accountOperation: AccountOperation,
     ): Either<UpdateAccountByIdError, Account> = either {
         if (networkProvider.isConnected()) {
+            println("uncool")
             httpClient.updateAccountById(id, accountOperation.toAccountUpdateRequest())
                 .mapLeft(AccountError.UpdateByIdError::toUpdateAccountByIdError)
                 .map(AccountDto::toAccount)

@@ -5,8 +5,9 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.core.network.common)
-    implementation(projects.core.network.account)
+    api(projects.core.model)
+    api(projects.core.data.common)
+    api(projects.core.data.account)
 
     implementation(projects.feature.account.domain)
 

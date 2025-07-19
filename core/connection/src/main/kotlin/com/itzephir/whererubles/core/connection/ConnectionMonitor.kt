@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.util.Log
 import androidx.core.content.getSystemService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -73,7 +74,10 @@ class ConnectionMonitor @Inject constructor(
         return if (isConnected) ConnectionStatus.CONNECTED else ConnectionStatus.NO_CONNECTION
     }
 
-    fun currentStatus() = status.value
+    fun currentStatus(): ConnectionStatus {
+        Log.d("CurrentNetworkStatus", status.value.toString())
+        return status.value
+    }
 
     companion object {
         private fun NetworkCapabilities.hasCapabilities(vararg capabilities: Int): Boolean =

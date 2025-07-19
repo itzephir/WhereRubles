@@ -20,6 +20,7 @@ class AppModule {
 
     @Provides
     fun networkProvider(connectionMonitor: ConnectionMonitor): NetworkProvider = NetworkProvider {
-        connectionMonitor.currentStatus() == ConnectionStatus.CONNECTED
+        println("cool")
+        connectionMonitor.getCurrentConnectionStatus() == ConnectionStatus.CONNECTED
     }
 }
