@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.account.data.repository
 
-import com.itzephir.whererubles.core.network.account.Account
+import com.itzephir.whererubles.core.network.account.AccountDto
 import com.itzephir.whererubles.core.network.account.AccountError
 import com.itzephir.whererubles.core.network.account.AccountResponse
 import com.itzephir.whererubles.core.network.account.readAccountById
@@ -21,7 +21,7 @@ class RemoteAccountRepository @Inject constructor(private val httpClient: HttpCl
     override suspend fun getAccounts() =
         httpClient.readAccounts()
             .mapLeft(AccountError.ReadAllError::map)
-            .map(List<Account>::map)
+            .map(List<AccountDto>::map)
 
     override suspend fun getAccountById(accountId: AccountId) =
         httpClient.readAccountById(Id(accountId.value))
@@ -40,6 +40,6 @@ class RemoteAccountRepository @Inject constructor(private val httpClient: HttpCl
         ),
     )
         .mapLeft(AccountError.UpdateByIdError::toUpdateAccountError)
-        .map(Account::toAccount)
+        .map(AccountDto::toAccount)
 }
 

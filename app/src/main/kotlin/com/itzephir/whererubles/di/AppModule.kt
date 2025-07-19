@@ -1,6 +1,9 @@
 package com.itzephir.whererubles.di
 
 import com.itzephir.whererubles.app.BuildConfig
+import com.itzephir.whererubles.core.connection.ConnectionMonitor
+import com.itzephir.whererubles.core.connection.ConnectionStatus
+import com.itzephir.whererubles.core.data.common.NetworkProvider
 import com.itzephir.whererubles.core.network.provideHttpClient
 import dagger.Module
 import dagger.Provides
@@ -11,8 +14,12 @@ class AppModule {
     @Provides
     fun httpClient(): HttpClient {
         return provideHttpClient(
-            baseUrl = BuildConfig.apiBaseUrl,
             authorizationToken = BuildConfig.apiKey,
         )
+    }
+
+    @Provides
+    fun networkProvider(connectionMonitor: ConnectionMonitor): NetworkProvider = NetworkProvider {
+        connectionMonitor.currentStatus() == ConnectionStatus.CONNECTED
     }
 }

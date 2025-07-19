@@ -2,7 +2,6 @@ package com.itzephir.whererubles.feature.transactionEditor.di
 
 import com.itzephir.whererubles.feature.transactionEditor.presentation.model.Transaction
 import com.itzephir.whererubles.feature.transactionEditor.presentation.model.TransactionId
-import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 

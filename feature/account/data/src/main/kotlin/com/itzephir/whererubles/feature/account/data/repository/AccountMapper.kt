@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.account.data.repository
 
-import com.itzephir.whererubles.core.network.account.Account
+import com.itzephir.whererubles.core.network.account.AccountDto
 import com.itzephir.whererubles.core.network.account.AccountError
 import com.itzephir.whererubles.core.network.account.AccountResponse
 import com.itzephir.whererubles.core.network.common.Id
@@ -10,9 +10,9 @@ import com.itzephir.whererubles.feature.account.domain.model.AccountResponse.Sta
 import com.itzephir.whererubles.feature.account.domain.model.Currency
 import com.itzephir.whererubles.feature.account.domain.model.UserId
 
-internal fun List<Account>.map() = map(Account::toAccount)
+internal fun List<AccountDto>.map() = map(AccountDto::toAccount)
 
-internal fun Account.toAccount() =
+internal fun AccountDto.toAccount() =
     com.itzephir.whererubles.feature.account.domain.model.Account(
         id = id.toAccountId(),
         userId = userId.toUserId(),

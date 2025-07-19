@@ -20,7 +20,7 @@ fun Transaction.map():
         categoryId = com.itzephir.whererubles.feature.transactionEditor.domain.model.Transaction.CategoryId(
             categoryId!!.value
         ),
-        amount = amount.formatAmount(),
+        amount = amount,
         transactionDate = transactionDate!!,
         comment = comment,
     )

@@ -18,35 +18,39 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.atDate
 import kotlinx.datetime.atTime
-import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import pro.respawn.flowmvi.android.StoreViewModel
 import pro.respawn.flowmvi.dsl.intent
 import pro.respawn.flowmvi.dsl.state
-import pro.respawn.flowmvi.dsl.updateState
 import javax.inject.Inject
 import kotlin.reflect.KClass
 import kotlin.time.Clock
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Instant
 
 class TransactionEditorViewModel(
     savedStateHandle: SavedStateHandle,
-    initialTransactionId: TransactionId?,
-    initialTransaction: Transaction,
+    private val initialTransactionId: TransactionId?,
+    private val initialTransaction: Transaction,
     private val createOrUpdateTransaction: CreateOrUpdateTransactionUseCase,
 ) : StoreViewModel<TransactionEditorState, TransactionEditorIntent, TransactionEditorAction>(
     TransactionEditorStore(
         savedStateHandle,
         initial = TransactionEditorState.Edit(initialTransactionId, initialTransaction),
     ) {
-
+        updateState { TransactionEditorState.Edit(initialTransactionId, initialTransaction) }
     }
 ) {
+    fun init(transactionId: TransactionId?, transaction: Transaction) = intent {
+        println("init $transactionId: $transaction")
+        updateState {
+            println("$transactionId")
+            TransactionEditorState.Edit(transactionId, transaction)
+        }
+        println(state)
+    }
+
     fun changeAmount(amount: String) = (state as? TransactionEditorState.Edit)?.let { state ->
         intent {
             updateState {
@@ -131,6 +135,7 @@ class TransactionEditorViewModel(
                     }
                 },
                 ifRight = {
+                    println(it)
                     action(TransactionEditorAction.Confirmed)
                 },
             )

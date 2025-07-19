@@ -1,6 +1,7 @@
 package com.itzephir.whererubles.feature.transactionEditor.ui.component
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import com.itzephir.whererubles.feature.transactionEditor.presentation.action.TransactionEditorAction
 import com.itzephir.whererubles.feature.transactionEditor.presentation.viewmodel.TransactionEditorViewModel
@@ -13,12 +14,12 @@ fun TransactionEditorScreenComponent(
 ) {
     val state by viewModel.subscribe {
         when (it) {
-            is TransactionEditorAction.Confirmed -> onConfirm
+            is TransactionEditorAction.Confirmed -> onConfirm()
         }
     }
 
     TransactionEditorScreenLayout(
-        state,
+        state = state,
         onAmountChange = { viewModel.changeAmount(it) },
         onCommentChange = { viewModel.changeComment(it) },
         onDateChange = { viewModel.changeDate(it) },

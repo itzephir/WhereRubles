@@ -17,6 +17,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(projects.core.model)
+
             implementation(libs.bundles.ktor.client)
             implementation(libs.arrow.core)
             implementation(libs.kotlinx.datetime)
