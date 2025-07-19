@@ -3,6 +3,7 @@ package com.itzephir.whererubles.core.network.account
 import arrow.core.Either
 import arrow.core.raise.either
 import com.itzephir.whererubles.core.network.common.Id
+import com.itzephir.whererubles.core.network.common.url
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
@@ -15,11 +16,10 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
-import io.ktor.http.path
 
-suspend fun HttpClient.readAccounts(): Either<AccountError.ReadAllError, List<Account>> = either {
+suspend fun HttpClient.readAccounts(): Either<AccountError.ReadAllError, List<AccountDto>> = either {
     try {
-        get("accounts"){}.body()
+        get(url(ACCOUNTS)) {}.body()
     } catch (e: ClientRequestException) {
         when (e.response.status) {
             HttpStatusCode.Unauthorized -> raise(AccountError.ReadAllError.Unauthorized)
@@ -33,9 +33,9 @@ suspend fun HttpClient.readAccounts(): Either<AccountError.ReadAllError, List<Ac
 
 suspend fun HttpClient.createAccount(
     account: CreateAccountRequest,
-): Either<AccountError.CreateError, Account> = either {
+): Either<AccountError.CreateError, AccountDto> = either {
     try {
-        post("accounts") {
+        post(url(ACCOUNTS)) {
             contentType(ContentType.Application.Json)
             setBody(account)
         }.body()
@@ -56,7 +56,7 @@ suspend fun HttpClient.readAccountById(
     id: Id,
 ): Either<AccountError.ReadByIdError, AccountResponse> = either {
     try {
-        get("accounts/${id.value}").body()
+        get(url(accountsById(id))).body()
     } catch (e: ClientRequestException) {
         e.printStackTrace()
         when (e.response.status) {
@@ -76,9 +76,9 @@ suspend fun HttpClient.readAccountById(
 suspend fun HttpClient.updateAccountById(
     id: Id,
     account: AccountUpdateRequest,
-): Either<AccountError.UpdateByIdError, Account> = either {
+): Either<AccountError.UpdateByIdError, AccountDto> = either {
     try {
-        put("accounts/${id.value}") {
+        put(url(accountsById(id))) {
             contentType(ContentType.Application.Json)
             setBody(account)
         }.body()
@@ -103,11 +103,7 @@ suspend fun HttpClient.deleteAccountById(
 ): Either<AccountError.DeleteByIdError, Unit> = either {
 
     try {
-        delete("accounts") {
-            url {
-                path(id.value.toString())
-            }
-        }.body()
+        delete(url(accountsById(id))).body()
     } catch (e: ClientRequestException) {
         when (e.response.status) {
             HttpStatusCode.BadRequest   -> raise(AccountError.DeleteByIdError.WrongData)
@@ -129,11 +125,7 @@ suspend fun HttpClient.readAccountHistoryById(
     id: Id,
 ): Either<AccountError.ReadAccountHistoryByIdError, AccountHistoryResponse> = either {
     try {
-        get("accounts") {
-            url {
-                path(id.value.toString(), "history")
-            }
-        }.body()
+        get(url(accountsById(id))).body()
     } catch (e: ClientRequestException) {
         when (e.response.status) {
             HttpStatusCode.BadRequest   -> raise(AccountError.ReadAccountHistoryByIdError.WrongId)

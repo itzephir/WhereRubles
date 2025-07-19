@@ -8,9 +8,7 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-@Serializable(IdSerializer::class)
-@JvmInline
-value class Id(val value: Int)
+typealias Id = com.itzephir.whererubles.core.model.Id
 
 object IdSerializer : KSerializer<Id> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(

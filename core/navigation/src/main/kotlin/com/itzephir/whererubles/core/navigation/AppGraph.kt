@@ -178,7 +178,16 @@ sealed interface AppGraph {
                         transaction = route.transaction,
                         currency = route.currency,
                         transactionEditorFeatureDependencies = transactionEditorFeatureDependencies,
-                        onConfirm = { navController.navigateUp() }
+                        onConfirm = {
+                            navController.navigate(ExpensesRoutes.Main) {
+                                popUpTo<ExpensesRoutes.Main> {
+                                    inclusive = false
+                                    saveState = false
+                                }
+                                restoreState = true
+                                launchSingleTop = true
+                            }
+                        }
                     )
                 }
             }
@@ -313,7 +322,14 @@ sealed interface AppGraph {
                         transaction = route.transaction,
                         currency = route.currency,
                         transactionEditorFeatureDependencies = transactionEditorFeatureDependencies,
-                        onConfirm = { navController.navigateUp() }
+                        onConfirm = { navController.navigate(IncomeRoutes.Main){
+                            popUpTo<IncomeRoutes.Edit> {
+                                inclusive = false
+                                saveState = false
+                            }
+                            restoreState = true
+                            launchSingleTop = true
+                        } }
                     )
                 }
             }

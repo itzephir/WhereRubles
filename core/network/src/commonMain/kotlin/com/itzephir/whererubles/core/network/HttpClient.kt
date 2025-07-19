@@ -16,7 +16,7 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Instant
 
-fun provideHttpClient(baseUrl: String, authorizationToken: String) =
+fun provideHttpClient(authorizationToken: String) =
     HttpClient(engineFactory = CIO) {
         install(plugin = ContentNegotiation) {
             json(json = Json {
@@ -37,11 +37,6 @@ fun provideHttpClient(baseUrl: String, authorizationToken: String) =
         }
 
         defaultRequest {
-            url {
-                protocol = URLProtocol.HTTPS
-                host = baseUrl
-                path("api/", "v1/")
-            }
             bearerAuth(authorizationToken)
         }
 

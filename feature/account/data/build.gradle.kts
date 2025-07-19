@@ -1,12 +1,13 @@
 plugins {
     `java-library`
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.google.ksp)
+    alias(libs.plugins.ksp)
 }
 
 dependencies {
-    implementation(projects.core.network.common)
-    implementation(projects.core.network.account)
+    api(projects.core.model)
+    api(projects.core.data.common)
+    api(projects.core.data.account)
 
     implementation(projects.feature.account.domain)
 

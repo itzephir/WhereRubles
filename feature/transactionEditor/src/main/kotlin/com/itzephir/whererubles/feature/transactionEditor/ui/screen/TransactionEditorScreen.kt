@@ -1,6 +1,8 @@
 package com.itzephir.whererubles.feature.transactionEditor.ui.screen
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.itzephir.whererubles.feature.transactionEditor.di.DaggerTransactionEditorFeatureComponent
 import com.itzephir.whererubles.feature.transactionEditor.di.TransactionEditorFeatureDependencies
@@ -18,24 +20,37 @@ fun TransactionEditorScreen(
     transactionEditorFeatureDependencies: TransactionEditorFeatureDependencies,
     onConfirm: () -> Unit,
 ) {
-    val transactionEditorFeatureComponent =
+    val transactionEditorFeatureComponent = remember(
+        transactionId,
+        transaction,
+        currency,
+        transactionEditorFeatureDependencies,
+    ) {
+        println(transactionId)
         DaggerTransactionEditorFeatureComponent.factory().create(
             transactionId,
             transaction,
             currency,
             transactionEditorFeatureDependencies,
         )
+    }
 
     val transactionEditorFeatureContext =
         transactionEditorFeatureComponent.transactionEditorFeatureContext
 
-    val transactionEditorComponent =
+    val transactionEditorComponent = remember {
+        println(transactionId)
         DaggerTransactionEditorComponent.factory().create(transactionEditorFeatureContext)
+    }
 
     val transactionEditorContext = transactionEditorComponent.transactionEditorContext
 
     val viewModel =
         viewModel<TransactionEditorViewModel>(factory = transactionEditorContext.viewModelFactory)
+
+    LaunchedEffect(Unit) {
+        viewModel.init(transactionId, transaction)
+    }
 
     TransactionEditorScreenComponent(viewModel = viewModel, onConfirm = onConfirm)
 }

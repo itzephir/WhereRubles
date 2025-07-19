@@ -3,6 +3,7 @@ package com.itzephir.whererubles.core.network.category
 import arrow.core.Either
 import arrow.core.raise.either
 import com.itzephir.whererubles.core.network.common.Id
+import com.itzephir.whererubles.core.network.common.url
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
@@ -23,7 +24,7 @@ data class Category(
 suspend fun HttpClient.readCategories(): Either<CategoryError.ReadAllError, List<Category>> =
     either {
         try {
-            get("categories").body()
+            get(url(CATEGORIES)).body()
         } catch (e: ClientRequestException) {
             when (e.response.status) {
                 HttpStatusCode.Unauthorized -> raise(CategoryError.ReadAllError.Unauthorized)
@@ -38,7 +39,7 @@ suspend fun HttpClient.readCategoriesByType(
     isIncome: Boolean,
 ): Either<CategoryError.ReadByTypeError, List<Category>> = either {
     try {
-        get("/categories") {
+        get(url(categoriesByType(isIncome))) {
             url {
                 path("type", isIncome.toString())
             }

@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.google.ksp)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -66,7 +66,18 @@ dependencies {
 
     implementation(projects.core.ui.theme)
 
+    implementation(projects.core.sync)
     implementation(projects.core.network)
+    implementation(projects.core.storage)
+    implementation(projects.core.storage.account)
+    implementation(projects.core.storage.category)
+    implementation(projects.core.storage.transaction)
+    implementation(projects.core.data)
+    implementation(projects.core.data.account)
+    implementation(projects.core.data.category)
+    implementation(projects.core.data.transaction)
+    implementation(projects.core.data.common)
+    implementation(projects.core.connection)
     implementation(projects.core.navigation)
 
     implementation(libs.androidx.core.ktx)
@@ -93,4 +104,6 @@ dependencies {
     ksp(libs.dagger.compiler)
 
     implementation(libs.ktor.client.core)
+
+    implementation(libs.androidx.work.runtime.ktx)
 }

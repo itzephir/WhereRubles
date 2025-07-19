@@ -8,4 +8,5 @@ fun AccountError.GetAccountByIdError.toUpdateAccountError(): AccountError.Update
         is AccountError.GetAccountByIdError.Unauthorized -> AccountError.UpdateAccountError.Unauthorized
         is AccountError.GetAccountByIdError.WrongFormat  -> AccountError.UpdateAccountError.WrongFormat
         is AccountError.GetAccountByIdError.Else         -> AccountError.UpdateAccountError.Else(cause)
+        AccountError.GetAccountByIdError.NoInternet      -> AccountError.UpdateAccountError.NoInternet
     }

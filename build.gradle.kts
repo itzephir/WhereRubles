@@ -12,7 +12,8 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
-    alias(libs.plugins.google.ksp) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.room) apply false
     alias(libs.plugins.detekt)
 }
 
@@ -46,6 +47,18 @@ subprojects {
         tasks.withType<KotlinCompile>().configureEach {
             compilerOptions {
                 freeCompilerArgs.addAll("-opt-in=kotlin.time.ExperimentalTime")
+            }
+        }
+
+        tasks.withType<KotlinCompile>().configureEach {
+            compilerOptions {
+                freeCompilerArgs.add("-Xcontext-parameters")
+            }
+        }
+
+        tasks.withType<KotlinCompileCommon>().configureEach {
+            compilerOptions {
+                freeCompilerArgs.add("-Xcontext-parameters")
             }
         }
     }
