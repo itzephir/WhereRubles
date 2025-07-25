@@ -11,7 +11,5 @@ import javax.inject.Inject
 class AppContext @Inject constructor(
     override val httpClient: HttpClient,
     override val context: Context,
-    override val accounts: Accounts,
-    override val transactions: Transactions,
     override val networkProvider: NetworkProvider,
 ) : NavigationDependencies

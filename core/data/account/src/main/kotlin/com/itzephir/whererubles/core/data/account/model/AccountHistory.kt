@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.core.data.account.model
 
+import com.itzephir.whererubles.core.model.Amount
 import com.itzephir.whererubles.core.model.Currency
 import com.itzephir.whererubles.core.model.Id
 import kotlin.time.Instant
@@ -8,7 +9,7 @@ data class AccountHistory(
     val accountId: Id,
     val accountName: String,
     val currency: Currency,
-    val currentBalance: Double,
+    val currentBalance: Amount,
     val history: List<Change>,
 ) {
     data class Change(
@@ -27,7 +28,7 @@ data class AccountHistory(
         data class AccountState(
             val id: Id,
             val name: String,
-            val balance: Double,
+            val balance: Amount,
             val currency: Currency,
         )
     }

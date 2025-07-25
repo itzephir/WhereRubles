@@ -2,7 +2,6 @@ package com.itzephir.whererubles.core.network.category
 
 import arrow.core.Either
 import arrow.core.raise.either
-import com.itzephir.whererubles.core.network.common.Id
 import com.itzephir.whererubles.core.network.common.url
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -11,17 +10,8 @@ import io.ktor.client.plugins.ServerResponseException
 import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.path
-import kotlinx.serialization.Serializable
 
-@Serializable
-data class Category(
-    val id: Id,
-    val name: String,
-    val emoji: String,
-    val isIncome: Boolean,
-)
-
-suspend fun HttpClient.readCategories(): Either<CategoryError.ReadAllError, List<Category>> =
+suspend fun HttpClient.readCategories(): Either<CategoryError.ReadAllError, List<CategoryDto>> =
     either {
         try {
             get(url(CATEGORIES)).body()
@@ -37,7 +27,7 @@ suspend fun HttpClient.readCategories(): Either<CategoryError.ReadAllError, List
 
 suspend fun HttpClient.readCategoriesByType(
     isIncome: Boolean,
-): Either<CategoryError.ReadByTypeError, List<Category>> = either {
+): Either<CategoryError.ReadByTypeError, List<CategoryDto>> = either {
     try {
         get(url(categoriesByType(isIncome))) {
             url {

@@ -1,7 +1,7 @@
 package com.itzephir.whererubles.feature.transactionEditor.data.repository
 
 import arrow.core.Either
-import com.itzephir.whererubles.core.network.common.Id
+import com.itzephir.whererubles.core.model.Id
 import com.itzephir.whererubles.core.network.transaction.TransactionError
 import com.itzephir.whererubles.core.network.transaction.createTransaction
 import com.itzephir.whererubles.core.network.transaction.updateTransactionById

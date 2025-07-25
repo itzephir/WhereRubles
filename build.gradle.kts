@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.room) apply false
+    alias(libs.plugins.mappie) apply false
     alias(libs.plugins.detekt)
 }
 

@@ -12,9 +12,5 @@ interface NavigationDependencies {
 
     val context: Context
 
-    val accounts: Accounts
-
-    val transactions: Transactions
-
     val networkProvider: NetworkProvider
 }

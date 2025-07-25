@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.core.model)
     implementation(projects.core.network.common)
     implementation(projects.core.network.transaction)
     implementation(projects.core.network.account)

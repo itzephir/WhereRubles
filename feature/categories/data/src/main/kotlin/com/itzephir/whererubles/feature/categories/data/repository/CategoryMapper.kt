@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.feature.categories.data.repository
 
-import com.itzephir.whererubles.core.network.category.Category
+import com.itzephir.whererubles.core.network.category.CategoryDto
 import com.itzephir.whererubles.core.network.category.CategoryError
 import com.itzephir.whererubles.feature.categories.domain.error.GetAllCategoriesError
 
@@ -10,7 +10,7 @@ fun CategoryError.ReadAllError.toGetAllCategoriesError(): GetAllCategoriesError 
         is CategoryError.ReadAllError.Else         -> GetAllCategoriesError.Else(cause)
     }
 
-internal fun Category.map(): com.itzephir.whererubles.feature.categories.domain.model.Category =
+internal fun CategoryDto.map(): com.itzephir.whererubles.feature.categories.domain.model.Category =
     com.itzephir.whererubles.feature.categories.domain.model.Category(
         id = com.itzephir.whererubles.feature.categories.domain.model.Category.CategoryId(id.value),
         name = name,
@@ -18,5 +18,5 @@ internal fun Category.map(): com.itzephir.whererubles.feature.categories.domain.
         isIncome = isIncome,
     )
 
-internal fun List<Category>.map(): List<com.itzephir.whererubles.feature.categories.domain.model.Category> =
-    map(Category::map)
+internal fun List<CategoryDto>.map(): List<com.itzephir.whererubles.feature.categories.domain.model.Category> =
+    map(CategoryDto::map)

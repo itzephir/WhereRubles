@@ -34,7 +34,7 @@ class GetIncomeByPeriodUseCase @Inject constructor(
         ).mapLeft(IncomeByAccountAndPeriodError::toExpensesByPeriodError).bind()
 
         val totalAmount = income.fold(initial = 0.0) { acc, income ->
-            acc + income.amount.toDouble()
+            acc + income.amount
         }.let { String.format(Locale.US, "%.2f", it) }
 
         IncomeByPeriod(totalAmount, account.currency, start, end, income, account)

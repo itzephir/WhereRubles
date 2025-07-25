@@ -15,30 +15,37 @@ arrow = "2.1.2"
 
 androidx-core-ktx = "1.16.0"
 androidx-core-splashscreen = "1.0.1"
-androidx-lifecycle = "2.9.1"
+androidx-lifecycle = "2.9.2"
 androidx-activity-compose = "1.10.1"
-androidx-compose = "2025.06.01"
+androidx-compose = "2025.07.00"
 androidx-adaptive = "1.1.0"
-androidx-navigation-compose = "2.9.1"
+androidx-navigation-compose = "2.9.2"
 
 androidx-work = "2.10.2"
 
 respawn-flowmvi = "3.1.0"
 
 koin = "4.1.0"
-dagger = "2.56.2"
+dagger = "2.57"
 
-ktor = "3.2.1"
+ktor = "3.2.2"
 
-room = "2.7.2"
-sqlite = "2.5.2"
+androidx-room = "2.7.2"
+androidx-sqlite = "2.5.2"
+
+androidx-datastore = "1.1.7"
 
 detekt = "1.23.8"
+
+mappie = "2.2.0-1.3.0"
+
+mockk = "1.14.5"
 
 [libraries]
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
-kotlinx-coroutines-core = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines"}
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
@@ -68,7 +75,7 @@ androidx-material3-adaptive = { group = "androidx.compose.material3.adaptive", n
 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation-compose" }
 
-androidx-work-runtime-ktx = {group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work"}
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work" }
 
 respawn-flowmvi-core = { group = "pro.respawn.flowmvi", name = "core", version.ref = "respawn-flowmvi" }
 respawn-flowmvi-compose = { group = "pro.respawn.flowmvi", name = "compose", version.ref = "respawn-flowmvi" }
@@ -85,10 +92,15 @@ ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "
 ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
 
-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
+androidx-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "androidx-sqlite" }
+
+androidx-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "androidx-datastore" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx-datastore" }
+
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [bundles]
 
@@ -108,6 +120,7 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-room = { id = "androidx.room", version.ref = "room" }
+room = { id = "androidx.room", version.ref = "androidx-room" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+mappie = { id = "tech.mappie.plugin", version.ref = "mappie" }
 

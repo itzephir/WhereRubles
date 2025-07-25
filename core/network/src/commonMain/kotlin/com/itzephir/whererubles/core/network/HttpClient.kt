@@ -16,7 +16,7 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Instant
 
-fun provideHttpClient(authorizationToken: String) =
+fun provideHttpClient(authorizationToken: String): HttpClient =
     HttpClient(engineFactory = CIO) {
         install(plugin = ContentNegotiation) {
             json(json = Json {

@@ -3,7 +3,7 @@ package com.itzephir.whererubles.feature.income.data.repository
 import arrow.core.Either
 import com.itzephir.whererubles.core.network.common.Id
 import com.itzephir.whererubles.core.network.transaction.TransactionError
-import com.itzephir.whererubles.core.network.transaction.TransactionResponse
+import com.itzephir.whererubles.core.network.transaction.TransactionResponseDto
 import com.itzephir.whererubles.core.network.transaction.readTransactionsByAccountIdAndPeriod
 import com.itzephir.whererubles.feature.income.data.mapper.map
 import com.itzephir.whererubles.feature.income.domain.error.IncomeByAccountAndPeriodError
@@ -30,6 +30,6 @@ class RemoteIncomeRepository @Inject constructor(private val httpClient: HttpCli
             end = end,
         )
             .mapLeft(TransactionError.ReadByAccountIdAndPeriodError::map)
-            .map(List<TransactionResponse>::map)
+            .map(List<TransactionResponseDto>::map)
     }
 }

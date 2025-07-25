@@ -1,13 +1,13 @@
 package com.itzephir.whererubles.feature.income.data.mapper
 
-import com.itzephir.whererubles.core.network.common.Id
-import com.itzephir.whererubles.core.network.transaction.TransactionResponse
+import com.itzephir.whererubles.core.model.Id
+import com.itzephir.whererubles.core.network.transaction.TransactionResponseDto
 import com.itzephir.whererubles.feature.income.domain.model.Account
 import com.itzephir.whererubles.feature.income.domain.model.Category
 import com.itzephir.whererubles.feature.income.domain.model.Income
 import com.itzephir.whererubles.feature.income.domain.model.IncomeId
 
-internal fun TransactionResponse.toExpense(): Income = Income(
+internal fun TransactionResponseDto.toExpense(): Income = Income(
     id = id.toExpenseId(),
     title = category.name,
     currency = account.currency,
@@ -21,5 +21,5 @@ internal fun TransactionResponse.toExpense(): Income = Income(
 
 internal fun Id.toExpenseId() = IncomeId(value)
 
-internal fun List<TransactionResponse>.map(): List<Income> =
-    filter { it.category.isIncome }.map(TransactionResponse::toExpense)
+internal fun List<TransactionResponseDto>.map(): List<Income> =
+    filter { it.category.isIncome }.map(TransactionResponseDto::toExpense)

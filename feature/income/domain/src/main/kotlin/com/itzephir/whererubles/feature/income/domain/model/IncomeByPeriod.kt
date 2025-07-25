@@ -1,5 +1,6 @@
 package com.itzephir.whererubles.feature.income.domain.model
 
+import com.itzephir.whererubles.core.model.Currency
 import kotlin.time.Instant
 
 /**
@@ -7,7 +8,7 @@ import kotlin.time.Instant
  */
 data class IncomeByPeriod(
     val total: String,
-    val currency: String,
+    val currency: Currency,
     val start: Instant,
     val end: Instant,
     val income: List<Income>,

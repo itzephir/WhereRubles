@@ -5,6 +5,7 @@ import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlin.time.Instant
+import com.itzephir.whererubles.core.model.Id
 
 @Serializable
 sealed interface OperationType<out T> {

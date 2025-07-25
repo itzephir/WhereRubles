@@ -16,4 +16,5 @@ dependencies {
     implementation(libs.ktor.client.core)
 
     implementation(libs.dagger)
+    implementation(project(":core:model"))
 }
