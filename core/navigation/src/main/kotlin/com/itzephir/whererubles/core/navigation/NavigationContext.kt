@@ -1,6 +1,6 @@
 package com.itzephir.whererubles.core.navigation
 
-import com.itzephir.whererubles.core.data.account.AccountRepository
+import com.itzephir.whererubles.core.data.account.AccountInteractor
 import com.itzephir.whererubles.core.data.transaction.TransactionInteractor
 import com.itzephir.whererubles.core.di.NetworkDependencies
 import com.itzephir.whererubles.expenses.di.ExpensesFeatureDependencies
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class NavigationContext @Inject constructor(
     override val httpClient: HttpClient,
-    override val accountRepository: AccountRepository,
+    override val accountInteractor: AccountInteractor,
     override val transactionInteractor: TransactionInteractor,
 ) : AccountFeatureDependencies,
     CategoriesFeatureDependencies,

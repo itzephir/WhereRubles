@@ -4,12 +4,14 @@ import arrow.core.Either
 import com.itzephir.whererubles.core.model.Id
 import com.itzephir.whererubles.core.network.account.AccountDto
 import com.itzephir.whererubles.core.network.account.AccountError
+import com.itzephir.whererubles.core.network.account.AccountHistoryResponse
 import com.itzephir.whererubles.core.network.account.AccountResponse
-import com.itzephir.whererubles.core.network.account.AccountUpdateRequest
+import com.itzephir.whererubles.core.network.account.UpdateAccountRequest
 import com.itzephir.whererubles.core.network.account.CreateAccountRequest
 import com.itzephir.whererubles.core.network.account.createAccount
 import com.itzephir.whererubles.core.network.account.deleteAccountById
 import com.itzephir.whererubles.core.network.account.readAccountById
+import com.itzephir.whererubles.core.network.account.readAccountHistoryById
 import com.itzephir.whererubles.core.network.account.readAccounts
 import com.itzephir.whererubles.core.network.account.updateAccountById
 import io.ktor.client.HttpClient
@@ -27,10 +29,14 @@ class RemoteAccountRepository(private val httpClient: HttpClient) : AccountRepos
 
     override suspend fun updateById(
         id: Id,
-        accountUpdateRequest: AccountUpdateRequest,
+        updateAccountRequest: UpdateAccountRequest,
     ): Either<AccountError.UpdateByIdError, AccountDto> =
-        httpClient.updateAccountById(id, accountUpdateRequest)
+        httpClient.updateAccountById(id, updateAccountRequest)
 
     override suspend fun deleteById(id: Id): Either<AccountError.DeleteByIdError, Unit> =
         httpClient.deleteAccountById(id)
+
+    override suspend fun readHistoryById(id: Id)
+            : Either<AccountError.ReadAccountHistoryByIdError, AccountHistoryResponse> =
+        httpClient.readAccountHistoryById(id)
 }

@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class ConnectionMonitor @Inject constructor(
     private val connectivityManager: ConnectivityManager,
-    coroutineScope: CoroutineScope,
+    @ConnectionScope coroutineScope: CoroutineScope,
 ) {
     val status = callbackFlow {
         val callback = object : ConnectivityManager.NetworkCallback() {

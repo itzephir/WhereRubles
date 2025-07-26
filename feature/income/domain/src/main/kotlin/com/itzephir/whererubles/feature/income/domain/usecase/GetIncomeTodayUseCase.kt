@@ -2,20 +2,21 @@ package com.itzephir.whererubles.feature.income.domain.usecase
 
 import arrow.core.Either
 import arrow.core.raise.either
+import com.itzephir.whererubles.core.model.Amount
+import com.itzephir.whererubles.core.model.plus
 import com.itzephir.whererubles.feature.income.domain.error.IncomeByAccountAndPeriodError
 import com.itzephir.whererubles.feature.income.domain.error.IncomeTodayError
 import com.itzephir.whererubles.feature.income.domain.mapper.toExpensesTodayError
 import com.itzephir.whererubles.feature.income.domain.model.IncomeToday
 import com.itzephir.whererubles.feature.income.domain.repository.AccountRepository
 import com.itzephir.whererubles.feature.income.domain.repository.IncomeRepository
-import kotlin.time.Clock
-import kotlin.time.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toLocalDateTime
-import java.util.Locale
 import javax.inject.Inject
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
+import kotlin.time.Instant
 
 /**
  * Use case for getting today income
@@ -36,9 +37,9 @@ class GetIncomeTodayUseCase @Inject constructor(
             end = endOfTheDay(),
         ).mapLeft(IncomeByAccountAndPeriodError::toExpensesTodayError).bind()
 
-        val totalAmount = income.fold(initial = 0.0) { acc, income ->
-            acc + income.amount.toDouble()
-        }.let { String.format(Locale.US, "%.2f", it) }
+        val totalAmount = income.fold(initial = Amount(0)) { acc, income ->
+            acc + income.amount
+        }
 
         IncomeToday(totalAmount, account.currency, income, account)
     }

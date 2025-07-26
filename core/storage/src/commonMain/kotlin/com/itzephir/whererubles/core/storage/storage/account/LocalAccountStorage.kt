@@ -18,7 +18,9 @@ class LocalAccountStorage(
     override suspend fun readAll(): List<AccountEntity> = accountDao.getAllAccounts()
 
     override suspend fun create(accountRequest: AccountRequest) =
-        accountDao.upsert(AccountRequestToAccountEntity.map(from = accountRequest))
+        AccountRequestToAccountEntity.map(from = accountRequest).also {
+            accountDao.upsert(it)
+        }
 
     override suspend fun readById(id: Id): AccountWithTransactions {
         return accountDaoExtended.getAccountWithTransactionsById(id)
@@ -27,7 +29,11 @@ class LocalAccountStorage(
     override suspend fun updateById(
         id: Id,
         accountRequest: AccountRequest,
-    ): Unit = accountDao.findOneAndReplace(id, accountRequest)
+    ): AccountEntity? = accountDao.findOneAndReplace(id, accountRequest)
+
+    override suspend fun update(accountEntity: AccountEntity) {
+        accountDao.upsert(accountEntity)
+    }
 
     override suspend fun deleteById(id: Id) {
         accountDao.deleteById(id)
@@ -42,4 +48,8 @@ class LocalAccountStorage(
         return account
     }
 
+    override suspend fun setCurrentAccount(accountEntity: AccountEntity) {
+        val account = accountDao.getAccountById(accountEntity.id) ?: return
+        currentAccountPreferences.setCurrentId(account.id)
+    }
 }

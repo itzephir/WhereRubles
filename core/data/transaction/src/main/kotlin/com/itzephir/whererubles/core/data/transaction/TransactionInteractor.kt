@@ -42,9 +42,10 @@ import com.itzephir.whererubles.core.storage.transaction.TransactionOperationEnt
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
+import javax.inject.Inject
 import kotlin.time.Instant
 
-class TransactionInteractor(
+class TransactionInteractor @Inject constructor(
     private val currentAccountStorage: CurrentAccountStorage,
     private val transactionStorage: TransactionStorage,
     private val transactionOperationStorage: TransactionOperationStorage,
@@ -239,8 +240,8 @@ class TransactionInteractor(
                     .getOrElse { return@supervisorScope }
             val transactions =
                 TransactionResponseDtoToTransactionFull.mapList(transactionResponseDtos)
-            emit(transactions)
             localJob.cancel()
+            emit(transactions)
         }
     }
 }

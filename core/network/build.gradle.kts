@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -36,6 +37,12 @@ kotlin {
         }
     }
 }
+
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspAndroid", libs.dagger.compiler)
+}
+
 
 android {
     namespace = "com.itzephir.whererubles.core.network"

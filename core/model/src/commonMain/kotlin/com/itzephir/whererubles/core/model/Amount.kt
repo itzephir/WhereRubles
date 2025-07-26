@@ -11,6 +11,21 @@ import kotlinx.serialization.encoding.Encoder
 @Serializable(with = AmountSerializer::class)
 expect value class Amount(val value: Long)
 
+fun Amount(string: String): Amount {
+    val longString = string.split(".").fold("") { acc, str -> "$acc$str" }
+    return Amount(longString.toLong())
+}
+
+val Amount.string: String
+    get() = this.constructString()
+
+fun Amount.constructString(): String {
+    val stringValue = value.toString().padStart(3, '0')
+    val integer = stringValue.dropLast(2)
+    val decimal = stringValue.takeLast(2)
+    return "$integer.$decimal"
+}
+
 operator fun Amount.plus(value: Amount) = Amount(this.value + value.value)
 operator fun Amount.plus(value: Number) = Amount(this.value + value.toLong())
 operator fun Number.plus(value: Amount) = Amount(this.toLong() + value.value)

@@ -45,9 +45,18 @@ kotlin {
 dependencies {
     implementation(projects.core.di)
     implementation(projects.core.data.common)
+    implementation(projects.core.data)
     implementation(projects.core.data.account)
     implementation(projects.core.data.category)
     implementation(projects.core.data.transaction)
+    implementation(projects.core.storage)
+    implementation(projects.core.storage.account)
+    implementation(projects.core.storage.category)
+    implementation(projects.core.storage.transaction)
+    implementation(projects.core.network)
+    implementation(projects.core.network.account)
+    implementation(projects.core.network.category)
+    implementation(projects.core.network.transaction)
     implementation(projects.feature.expenses)
     implementation(projects.feature.income)
     implementation(projects.feature.account)
@@ -56,6 +65,9 @@ dependencies {
     implementation(projects.feature.transactionEditor)
 
     implementation(projects.core.ui.theme)
+
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

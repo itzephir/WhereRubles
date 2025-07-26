@@ -1,25 +1,19 @@
 package com.itzephir.whererubles.feature.income.data.repository
 
-import com.itzephir.whererubles.core.network.account.readAccounts
-import com.itzephir.whererubles.feature.income.data.mapper.toAccountId
+import com.itzephir.whererubles.core.data.account.AccountInteractor
 import com.itzephir.whererubles.feature.income.domain.model.Account
+import com.itzephir.whererubles.feature.income.domain.model.AccountId
 import com.itzephir.whererubles.feature.income.domain.repository.AccountRepository
-import io.ktor.client.HttpClient
 import javax.inject.Inject
 
-/**
- * Repository for setup account
- * @param httpClient client for http calls
- */
-class RemoteAccountRepository @Inject constructor(private val httpClient: HttpClient) : AccountRepository {
-    override suspend fun current(): Account? = httpClient.readAccounts().fold(
-        ifLeft = { emptyList() },
-        ifRight = { it }
-    ).firstOrNull()?.let {
+class RemoteAccountRepository @Inject constructor(
+    private val accountInteractor: AccountInteractor,
+) : AccountRepository {
+    override suspend fun current(): Account? = accountInteractor.getCurrentAccount()?.let {
         Account(
-            id = it.id.toAccountId(),
+            id = AccountId(value = it.id.value),
             currency = it.currency,
-            name = it.name,
+            name = it.name
         )
     }
 }

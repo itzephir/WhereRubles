@@ -28,9 +28,11 @@ class GetExpensesTodayUseCase @Inject constructor(
     private val expensesRepository: ExpensesRepository,
 ) {
     suspend operator fun invoke(): Either<ExpensesTodayError, ExpensesToday> = either {
+        println("cool123")
         val account =
             accountRepository.current() ?: raise(ExpensesTodayError.NoAccount)
 
+        println("cool: $account")
         val expenses = expensesRepository.getByAccountIdAndPeriod(
             account.id,
             start = startOfTheDay(),

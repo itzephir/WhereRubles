@@ -6,31 +6,33 @@ import com.itzephir.whererubles.core.network.repository.category.CategoryReposit
 import com.itzephir.whererubles.core.network.repository.category.RemoteCategoryRepository
 import com.itzephir.whererubles.core.network.repository.transaction.RemoteTransactionRepository
 import com.itzephir.whererubles.core.network.repository.transaction.TransactionRepository
-import dagger.BindsInstance
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import io.ktor.client.HttpClient
 
 @Module
 interface NetworkModule {
-    @BindsInstance
+    @Binds
     fun bindAccountRepository(remote: RemoteAccountRepository): AccountRepository
 
-    @BindsInstance
+    @Binds
     fun bindCategoryRepository(remote: RemoteCategoryRepository): CategoryRepository
 
-    @BindsInstance
+    @Binds
     fun bindTransactionRepository(remote: RemoteTransactionRepository): TransactionRepository
 
-    @Provides
-    fun provideRemoteAccountRepository(httpClient: HttpClient) =
-        RemoteAccountRepository(httpClient)
+    companion object {
+        @Provides
+        fun provideRemoteAccountRepository(httpClient: HttpClient) =
+            RemoteAccountRepository(httpClient)
 
-    @Provides
-    fun provideRemoteCategoryRepository(httpClient: HttpClient) =
-        RemoteCategoryRepository(httpClient)
+        @Provides
+        fun provideRemoteCategoryRepository(httpClient: HttpClient) =
+            RemoteCategoryRepository(httpClient)
 
-    @Provides
-    fun provideRemoteTransactionRepository(httpClient: HttpClient) =
-        RemoteTransactionRepository(httpClient)
+        @Provides
+        fun provideRemoteTransactionRepository(httpClient: HttpClient) =
+            RemoteTransactionRepository(httpClient)
+    }
 }

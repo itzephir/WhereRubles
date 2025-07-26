@@ -6,14 +6,11 @@ plugins {
 
 dependencies {
     api(projects.core.model)
-    api(projects.core.data.common)
-    api(projects.core.data.account)
-    api(projects.core.data.category)
-    api(projects.core.data.transaction)
-
-    implementation(projects.core.network.common)
-    implementation(projects.core.network.transaction)
-    implementation(projects.core.network.account)
+    implementation(projects.core.data)
+    implementation(projects.core.data.common)
+    implementation(projects.core.data.account)
+    implementation(projects.core.data.category)
+    implementation(projects.core.data.transaction)
 
     implementation(projects.feature.expenses.domain)
 

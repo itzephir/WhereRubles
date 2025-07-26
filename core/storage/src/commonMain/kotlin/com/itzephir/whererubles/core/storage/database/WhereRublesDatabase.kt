@@ -2,12 +2,15 @@ package com.itzephir.whererubles.core.storage.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.itzephir.whererubles.core.storage.account.dao.AccountDao
 import com.itzephir.whererubles.core.storage.account.dao.AccountOperationDao
 import com.itzephir.whererubles.core.storage.account.entity.AccountEntity
 import com.itzephir.whererubles.core.storage.account.entity.AccountOperationEntity
 import com.itzephir.whererubles.core.storage.category.CategoryDao
 import com.itzephir.whererubles.core.storage.category.CategoryEntity
+import com.itzephir.whererubles.core.storage.common.CurrencyConverter
+import com.itzephir.whererubles.core.storage.common.InstantConverter
 import com.itzephir.whererubles.core.storage.dao.AccountDaoExtended
 import com.itzephir.whererubles.core.storage.transaction.TransactionDao
 import com.itzephir.whererubles.core.storage.transaction.TransactionEntity
@@ -23,6 +26,12 @@ import com.itzephir.whererubles.core.storage.transaction.TransactionOperationEnt
         TransactionOperationEntity::class,
     ],
     version = 1,
+)
+@TypeConverters(
+    CurrencyConverter::class,
+    InstantConverter::class,
+    AccountOperationEntity.Converter::class,
+    TransactionOperationEntity.Converter::class,
 )
 abstract class WhereRublesDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao

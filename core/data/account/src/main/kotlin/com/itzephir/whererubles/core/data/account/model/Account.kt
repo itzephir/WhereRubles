@@ -7,7 +7,6 @@ import kotlin.time.Instant
 
 data class Account(
     val id: Id,
-    val userId: Id,
     val name: String,
     val currency: Currency,
     val balance: Amount,

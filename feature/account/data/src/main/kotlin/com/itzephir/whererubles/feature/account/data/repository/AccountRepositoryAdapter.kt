@@ -1,10 +1,10 @@
 package com.itzephir.whererubles.feature.account.data.repository
 
 import arrow.core.right
+import com.itzephir.whererubles.core.data.account.AccountInteractor
 import com.itzephir.whererubles.core.data.account.error.GetAccountByIdError
 import com.itzephir.whererubles.core.data.account.error.UpdateAccountByIdError
 import com.itzephir.whererubles.core.data.account.model.AccountOperation
-import com.itzephir.whererubles.core.data.common.format
 import com.itzephir.whererubles.core.model.Id
 import com.itzephir.whererubles.feature.account.domain.error.AccountError
 import com.itzephir.whererubles.feature.account.domain.model.Account
@@ -18,10 +18,10 @@ import kotlinx.coroutines.flow.last
 import javax.inject.Inject
 
 class AccountRepositoryAdapter
-@Inject constructor(private val accountRepository: com.itzephir.whererubles.core.data.account.AccountRepository) :
+@Inject constructor(private val accountInteractor: AccountInteractor) :
     AccountRepository {
     override suspend fun getAccounts() =
-        accountRepository.getAllAccounts().last().map {
+        accountInteractor.getAll().last().map {
             Account(
                 id = AccountId(it.id.value),
                 userId = UserId(it.id.value),
@@ -35,11 +35,10 @@ class AccountRepositoryAdapter
 
 
     override suspend fun getAccountById(accountId: AccountId) =
-        accountRepository.getAccountById(Id(accountId.value))
+        accountInteractor.getById(Id(accountId.value))
             .mapLeft {
                 when (it) {
                     is GetAccountByIdError.Else      -> AccountError.GetAccountByIdError.Else(it.cause)
-                    GetAccountByIdError.NoInternet   -> AccountError.GetAccountByIdError.NoInternet
                     GetAccountByIdError.NotFound     -> AccountError.GetAccountByIdError.NotFound
                     GetAccountByIdError.Unauthorized -> AccountError.GetAccountByIdError.Unauthorized
                     GetAccountByIdError.WrongId      -> AccountError.GetAccountByIdError.WrongFormat
@@ -74,7 +73,7 @@ class AccountRepositoryAdapter
     override suspend fun updateAccountById(
         accountId: AccountId,
         accountUpdateRequest: AccountUpdateRequest,
-    ) = accountRepository.updateAccount(
+    ) = accountInteractor.updateById(
         id = Id(accountId.value),
         accountOperation = AccountOperation(
             name = accountUpdateRequest.name,

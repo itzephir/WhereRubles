@@ -75,7 +75,7 @@ suspend fun HttpClient.readAccountById(
 
 suspend fun HttpClient.updateAccountById(
     id: Id,
-    account: AccountUpdateRequest,
+    account: UpdateAccountRequest,
 ): Either<AccountError.UpdateByIdError, AccountDto> = either {
     try {
         put(url(accountsById(id))) {

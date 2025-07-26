@@ -1,12 +1,14 @@
 package com.itzephir.whererubles.feature.account.presentation.viewmodel
 
-import android.R.attr.action
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.itzephir.whererubles.core.format.formatAmount
+import com.itzephir.whererubles.core.model.Amount
+import com.itzephir.whererubles.core.model.string
 import com.itzephir.whererubles.feature.account.domain.model.AccountUpdateRequest
 import com.itzephir.whererubles.feature.account.domain.usecase.GetAccountUseCase
 import com.itzephir.whererubles.feature.account.domain.usecase.UpdateAccountUseCase
@@ -14,11 +16,9 @@ import com.itzephir.whererubles.feature.account.presentation.action.UpdateAccoun
 import com.itzephir.whererubles.feature.account.presentation.intent.UpdateAccountIntent
 import com.itzephir.whererubles.feature.account.presentation.model.AccountId
 import com.itzephir.whererubles.feature.account.presentation.model.Currency
-import com.itzephir.whererubles.feature.account.presentation.state.AccountState
 import com.itzephir.whererubles.feature.account.presentation.state.UpdateAccountState
 import com.itzephir.whererubles.feature.account.presentation.store.UpdateAccountStore
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -42,7 +42,7 @@ class UpdateAccountViewModel(
                     UpdateAccountState.Form(
                         id = AccountId(it.id.value),
                         name = it.name,
-                        balance = it.balance,
+                        balance = it.balance.string.formatAmount(it.currency),
                         currency = Currency.fromString(it.currency)
                     )
                 }
@@ -73,7 +73,7 @@ class UpdateAccountViewModel(
                 ),
                 accountUpdateRequest = AccountUpdateRequest(
                     name = accountForm.name,
-                    balance = accountForm.balance,
+                    balance = Amount(accountForm.balance),
                     currency = com.itzephir.whererubles.feature.account.domain.model.Currency.fromString(
                         accountForm.currency.origin
                     ),
@@ -108,7 +108,7 @@ class UpdateAccountViewModel(
                     UpdateAccountState.Form(
                         id = AccountId(it.id.value),
                         name = it.name,
-                        balance = it.balance,
+                        balance = it.balance.string.formatAmount(it.currency),
                         currency = Currency.fromString(it.currency)
                     )
                 }

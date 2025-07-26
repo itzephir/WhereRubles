@@ -1,5 +1,8 @@
 package com.itzephir.whererubles.core.connection
 
+import android.content.Context
+import android.net.ConnectivityManager
+import androidx.core.content.getSystemService
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineScope
@@ -18,4 +21,7 @@ object ConnectionScopeModule {
     @Singleton
     @ConnectionScope
     fun provideConnectionScope() = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+    @Provides
+    fun provideConnectivityManager(context: Context) = requireNotNull(context.getSystemService<ConnectivityManager>())
 }

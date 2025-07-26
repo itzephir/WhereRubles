@@ -7,9 +7,10 @@ import com.itzephir.whererubles.core.storage.model.AccountWithTransactions
 
 interface AccountStorage {
     suspend fun readAll(): List<AccountEntity>
-    suspend fun create(accountRequest: AccountRequest)
+    suspend fun create(accountRequest: AccountRequest): AccountEntity
     suspend fun readById(id: Id): AccountWithTransactions
-    suspend fun updateById(id: Id, accountRequest: AccountRequest)
+    suspend fun updateById(id: Id, accountRequest: AccountRequest): AccountEntity?
+    suspend fun update(accountEntity: AccountEntity)
     suspend fun deleteById(id: Id)
     suspend fun replaceAll(accounts: List<AccountEntity>)
 }

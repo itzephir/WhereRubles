@@ -29,13 +29,13 @@ interface AccountDao {
     suspend fun deleteById(id: Id)
 
     @Transaction
-    suspend fun findOneAndReplace(id: Id, accountRequest: AccountRequest) {
-        val old = getAccountById(id) ?: return
+    suspend fun findOneAndReplace(id: Id, accountRequest: AccountRequest): AccountEntity? {
+        val old = getAccountById(id) ?: return null
         return old.copy(
             name = accountRequest.name,
             balance = accountRequest.balance,
             currency = accountRequest.currency,
-        ).let { account ->
+        ).also { account ->
             upsert(account = account)
         }
     }

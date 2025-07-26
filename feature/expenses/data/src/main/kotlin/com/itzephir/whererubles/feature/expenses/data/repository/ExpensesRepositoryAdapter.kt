@@ -24,7 +24,7 @@ class ExpensesRepositoryAdapter
         start: Instant,
         end: Instant,
     ): Either<ExpensesByAccountAndPeriodError, List<Expense>> {
-        return transactionInteractor.getTransactionsByPeriod(
+        return transactionInteractor.getByAccountIdAndPeriod(
             accountId = Id(accountId.value),
             start = start,
             end = end,
