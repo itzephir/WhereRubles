@@ -1,6 +1,7 @@
 package com.whererubles.core.ui.chart
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -9,6 +10,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.itzephir.whererubles.ui.theme.WhereRublesTheme
@@ -19,8 +21,19 @@ fun Chart(
     data: List<Float>,
     barColor: Color = Color.Red,
     maxValue: Float = data.maxOrNull() ?: 0f,
+    onBarClick: (Int) -> Unit,
 ) {
-    Canvas(modifier = modifier) {
+    Canvas(modifier = modifier.pointerInput(data) {
+        detectTapGestures { tapOffset ->
+            val barWidth = size.width / data.size
+
+            val tappedIndex = (tapOffset.x / barWidth).toInt()
+
+            if (tappedIndex in data.indices) {
+                onBarClick(tappedIndex)
+            }
+        }
+    }) {
         val bottomPadding = 100f
 
         val chartWidth = size.width
@@ -55,6 +68,7 @@ fun ChartPreview() {
                 .fillMaxWidth()
                 .height(300.dp),
             data = listOf(1f, 0.5f, 0.2f, 0.1f, 0.7f, 1f, 1.5f),
+            onBarClick = {},
         )
     }
 }
