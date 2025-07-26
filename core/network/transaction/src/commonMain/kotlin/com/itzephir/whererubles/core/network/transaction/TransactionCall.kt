@@ -2,7 +2,7 @@ package com.itzephir.whererubles.core.network.transaction
 
 import arrow.core.Either
 import arrow.core.raise.either
-import com.itzephir.whererubles.core.network.common.Id
+import com.itzephir.whererubles.core.model.Id
 import com.itzephir.whererubles.core.network.common.url
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -22,13 +22,14 @@ import kotlin.time.Instant
 
 suspend fun HttpClient.createTransaction(
     transaction: TransactionRequest,
-): Either<TransactionError.CreateError, TransactionResponse> = either {
+): Either<TransactionError.CreateError, TransactionDto> = either {
     try {
         post(url(TRANSACTIONS)) {
             contentType(ContentType.Application.Json)
             setBody(transaction)
         }.body()
     } catch (e: ClientRequestException) {
+        e.printStackTrace()
         when (e.response.status) {
             HttpStatusCode.BadRequest   -> raise(TransactionError.CreateError.WrongData)
             HttpStatusCode.Unauthorized -> raise(TransactionError.CreateError.Unauthorized)
@@ -42,7 +43,7 @@ suspend fun HttpClient.createTransaction(
 
 suspend fun HttpClient.readTransactionById(
     id: Id,
-): Either<TransactionError.ReadByIdError, TransactionResponse> = either {
+): Either<TransactionError.ReadByIdError, TransactionResponseDto> = either {
     try {
         get(url(transactionsById(id))) {
             url {
@@ -65,7 +66,7 @@ suspend fun HttpClient.readTransactionById(
 suspend fun HttpClient.updateTransactionById(
     id: Id,
     transaction: TransactionRequest,
-): Either<TransactionError.UpdateByIdError, TransactionResponse> = either {
+): Either<TransactionError.UpdateByIdError, TransactionResponseDto> = either {
     try {
         put(url(transactionsById(id))) {
             contentType(ContentType.Application.Json)
@@ -80,7 +81,6 @@ suspend fun HttpClient.updateTransactionById(
             else                        -> raise(TransactionError.UpdateByIdError.Else(cause = e))
         }
     } catch (e: ServerResponseException) {
-        e.printStackTrace()
         raise(TransactionError.UpdateByIdError.Else(cause = e))
     }
 }
@@ -93,6 +93,7 @@ suspend fun HttpClient.deleteTransactionById(
             parameter("id", id.value)
         }.body()
     } catch (e: ClientRequestException) {
+        e.printStackTrace()
         when (e.response.status) {
             HttpStatusCode.BadRequest   -> raise(TransactionError.DeleteByIdError.WrongId)
             HttpStatusCode.Unauthorized -> raise(TransactionError.DeleteByIdError.Unauthorized)
@@ -108,7 +109,7 @@ suspend fun HttpClient.readTransactionsByAccountIdAndPeriod(
     accountId: Id,
     start: Instant? = null,
     end: Instant? = null,
-): Either<TransactionError.ReadByAccountIdAndPeriodError, List<TransactionResponse>> = either {
+): Either<TransactionError.ReadByAccountIdAndPeriodError, List<TransactionResponseDto>> = either {
     try {
         get(url(transactionsByAccountIdAndPeriod(accountId))) {
             start?.let { parameter(key = "startDate", value = start.format()) }
@@ -123,7 +124,6 @@ suspend fun HttpClient.readTransactionsByAccountIdAndPeriod(
                 raise(TransactionError.ReadByAccountIdAndPeriodError.Else(cause = e))
         }
     } catch (e: ServerResponseException) {
-        e.printStackTrace()
         raise(TransactionError.ReadByAccountIdAndPeriodError.Else(cause = e))
     }
 }

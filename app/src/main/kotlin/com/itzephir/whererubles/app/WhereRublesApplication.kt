@@ -13,7 +13,7 @@ import javax.inject.Inject
  * Application class, configure base application
  */
 class WhereRublesApplication : Application(), Configuration.Provider {
-    private lateinit var appComponent: AppComponent
+    lateinit var appComponent: AppComponent
 
     @Inject
     lateinit var workerFactory: AppWorkerFactory

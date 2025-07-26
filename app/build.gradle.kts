@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.mappie)
 }
 
 android {
@@ -67,11 +68,16 @@ dependencies {
     implementation(projects.core.ui.theme)
 
     implementation(projects.core.sync)
-    implementation(projects.core.network)
     implementation(projects.core.storage)
+    implementation(projects.core.storage.common)
     implementation(projects.core.storage.account)
     implementation(projects.core.storage.category)
     implementation(projects.core.storage.transaction)
+    implementation(projects.core.network)
+    implementation(projects.core.network.common)
+    implementation(projects.core.network.account)
+    implementation(projects.core.network.category)
+    implementation(projects.core.network.transaction)
     implementation(projects.core.data)
     implementation(projects.core.data.account)
     implementation(projects.core.data.category)
@@ -79,6 +85,8 @@ dependencies {
     implementation(projects.core.data.common)
     implementation(projects.core.connection)
     implementation(projects.core.navigation)
+
+    implementation(libs.arrow.core)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -106,4 +114,9 @@ dependencies {
     implementation(libs.ktor.client.core)
 
     implementation(libs.androidx.work.runtime.ktx)
+
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.datastore.preferences)
+
+    implementation(libs.mappie.api)
 }

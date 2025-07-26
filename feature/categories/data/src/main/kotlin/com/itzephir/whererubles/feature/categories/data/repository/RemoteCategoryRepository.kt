@@ -15,6 +15,6 @@ class RemoteCategoryRepository @Inject constructor(
     override suspend fun getAll(): Either<GetAllCategoriesError, List<Category>> =
         httpClient.readCategories()
             .mapLeft(CategoryError.ReadAllError::toGetAllCategoriesError)
-            .map(List<com.itzephir.whererubles.core.network.category.Category>::map)
+            .map(List<com.itzephir.whererubles.core.network.category.CategoryDto>::map)
 }
 

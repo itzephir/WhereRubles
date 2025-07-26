@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 
 typealias Currency = com.itzephir.whererubles.core.model.Currency
 
-class Converter {
+class CurrencyConverter {
     @TypeConverter
     fun fromCurrencyToString(currency: Currency) = currency.name
 

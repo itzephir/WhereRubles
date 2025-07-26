@@ -1,12 +1,16 @@
 plugins {
     `java-library`
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.mappie)
 }
 
 dependencies {
-    implementation(projects.core.network.common)
-    implementation(projects.core.network.transaction)
-    implementation(projects.core.network.account)
+    implementation(projects.core.model)
+
+    implementation(projects.core.data.common)
+    implementation(projects.core.data.account)
+    implementation(projects.core.data.category)
+    implementation(projects.core.data.transaction)
 
     implementation(projects.feature.transactionEditor.domain)
 

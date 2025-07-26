@@ -8,6 +8,8 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import arrow.core.Either
+import com.itzephir.whererubles.core.format.formatAmount
+import com.itzephir.whererubles.core.model.string
 import com.itzephir.whererubles.feature.account.domain.error.AccountError
 import com.itzephir.whererubles.feature.account.domain.model.Account
 import com.itzephir.whererubles.feature.account.domain.usecase.ChangeCurrencyUseCase
@@ -116,7 +118,7 @@ class AccountViewModel(
         ifRight = {
             AccountState.Account(
                 id = AccountId(it.id.value),
-                balance = it.balance,
+                balance = it.balance.string.formatAmount(it.currency),
                 currency = it.currency,
             )
         },

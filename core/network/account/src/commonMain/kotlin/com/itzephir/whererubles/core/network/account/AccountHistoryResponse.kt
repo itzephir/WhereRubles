@@ -1,6 +1,8 @@
 package com.itzephir.whererubles.core.network.account
 
-import com.itzephir.whererubles.core.network.common.Id
+import com.itzephir.whererubles.core.model.Id
+import com.itzephir.whererubles.core.model.Currency
+import com.itzephir.whererubles.core.model.Amount
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import kotlin.time.Instant
@@ -9,8 +11,8 @@ import kotlin.time.Instant
 data class AccountHistoryResponse(
     val accountId: Id,
     val accountName: String,
-    val currency: String,
-    val currentBalance: String,
+    val currency: Currency,
+    val currentBalance: Amount,
     val history: List<AccountHistory>,
 ) {
     @Serializable
@@ -27,8 +29,8 @@ data class AccountHistoryResponse(
         data class AccountState(
             val id: Id,
             val name: String,
-            val balance: String,
-            val currency: String,
+            val balance: Amount,
+            val currency: Currency,
         )
 
         @Serializable

@@ -2,7 +2,7 @@ package com.itzephir.whererubles.core.network.account
 
 import arrow.core.Either
 import arrow.core.raise.either
-import com.itzephir.whererubles.core.network.common.Id
+import com.itzephir.whererubles.core.model.Id
 import com.itzephir.whererubles.core.network.common.url
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -75,7 +75,7 @@ suspend fun HttpClient.readAccountById(
 
 suspend fun HttpClient.updateAccountById(
     id: Id,
-    account: AccountUpdateRequest,
+    account: UpdateAccountRequest,
 ): Either<AccountError.UpdateByIdError, AccountDto> = either {
     try {
         put(url(accountsById(id))) {

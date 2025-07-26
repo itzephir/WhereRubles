@@ -1,0 +1,13 @@
+package com.itzephir.whererubles.core.data.transaction.mapper
+
+import com.itzephir.whererubles.core.network.transaction.TransactionResponseDto
+import com.itzephir.whererubles.core.storage.transaction.TransactionRequest
+import tech.mappie.api.ObjectMappie
+
+object TransactionResponseDtoToTransactionRequest :
+    ObjectMappie<TransactionResponseDto, TransactionRequest>() {
+    override fun map(from: TransactionResponseDto): TransactionRequest = mapping {
+        to::accountId fromProperty from.account::id
+        to::categoryId fromProperty from.category::id
+    }
+}

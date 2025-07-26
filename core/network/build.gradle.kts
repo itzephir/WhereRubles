@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -16,7 +17,17 @@ kotlin {
     jvm()
 
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.dagger)
+        }
+
         commonMain.dependencies {
+            implementation(projects.core.model)
+
+            implementation(projects.core.network.account)
+            implementation(projects.core.network.category)
+            implementation(projects.core.network.transaction)
+
             implementation(libs.bundles.ktor.client)
             implementation(libs.arrow.core)
             implementation(libs.arrow.resilience)
@@ -26,6 +37,12 @@ kotlin {
         }
     }
 }
+
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspAndroid", libs.dagger.compiler)
+}
+
 
 android {
     namespace = "com.itzephir.whererubles.core.network"

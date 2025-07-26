@@ -2,7 +2,7 @@ package com.itzephir.whererubles.core.storage.category
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.itzephir.whererubles.core.storage.common.Id
+import com.itzephir.whererubles.core.model.Id
 
 @Entity(tableName = "categories")
 data class CategoryEntity(
@@ -10,5 +10,9 @@ data class CategoryEntity(
     val id: Id,
     val name: String,
     val emoji: String,
-    val isIncome: String,
-)
+    val type: Type,
+) {
+    enum class Type {
+        EXPENSE, INCOME
+    }
+}

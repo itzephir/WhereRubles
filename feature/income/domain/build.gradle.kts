@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.core.model)
     implementation(libs.arrow.core)
     implementation(libs.kotlinx.datetime)
     implementation(libs.dagger)

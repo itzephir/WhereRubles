@@ -25,8 +25,8 @@ kotlin {
             implementation(libs.arrow.resilience)
             implementation(libs.arrow.resilience.ktor.client)
 
-            implementation(libs.room.runtime)
-            implementation(libs.sqlite.bundled)
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
 
             implementation(libs.kotlinx.serialization.json)
         }
@@ -34,7 +34,7 @@ kotlin {
 }
 
 dependencies {
-    add("kspAndroid", libs.room.compiler)
+    add("kspAndroid", libs.androidx.room.compiler)
 }
 
 room {

@@ -6,7 +6,6 @@ plugins {
 
 dependencies {
     implementation(projects.core.network.account)
-    implementation(projects.core.storage.account)
 
     implementation(libs.arrow.core)
 

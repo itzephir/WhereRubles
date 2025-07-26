@@ -6,9 +6,11 @@ import androidx.work.DelegatingWorkerFactory
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.itzephir.whererubles.core.data.account.AccountRepository
-import com.itzephir.whererubles.core.data.transaction.TransactionRepository
+import com.itzephir.whererubles.core.data.account.AccountInteractor
+import com.itzephir.whererubles.core.data.category.CategoryInteractor
+import com.itzephir.whererubles.core.data.transaction.TransactionInteractor
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -16,20 +18,23 @@ import javax.inject.Singleton
 class SyncWorker(
     appContext: Context,
     workerParameters: WorkerParameters,
-    private val accountRepository: AccountRepository,
-    private val transactionRepository: TransactionRepository,
+    private val accountInteractor: AccountInteractor,
+    private val categoryInteractor: CategoryInteractor,
+    private val transactionInteractor: TransactionInteractor,
 ) : CoroutineWorker(appContext, workerParameters) {
     override suspend fun doWork(): Result {
         withContext(Dispatchers.IO) {
-            accountRepository.sync()
-            transactionRepository.sync()
+            launch { accountInteractor.sync() }
+            launch { categoryInteractor.sync() }
+            launch { transactionInteractor.sync() }
         }
         return Result.success()
     }
 
     class SyncWorkerFactory(
-        private val accountRepository: AccountRepository,
-        private val transactionRepository: TransactionRepository,
+        private val accountInteractor: AccountInteractor,
+        private val categoryInteractor: CategoryInteractor,
+        private val transactionInteractor: TransactionInteractor,
     ) : WorkerFactory() {
         override fun createWorker(
             appContext: Context,
@@ -40,8 +45,9 @@ class SyncWorker(
                 SyncWorker::class.qualifiedName -> SyncWorker(
                     appContext,
                     workerParameters,
-                    accountRepository,
-                    transactionRepository
+                    accountInteractor,
+                    categoryInteractor,
+                    transactionInteractor
                 )
 
                 else                            -> null
@@ -52,10 +58,17 @@ class SyncWorker(
 
 @Singleton
 class AppWorkerFactory @Inject constructor(
-    accountRepository: AccountRepository,
-    transactionRepository: TransactionRepository,
+    accountInteractor: AccountInteractor,
+    categoryInteractor: CategoryInteractor,
+    transactionInteractor: TransactionInteractor,
 ) : DelegatingWorkerFactory() {
     init {
-        addFactory(SyncWorker.SyncWorkerFactory(accountRepository, transactionRepository))
+        addFactory(
+            SyncWorker.SyncWorkerFactory(
+                accountInteractor,
+                categoryInteractor,
+                transactionInteractor,
+            )
+        )
     }
 }

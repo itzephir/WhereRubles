@@ -24,6 +24,7 @@ kotlin {
 
             implementation(projects.core.data.common)
             implementation(projects.core.data.account)
+            implementation(projects.core.data.category)
             implementation(projects.core.data.transaction)
 
             implementation(libs.androidx.work.runtime.ktx)

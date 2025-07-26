@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.mappie)
 }
 
 kotlin {
@@ -19,19 +20,22 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.model)
+            api(projects.core.model)
+            api(projects.core.storage.common)
 
-            implementation(projects.core.storage.common)
             implementation(projects.core.storage.account)
             implementation(projects.core.storage.category)
             implementation(projects.core.storage.transaction)
 
             implementation(libs.arrow.core)
-            implementation(libs.arrow.resilience)
-            implementation(libs.arrow.resilience.ktor.client)
 
-            implementation(libs.room.runtime)
-            implementation(libs.sqlite.bundled)
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
+
+            implementation(libs.androidx.datastore)
+            implementation(libs.androidx.datastore.preferences)
+
+            implementation(libs.kotlinx.serialization.json)
 
             implementation(libs.dagger)
         }
@@ -39,7 +43,7 @@ kotlin {
 }
 
 dependencies {
-    add("kspAndroid", libs.room.compiler)
+    add("kspAndroid", libs.androidx.room.compiler)
     add("kspAndroid", libs.dagger.compiler)
 }
 

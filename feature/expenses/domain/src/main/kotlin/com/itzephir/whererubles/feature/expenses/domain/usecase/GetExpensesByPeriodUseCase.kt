@@ -2,6 +2,7 @@ package com.itzephir.whererubles.feature.expenses.domain.usecase
 
 import arrow.core.Either
 import arrow.core.raise.either
+import com.itzephir.whererubles.core.model.Amount
 import com.itzephir.whererubles.feature.expenses.domain.error.ExpensesByAccountAndPeriodError
 import com.itzephir.whererubles.feature.expenses.domain.error.ExpensesByPeriodError
 import com.itzephir.whererubles.feature.expenses.domain.mapper.toExpensesByPeriodError
@@ -33,9 +34,9 @@ class GetExpensesByPeriodUseCase @Inject constructor(
             end = end,
         ).mapLeft(ExpensesByAccountAndPeriodError::toExpensesByPeriodError).bind()
 
-        val totalAmount = expenses.fold(initial = 0.0) { acc, expense ->
-            acc + expense.amount.toDouble()
-        }.let { String.format(Locale.US, "%.2f", it) }
+        val totalAmount = expenses.fold(initial = 0L) { acc, expense ->
+            acc + expense.amount.value
+        }.let { Amount(it) }
 
         ExpensesByPeriod(totalAmount, currency = account.currency, start, end, expenses, account)
     }

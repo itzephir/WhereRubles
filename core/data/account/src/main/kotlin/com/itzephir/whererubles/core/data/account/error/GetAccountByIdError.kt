@@ -1,9 +1,6 @@
 package com.itzephir.whererubles.core.data.account.error
 
-import com.itzephir.whererubles.core.network.account.AccountError.ReadByIdError
-
 sealed interface GetAccountByIdError {
-    data object NoInternet : GetAccountByIdError
 
     data object WrongId : GetAccountByIdError
 

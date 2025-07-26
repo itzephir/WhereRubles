@@ -1,11 +1,12 @@
 package com.itzephir.whererubles.feature.account.domain.model
 
+import com.itzephir.whererubles.core.model.Amount
 import kotlin.time.Instant
 
 data class AccountResponse(
     val id: AccountId,
     val name: String,
-    val balance: String,
+    val balance: Amount,
     val currency: Currency,
     val incomeStats: List<StatItem>,
     val expenseStats: List<StatItem>,
@@ -16,7 +17,7 @@ data class AccountResponse(
         val categoryId: CategoryId,
         val categoryName: String,
         val emoji: String,
-        val amount: String,
+        val amount: Amount,
     ) {
         @JvmInline
         value class CategoryId(val value: Int)

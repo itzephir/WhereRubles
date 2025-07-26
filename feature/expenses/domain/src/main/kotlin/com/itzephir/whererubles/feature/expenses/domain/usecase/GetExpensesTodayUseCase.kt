@@ -2,6 +2,8 @@ package com.itzephir.whererubles.feature.expenses.domain.usecase
 
 import arrow.core.Either
 import arrow.core.raise.either
+import com.itzephir.whererubles.core.model.Amount
+import com.itzephir.whererubles.core.model.plus
 import com.itzephir.whererubles.feature.expenses.domain.error.ExpensesByAccountAndPeriodError
 import com.itzephir.whererubles.feature.expenses.domain.error.ExpensesTodayError
 import com.itzephir.whererubles.feature.expenses.domain.mapper.toExpensesTodayError
@@ -11,7 +13,6 @@ import com.itzephir.whererubles.feature.expenses.domain.repository.ExpensesRepos
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toLocalDateTime
-import java.util.Locale
 import javax.inject.Inject
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
@@ -27,18 +28,20 @@ class GetExpensesTodayUseCase @Inject constructor(
     private val expensesRepository: ExpensesRepository,
 ) {
     suspend operator fun invoke(): Either<ExpensesTodayError, ExpensesToday> = either {
+        println("cool123")
         val account =
             accountRepository.current() ?: raise(ExpensesTodayError.NoAccount)
 
+        println("cool: $account")
         val expenses = expensesRepository.getByAccountIdAndPeriod(
             account.id,
             start = startOfTheDay(),
             end = endOfTheDay(),
         ).mapLeft(ExpensesByAccountAndPeriodError::toExpensesTodayError).bind()
 
-        val totalAmount = expenses.fold(initial = 0.0) { acc, expense ->
-            acc + expense.amount.toDouble()
-        }.let { String.format(Locale.US, "%.2f", it) }
+        val totalAmount = expenses.fold(initial = Amount(0)) { acc, expense ->
+            acc + expense.amount
+        }
 
         ExpensesToday(totalAmount, currency = account.currency, expenses, account)
     }

@@ -50,6 +50,9 @@ dependencies {
     implementation(projects.core.ui)
     implementation(projects.core.ui.theme)
 
+    implementation(projects.core.data.common)
+    implementation(projects.core.data.transaction)
+
     implementation(projects.feature.transactionEditor.domain)
     implementation(projects.feature.transactionEditor.data)
 
