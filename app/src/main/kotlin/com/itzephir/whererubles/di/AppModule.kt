@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.itzephir.whererubles.app.BuildConfig
 import com.itzephir.whererubles.core.connection.ConnectionMonitor
@@ -14,9 +15,13 @@ import com.itzephir.whererubles.core.storage.account.preferences.CurrentAccountP
 import dagger.Module
 import dagger.Provides
 import io.ktor.client.HttpClient
+import io.ktor.util.SilentSupervisor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
+
+private val Context.dataStore by preferencesDataStore("prefs")
 
 @Module
 class AppModule {
@@ -37,11 +42,7 @@ class AppModule {
     @Provides
     @Singleton
     fun dataStore(context: Context): DataStore<Preferences> {
-        println("where")
-        return PreferenceDataStoreFactory.create(
-            scope = CoroutineScope(Dispatchers.IO),
-            produceFile = { context.preferencesDataStoreFile("prefs") }
-        ).also { println(it) }
+        return context.dataStore
     }
 
     @Provides

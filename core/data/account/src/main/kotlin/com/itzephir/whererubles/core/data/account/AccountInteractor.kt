@@ -43,7 +43,9 @@ import com.itzephir.whererubles.core.storage.common.OperationType
 import com.itzephir.whererubles.core.storage.storage.account.AccountOperationStorage
 import com.itzephir.whererubles.core.storage.storage.account.AccountStorage
 import com.itzephir.whererubles.core.storage.storage.account.CurrentAccountStorage
+import jdk.jfr.internal.OldObjectSample.emit
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
@@ -100,17 +102,17 @@ class AccountInteractor @Inject constructor(
         accountStorage.replaceAll(accounts)
     }
 
-    fun getAll(): Flow<List<Account>> = flow {
+    fun getAll(): Flow<List<Account>> = channelFlow {
         val localJob = supervisorScope {
             launch {
-                emit(AccountEntityToAccount.mapList(from = accountStorage.readAll()))
+                send(AccountEntityToAccount.mapList(from = accountStorage.readAll()))
             }
         }
 
         supervisorScope {
             launch {
                 localJob.cancel()
-                emit(
+                send(
                     AccountDtoToAccount.mapList(
                         from = accountRepository.readAll().getOrElse { return@launch })
                 )

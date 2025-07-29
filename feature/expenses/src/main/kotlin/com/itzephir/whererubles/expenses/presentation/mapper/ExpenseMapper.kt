@@ -14,7 +14,7 @@ internal fun Expense.map(): com.itzephir.whererubles.expenses.presentation.model
         id = ExpenseId(id.value),
         icon = emoji,
         title = title,
-        amount = amount.string.formatAmount(currency.name),
+        amount = amount.string,
         time = transactionDate,
         currency = currency.name,
         comment = comment,

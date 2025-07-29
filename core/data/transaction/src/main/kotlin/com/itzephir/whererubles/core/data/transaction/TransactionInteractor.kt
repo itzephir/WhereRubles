@@ -19,8 +19,8 @@ import com.itzephir.whererubles.core.data.transaction.mapper.TransactionOperatio
 import com.itzephir.whererubles.core.data.transaction.mapper.TransactionOperationToTransactionOperationBody
 import com.itzephir.whererubles.core.data.transaction.mapper.TransactionOperationToTransactionRequest
 import com.itzephir.whererubles.core.data.transaction.mapper.TransactionResponseDtoToTransactionEntity
-import com.itzephir.whererubles.core.data.transaction.mapper.TransactionResponseDtoToTransactionRequest
 import com.itzephir.whererubles.core.data.transaction.mapper.TransactionResponseDtoToTransactionFull
+import com.itzephir.whererubles.core.data.transaction.mapper.TransactionResponseDtoToTransactionRequest
 import com.itzephir.whererubles.core.data.transaction.mapper.TransactionWithAccountAndCategoryToTransactionFull
 import com.itzephir.whererubles.core.data.transaction.mapper.TransactionWithAccountAndCategoryToTransactionRequest
 import com.itzephir.whererubles.core.data.transaction.mapper.toCreateTransactionError
@@ -39,7 +39,8 @@ import com.itzephir.whererubles.core.storage.storage.account.CurrentAccountStora
 import com.itzephir.whererubles.core.storage.storage.transaction.TransactionOperationStorage
 import com.itzephir.whererubles.core.storage.storage.transaction.TransactionStorage
 import com.itzephir.whererubles.core.storage.transaction.TransactionOperationEntity
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import javax.inject.Inject
@@ -222,7 +223,7 @@ class TransactionInteractor @Inject constructor(
         )
     }
 
-    fun getByAccountIdAndPeriod(accountId: Id, start: Instant, end: Instant) = flow {
+    fun getByAccountIdAndPeriod(accountId: Id, start: Instant, end: Instant): Flow<List<TransactionFull>> = channelFlow {
         val localJob = supervisorScope {
             launch {
                 val transactionsWithAccountAndCategory =
@@ -230,7 +231,7 @@ class TransactionInteractor @Inject constructor(
                 val transactions =
                     TransactionWithAccountAndCategoryToTransactionFull
                         .mapList(from = transactionsWithAccountAndCategory)
-                emit(transactions)
+                send(transactions)
             }
         }
 
@@ -241,7 +242,7 @@ class TransactionInteractor @Inject constructor(
             val transactions =
                 TransactionResponseDtoToTransactionFull.mapList(transactionResponseDtos)
             localJob.cancel()
-            emit(transactions)
+            send(transactions)
         }
     }
 }
